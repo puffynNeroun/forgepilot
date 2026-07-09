@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0002` — Bootstrap Next.js app with CI and base layout (`in_progress`).
+- [ ] `TASK-0002` — Bootstrap Next.js app with CI and base layout (`ready_for_pr`).
 
 ## Next
 
-- [ ] Run Reviewer for `TASK-0002`.
+- [ ] Prepare PR for `TASK-0002`.
 
 ## Later
 
