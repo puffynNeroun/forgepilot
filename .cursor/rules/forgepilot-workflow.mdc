@@ -1,0 +1,14 @@
+---
+description: ForgePilot workflow rules
+globs:
+  - "**/*"
+alwaysApply: true
+---
+
+ForgePilot is a dogfood product for Project Forge.
+
+Rules:
+- Keep product docs, tasks, decisions, and dogfooding notes current.
+- Prefer small, task-scoped changes.
+- Do not create GitHub PRs, push, merge, release, or deploy without explicit human approval.
+- Record Project Forge workflow friction in docs/DOGFOODING_LOG.md.

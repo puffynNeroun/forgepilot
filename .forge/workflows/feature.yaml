@@ -1,0 +1,94 @@
+schema_version: 1
+
+id: feature
+
+task_statuses:
+  - proposed
+  - approved
+  - in_progress
+  - blocked
+  - ready_for_pr
+  - completed
+
+stages:
+  - id: plan
+    actor: agent
+    role_contract: .forge/roles/planner.md
+    allowed_statuses:
+      - proposed
+    produces_artifact: plan
+    on_complete:
+      next: approve_plan
+    on_blocked:
+      status: blocked
+
+  - id: approve_plan
+    actor: human
+    requires_artifacts:
+      - plan
+    on_approve:
+      status: approved
+      next: build
+    on_reject:
+      status: proposed
+      next: plan
+
+  - id: build
+    actor: agent
+    role_contract: .forge/roles/builder.md
+    allowed_statuses:
+      - approved
+      - in_progress
+    requires_artifacts:
+      - plan
+    sets_status: in_progress
+    produces_artifact: build_report
+    on_complete:
+      next: test
+    on_blocked:
+      status: blocked
+
+  - id: test
+    actor: agent
+    role_contract: .forge/roles/tester.md
+    allowed_statuses:
+      - in_progress
+    requires_artifacts:
+      - plan
+      - build_report
+    produces_artifact: test_report
+    outcomes:
+      PASS:
+        next: review
+      FAIL:
+        next: build
+      BLOCKED:
+        status: blocked
+
+  - id: review
+    actor: agent
+    role_contract: .forge/roles/reviewer.md
+    allowed_statuses:
+      - in_progress
+    requires_artifacts:
+      - plan
+      - build_report
+      - test_report
+    produces_artifact: review_report
+    outcomes:
+      ACCEPT:
+        next: approve_delivery
+      REJECT:
+        next: build
+      BLOCKED:
+        status: blocked
+
+  - id: approve_delivery
+    actor: human
+    requires_artifacts:
+      - review_report
+    on_approve:
+      status: ready_for_pr
+    on_reject:
+      status: in_progress
+      next: build

@@ -1,0 +1,20 @@
+schema_version: 1
+
+id: TASK-XXX
+title: Replace with a concrete task title
+status: proposed
+workflow: .forge/workflows/feature.yaml
+
+goal: Replace with one bounded outcome.
+
+in_scope: []
+out_of_scope: []
+
+allowed_files: []
+protected_files: []
+
+acceptance_criteria:
+  - id: AC-1
+    description: Replace with a measurable result.
+
+required_checks: []

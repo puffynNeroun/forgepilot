@@ -1,0 +1,25 @@
+{
+  "name": "@local/forge-validator",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "validate": "node ./src/validate.mjs ../..",
+    "test": "node --test ./test/validate.test.mjs ./test/status.test.mjs ./test/next.test.mjs ./test/pr-status.test.mjs ./test/scaffold-task.test.mjs test/complete-task.test.mjs ./test/stage-task.test.mjs ./test/scaffold-artifact.test.mjs ./test/workflow-smoke.test.mjs ./test/release-status.test.mjs ./test/pr-watch.test.mjs ./test/post-task-check.test.mjs ./test/cli.test.mjs ./test/prompt-generator.test.mjs ./test/operator-help.test.mjs ./test/create-implementation-guard.test.mjs ./test/operator-compact-output.test.mjs ./test/operator-runner.test.mjs",
+    "verify": "pnpm run validate",
+    "status": "node ./src/status.mjs",
+    "task:new": "node ./src/scaffold-task.mjs",
+    "task:complete": "node ./src/complete-task.mjs",
+    "task:stage": "node ./src/stage-task.mjs",
+    "artifact:new": "node ./src/scaffold-artifact.mjs",
+    "workflow:smoke": "node ./src/workflow-smoke.mjs"
+  },
+  "dependencies": {
+    "yaml": "2.9.0"
+  },
+  "bin": {
+    "forge": "./src/cli.mjs"
+  }
+}
