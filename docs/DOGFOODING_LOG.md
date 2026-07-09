@@ -59,3 +59,23 @@ Resolution for ForgePilot:
 Potential Forge improvement:
 
 The task scaffold command should support passing allowed files, scope, and acceptance criteria during task creation, or provide a safer guided task-definition mode for product/documentation tasks.
+
+### 2026-07-09 — Product foundation should happen before app bootstrap
+
+Observation:
+
+It is tempting to start TASK-0002 and create the Next.js app immediately.
+
+Concrete friction:
+
+- Starting implementation too early would make the architecture follow generated code instead of product decisions.
+- The workflow needs a strong documentation foundation before framework setup.
+
+Resolution for ForgePilot:
+
+- TASK-0001 remains documentation-only.
+- Next.js bootstrap is deferred to TASK-0002.
+
+Potential Forge improvement:
+
+Forge project templates could make the first product-definition task more explicit, with prompts that prevent premature application bootstrap.

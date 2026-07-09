@@ -19,3 +19,63 @@ Alternatives considered:
 Outcome:
 
 ForgePilot becomes a separate product repository under /home/remem/projects/forgepilot.
+
+## 2026-07-09 — Keep ForgePilot v0.1.0 local-first and single-workspace
+
+Decision:
+
+ForgePilot v0.1.0 will be a focused local-first dashboard, not a multi-tenant SaaS.
+
+Why:
+
+The core risk is not SaaS infrastructure. The core risk is whether the Forge workflow helps build a real product clearly and consistently.
+
+Alternatives considered:
+
+- add auth immediately;
+- design teams/workspaces from day one;
+- build public SaaS infrastructure before proving the product model.
+
+Outcome:
+
+Auth, teams, billing, OAuth, and multi-tenant complexity are out of scope for v0.1.0.
+
+## 2026-07-09 — Keep GitHub import out of the MVP
+
+Decision:
+
+ForgePilot v0.1.0 will not automatically import GitHub repository data.
+
+Why:
+
+Manual data is enough to prove the dashboard, task board, decision log, dogfooding log, handoff prompt generator, and release timeline.
+
+Alternatives considered:
+
+- GitHub OAuth;
+- GitHub API import;
+- automatic PR/release synchronization.
+
+Outcome:
+
+GitHub import is deferred until the manual dashboard proves useful.
+
+## 2026-07-09 — Treat dogfooding as a product feature
+
+Decision:
+
+ForgePilot will treat dogfooding findings as first-class product data.
+
+Why:
+
+The product exists to test Project Forge in real use. If workflow friction is not captured, the dogfood project fails its main purpose.
+
+Alternatives considered:
+
+- keep dogfooding notes only in chat;
+- record friction only after releases;
+- treat dogfooding as informal notes.
+
+Outcome:
+
+The dogfooding log is part of the MVP.

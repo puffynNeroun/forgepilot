@@ -2,26 +2,44 @@
 
 ForgePilot is an AI-assisted product development dashboard built through the Project Forge workflow.
 
-The goal of this repository is to dogfood Project Forge v0.5.0 by building a real product with a strict specs-first, task-based, artifact-backed development lifecycle.
+It is the first dogfood product for Project Forge v0.5.0.
+
+## Purpose
+
+ForgePilot exists to answer one practical question:
+
+Can Project Forge guide the development of a real product from product spec to release without the workflow becoming chaotic?
 
 ## Product idea
 
-ForgePilot helps manage product development through a Forge-style workflow:
+ForgePilot helps manage AI-assisted product development through:
 
-- product spec
-- task lifecycle board
-- decision log
-- dogfooding log
-- AI handoff prompt generator
-- release timeline
+- product spec;
+- task lifecycle board;
+- decision log;
+- dogfooding log;
+- handoff prompt generator;
+- release timeline.
 
 ## Current phase
 
-Foundation/bootstrap.
+TASK-0001 is defining the product specification and architecture.
 
-The first task is TASK-0001 — define the ForgePilot product spec and architecture.
+No Next.js application has been created yet.
 
-## Local workflow
+## Repository boundaries
+
+Original Forge repo:
+
+    /home/remem/templates/ai-project-template
+
+ForgePilot repo:
+
+    /home/remem/projects/forgepilot
+
+These repositories must stay separate.
+
+## Local Forge workflow
 
 Install Forge Validator dependencies:
 
@@ -31,18 +49,48 @@ Check lifecycle status:
 
     node tools/forge-validator/src/cli.mjs status
 
-Run full verification:
+Run ForgePilot contract verification:
 
     pnpm -C tools/forge-validator verify
 
-## Boundaries
+Show next recommended action:
 
-This project is separate from the original Project Forge repository.
+    node tools/forge-validator/src/cli.mjs next
 
-Original Forge repo:
+## Important note about verification
 
-    /home/remem/templates/ai-project-template
+ForgePilot is a consumer project.
 
-ForgePilot repo:
+For ForgePilot, `verify` runs Forge contract validation only. It does not run the original Forge Validator internal test suite.
 
-    /home/remem/projects/forgepilot
+## Current task
+
+TASK-0001 — Define ForgePilot product spec and architecture.
+
+Status:
+
+    approved
+
+Next expected lifecycle step:
+
+    Builder
+
+## Planned MVP modules
+
+- Product dashboard
+- Product spec editor
+- Task lifecycle board
+- Decision log
+- Dogfooding log
+- Handoff prompt generator
+- Release timeline
+
+## Out of scope for v0.1.0
+
+- auth;
+- teams;
+- billing;
+- OAuth;
+- GitHub import automation;
+- public SaaS infrastructure;
+- AI agent execution.
