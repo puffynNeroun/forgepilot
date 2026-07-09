@@ -259,3 +259,25 @@ Resolution for ForgePilot:
 Potential Forge improvement:
 
 Project Forge framework bootstrap recipes should avoid `latest` for lint/tooling dependencies and should include generated build-cache ignores such as `*.tsbuildinfo`.
+
+### 2026-07-09 — Reviewer stage rerun is not idempotent
+
+Observation:
+
+After TASK-0002 had already reached `ready_for_pr`, rerunning the Reviewer stage command produced a failure message because the task was no longer `in_progress`.
+
+Concrete friction:
+
+- The repository state was already correct.
+- TASK-0002 already had the review artifact.
+- The task board already pointed to PR preparation.
+- The rerun still printed a blocking-looking error: the task must be `in_progress` before reviewer transition.
+
+Resolution for ForgePilot:
+
+- Treated the error as harmless because the task was already in the expected `ready_for_pr` state.
+- Continued to PR preparation after verifying the repository state.
+
+Potential Forge improvement:
+
+Project Forge stage commands could be idempotent for already-completed stages, or they could return a clearer message such as: "No action needed: task is already ready_for_pr."
