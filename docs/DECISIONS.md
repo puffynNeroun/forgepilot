@@ -79,3 +79,23 @@ Alternatives considered:
 Outcome:
 
 The dogfooding log is part of the MVP.
+
+## 2026-07-09 — Publish ForgePilot as a public dogfood repository
+
+Decision:
+
+Publish ForgePilot as a public GitHub repository.
+
+Why:
+
+ForgePilot is intended to demonstrate AI-assisted product development through Project Forge. The repository should show the workflow, decisions, lifecycle artifacts, dogfooding notes, and implementation history openly.
+
+Alternatives considered:
+
+- keep the repository private until v0.1.0;
+- publish only after the Next.js app exists;
+- squash early bootstrap history before publication.
+
+Outcome:
+
+ForgePilot is published publicly as an early-stage dogfood project. The README explicitly states that the project is in early foundation stage and that application bootstrap starts after TASK-0001.

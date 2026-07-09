@@ -129,3 +129,24 @@ Potential Forge improvement:
 
 Project Forge should make `forge task complete` more robust around empty Completed sections and provide a clearer diagnostic showing the exact board parsing expectation.
 
+
+### 2026-07-09 — Public dogfood repo needs explicit early-stage positioning
+
+Observation:
+
+Publishing ForgePilot before application code exists can look confusing unless the repository clearly explains that it is an early dogfood project.
+
+Concrete friction:
+
+- The repository currently contains workflow infrastructure, product docs, and lifecycle artifacts before app code.
+- This is intentional for Forge dogfooding, but it may look unusual to outside readers.
+- README positioning matters before public release.
+
+Resolution for ForgePilot:
+
+- Public publication is documented as a deliberate decision.
+- README already states that TASK-0001 is product/architecture foundation and that no Next.js app exists yet.
+
+Potential Forge improvement:
+
+Project Forge templates could include a public-readiness checklist for dogfood/demo repositories, including README positioning, secret scan, remote setup, and first push checks.
