@@ -281,3 +281,24 @@ Resolution for ForgePilot:
 Potential Forge improvement:
 
 Project Forge stage commands could be idempotent for already-completed stages, or they could return a clearer message such as: "No action needed: task is already ready_for_pr."
+
+### 2026-07-09 — TASK-0002 completion requires a separate post-merge PR
+
+Observation:
+
+After the TASK-0002 implementation PR was merged, the task remained `ready_for_pr` on main and Forge correctly recommended a separate completion PR.
+
+Concrete friction:
+
+- Implementation merge and lifecycle completion are two separate steps.
+- This is correct for auditability, but it adds another PR after the implementation PR.
+- The workflow is explicit, but operators need to understand that merge does not automatically mean task completion.
+
+Resolution for ForgePilot:
+
+- Created a dedicated completion branch for TASK-0002.
+- Marked TASK-0002 as completed only after the implementation PR was merged and main verification passed.
+
+Potential Forge improvement:
+
+Project Forge could make the implementation-merge-to-completion-PR transition more guided, including a clearer post-merge command sequence.

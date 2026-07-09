@@ -2,7 +2,7 @@ schema_version: 1
 
 id: TASK-0002
 title: "Bootstrap Next.js app with CI and base layout"
-status: ready_for_pr
+status: completed
 workflow: .forge/workflows/feature.yaml
 
 goal: "Bootstrap the ForgePilot Next.js application shell with TypeScript, Tailwind, base routes, root project scripts, and CI checks without implementing product features."
