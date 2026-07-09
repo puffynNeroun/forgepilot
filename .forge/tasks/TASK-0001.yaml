@@ -2,20 +2,28 @@ schema_version: 1
 
 id: TASK-0001
 title: "Define ForgePilot product spec and architecture"
-status: proposed
+status: approved
 workflow: .forge/workflows/feature.yaml
 
-goal: "Define and deliver Define ForgePilot product spec and architecture."
+goal: "Define ForgePilot's product specification, MVP scope, architecture direction, task roadmap, and dogfooding policy before application bootstrap begins."
 
 in_scope:
-  - Clarify the implementation plan for TASK-0001.
-  - Implement the approved scope for TASK-0001.
-  - Add or update tests for TASK-0001.
-  - Update documentation when needed.
-  - Preserve existing Forge Validator verification behavior.
+  - Refine the ForgePilot product problem, target user, value proposition, MVP scope, non-goals, success criteria, stack, and risks.
+  - Refine the architecture direction for the future Next.js App Router application.
+  - Define the initial module boundaries and data model direction.
+  - Confirm the v0.1.0 task roadmap at documentation level.
+  - Record dogfooding findings discovered while bootstrapping and planning ForgePilot.
+  - Keep the work documentation-only; do not implement application runtime code.
+  - Preserve Forge contract validation behavior for ForgePilot as a consumer project.
 
 out_of_scope:
-  - Automatically creating branches, commits, pushes, pull requests, merges, or releases.
+  - Creating the Next.js application.
+  - Installing Next.js, React, Tailwind, Prisma, Zod, or database dependencies.
+  - Creating Prisma schema or database migration files.
+  - Implementing UI, API routes, server actions, or application runtime logic.
+  - Adding authentication, billing, teams, OAuth, GitHub import automation, or AI agent execution.
+  - Creating GitHub remote repositories.
+  - Automatically creating branches, commits, pushes, pull requests, merges, releases, or deployments.
   - Modifying completed task contracts or completed task artifacts.
   - Rewriting previous task evidence.
   - Adding unrelated features outside TASK-0001.
@@ -23,6 +31,12 @@ out_of_scope:
 allowed_files:
   - .forge/tasks/TASK-0001.yaml
   - docs/TASKS.md
+  - docs/PRODUCT_SPEC.md
+  - docs/ARCHITECTURE.md
+  - docs/MVP_SCOPE.md
+  - docs/DECISIONS.md
+  - docs/DOGFOODING_LOG.md
+  - README.md
   - .forge/artifacts/TASK-0001/plan-001.md
   - .forge/artifacts/TASK-0001/build-report-001.md
   - .forge/artifacts/TASK-0001/test-report-001.md
@@ -35,16 +49,24 @@ protected_files:
   - .forge/roles/builder.md
   - .forge/roles/tester.md
   - .forge/roles/reviewer.md
+  - tools/forge-validator/
+  - scripts/operator/
   - completed task contracts and artifacts
 
 acceptance_criteria:
   - id: AC-01
-    description: The approved scope for TASK-0001 is implemented.
+    description: ForgePilot's product specification is clear enough to guide implementation tasks.
   - id: AC-02
-    description: Tests or verification evidence cover the implemented behavior.
+    description: The MVP scope and non-goals are explicit enough to prevent early SaaS overbuilding.
   - id: AC-03
-    description: Existing Forge Validator verification still passes.
+    description: The architecture direction defines the planned application shape, core modules, and data model direction.
   - id: AC-04
+    description: The initial task roadmap from TASK-0002 through v0.1.0 release is documented or confirmed.
+  - id: AC-05
+    description: Dogfooding findings from ForgePilot bootstrap and planning are recorded.
+  - id: AC-06
+    description: Forge contract validation passes for the consumer project workflow.
+  - id: AC-07
     description: The task lifecycle artifacts are created and linked correctly.
 
 required_checks:

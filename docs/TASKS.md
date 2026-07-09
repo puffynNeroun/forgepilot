@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0001` — Define ForgePilot product spec and architecture (`proposed`).
+- [ ] `TASK-0001` — Define ForgePilot product spec and architecture (`approved`).
 
 ## Next
 
-- [ ] Run Planner for `TASK-0001`.
+- [ ] Run Builder for `TASK-0001`.
 
 ## Later
 

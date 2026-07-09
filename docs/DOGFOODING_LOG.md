@@ -39,3 +39,23 @@ Resolution for ForgePilot:
 Potential Forge improvement:
 
 Project Forge should eventually provide a clean consumer bootstrap command or template export that separates reusable workflow runtime from Forge's own internal validator test fixtures and demo workflows.
+
+### 2026-07-09 — Generic task scaffold produced too narrow allowed_files
+
+Observation:
+
+The generated TASK-0001 contract initially allowed only the task file, task board, and lifecycle artifacts.
+
+Concrete friction:
+
+- The approved plan needed to update ForgePilot product docs.
+- The task contract did not allow updates to docs/PRODUCT_SPEC.md, docs/ARCHITECTURE.md, docs/MVP_SCOPE.md, docs/DECISIONS.md, docs/DOGFOODING_LOG.md, or README.md.
+- This created a mismatch between the plan and the task contract.
+
+Resolution for ForgePilot:
+
+- TASK-0001 allowed_files and acceptance criteria were expanded before Builder work started.
+
+Potential Forge improvement:
+
+The task scaffold command should support passing allowed files, scope, and acceptance criteria during task creation, or provide a safer guided task-definition mode for product/documentation tasks.
