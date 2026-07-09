@@ -1,4 +1,4 @@
-name: Forge Contracts
+name: App CI
 
 on:
   pull_request:
@@ -16,10 +16,10 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  forge-contracts:
-    name: Validate Forge contracts
+  verify:
+    name: Verify app and Forge workflow
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
 
     steps:
       - name: Checkout repository
@@ -40,5 +40,5 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Validate Forge contracts
-        run: pnpm forge:verify
+      - name: Verify
+        run: pnpm verify

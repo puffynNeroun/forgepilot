@@ -2,7 +2,7 @@ schema_version: 1
 
 id: TASK-0002
 title: "Bootstrap Next.js app with CI and base layout"
-status: approved
+status: in_progress
 workflow: .forge/workflows/feature.yaml
 
 goal: "Bootstrap the ForgePilot Next.js application shell with TypeScript, Tailwind, base routes, root project scripts, and CI checks without implementing product features."
@@ -48,6 +48,7 @@ allowed_files:
   - pnpm-workspace.yaml
   - next.config.ts
   - tsconfig.json
+  - next-env.d.ts
   - eslint.config.mjs
   - postcss.config.mjs
   - tailwind.config.ts
@@ -59,6 +60,7 @@ allowed_files:
   - lib/utils.ts
   - public/favicon.ico
   - .env.example
+  - .gitignore
   - .forge/artifacts/TASK-0002/plan-001.md
   - .forge/artifacts/TASK-0002/build-report-001.md
   - .forge/artifacts/TASK-0002/test-report-001.md

@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0002` — Bootstrap Next.js app with CI and base layout (`approved`).
+- [ ] `TASK-0002` — Bootstrap Next.js app with CI and base layout (`in_progress`).
 
 ## Next
 
-- [ ] Run Builder for `TASK-0002`.
+- [ ] Run Tester for `TASK-0002`.
 
 ## Later
 
