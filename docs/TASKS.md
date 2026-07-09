@@ -2,14 +2,16 @@
 
 ## Now
 
-- [ ] `TASK-0001` — Define ForgePilot product spec and architecture (`ready_for_pr`).
+- [ ] No active task.
 
 ## Next
 
-- [ ] Prepare PR for `TASK-0001`.
+- [ ] Define the next task.
 
 ## Later
 
 - [ ] No later tasks.
 
 ## Completed
+
+- [x] `TASK-0001` — Define ForgePilot product spec and architecture (`completed`, 2026-07-09).
