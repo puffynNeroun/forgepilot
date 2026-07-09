@@ -2,7 +2,7 @@ schema_version: 1
 
 id: TASK-0003
 title: "Add database schema for products, tasks, decisions, and releases"
-status: proposed
+status: approved
 workflow: .forge/workflows/feature.yaml
 
 goal: "Add the first ForgePilot persistence foundation with Prisma, PostgreSQL configuration, database models, seed/demo data direction, and safe verification scripts without implementing product UI features."
