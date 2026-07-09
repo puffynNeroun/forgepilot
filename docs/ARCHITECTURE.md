@@ -381,3 +381,25 @@ Keep GitHub integration manual until the dashboard proves useful.
 ### Risk: dashboard becomes passive documentation
 
 The handoff prompt generator and dogfooding log must make the product actively useful, not just a document viewer.
+
+## TASK-0002 application shell decision
+
+TASK-0002 bootstraps the Next.js app manually instead of running create-next-app.
+
+Reason:
+
+- the repository already contains Forge workflow files;
+- the repository already has Git history and public remote setup;
+- manual bootstrap keeps the diff small and reviewable;
+- app shell files can be aligned directly with ForgePilot architecture.
+
+The initial app shell includes:
+
+- app/layout.tsx
+- app/page.tsx
+- app/globals.css
+- components/layout/AppShell.tsx
+- components/ui/StatusBadge.tsx
+- lib/utils.ts
+
+Feature modules remain deferred to later tasks.

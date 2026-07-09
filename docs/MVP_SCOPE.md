@@ -257,3 +257,11 @@ Alternatives considered:
 Outcome:
 
 The dogfooding log is part of the MVP.
+
+## TASK-0002 bootstrap boundary
+
+TASK-0002 creates only the application shell, scripts, and CI.
+
+It must not implement the product dashboard, database schema, product spec editor, task board, decision log, dogfooding UI, handoff generator, or release timeline.
+
+Those modules remain assigned to later MVP tasks.

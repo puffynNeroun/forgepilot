@@ -150,3 +150,134 @@ Resolution for ForgePilot:
 Potential Forge improvement:
 
 Project Forge templates could include a public-readiness checklist for dogfood/demo repositories, including README positioning, secret scan, remote setup, and first push checks.
+
+### 2026-07-09 — Manual Next.js bootstrap is safer than create-next-app in a Forge repo
+
+Observation:
+
+ForgePilot already had Forge workflow files, Git history, task artifacts, and a public remote before the app existed.
+
+Concrete friction:
+
+- Running create-next-app directly in a non-empty Forge repository could create noisy or conflicting defaults.
+- The task contract initially missed next-env.d.ts, a framework-required TypeScript file.
+- Bootstrap tasks need extra care around framework-generated files and verification scripts.
+
+Resolution for ForgePilot:
+
+- TASK-0002 uses manual Next.js bootstrap.
+- next-env.d.ts was added to TASK-0002 allowed_files.
+- Root verification now covers Forge validation and application checks.
+
+Potential Forge improvement:
+
+Project Forge could provide framework bootstrap recipes that include common generated files, CI patterns, and verify script conventions.
+
+### 2026-07-09 — pnpm strict build approval blocked Next.js bootstrap
+
+Observation:
+
+The first TASK-0002 Builder attempt failed during `pnpm install` because pnpm blocked dependency build scripts for sharp and unrs-resolver.
+
+Concrete friction:
+
+- The app shell files were created successfully.
+- Installation still exited non-zero due to ignored build scripts.
+- The Forge task remained approved and dirty, requiring recovery.
+- Bootstrap instructions need to account for pnpm 11 build approval behavior.
+
+Resolution for ForgePilot:
+
+- Added explicit `allowBuilds` entries in pnpm-workspace.yaml for sharp and unrs-resolver.
+- Re-ran installation and verification before staging Builder.
+
+Potential Forge improvement:
+
+Project Forge framework bootstrap recipes should include package-manager-specific supply-chain approval steps for common framework dependencies.
+
+### 2026-07-09 — Avoid unpinned latest dependencies in generated app bootstrap
+
+Observation:
+
+The first TASK-0002 bootstrap used `latest` dependency ranges.
+
+Concrete friction:
+
+- `latest` makes future installs less reproducible.
+- A public dogfood repo should make dependency resolution stable and reviewable.
+
+Resolution for ForgePilot:
+
+- Pinned the initially resolved package versions in package.json.
+
+Potential Forge improvement:
+
+Forge bootstrap guidance should prefer pinned versions or documented version policy instead of `latest` ranges.
+
+### 2026-07-09 — Initial Next.js ESLint flat config used the wrong compatibility path
+
+Observation:
+
+TASK-0002 verification failed at `pnpm lint` with a circular JSON structure error inside ESLint.
+
+Concrete friction:
+
+- The app shell and dependency install recovered successfully.
+- Forge contract validation passed.
+- ESLint failed before TypeScript and Next build could run.
+- The initial config used `FlatCompat` with Next configs, which is not the clean setup for the selected Next/ESLint version.
+
+Resolution for ForgePilot:
+
+- Replaced the ESLint config with the direct Next flat config style using `eslint-config-next/core-web-vitals` and `eslint-config-next/typescript`.
+- Re-ran full verification before staging Builder.
+
+Potential Forge improvement:
+
+Project Forge framework bootstrap recipes should include verified ESLint config templates for the current framework version instead of hand-written compatibility guesses.
+
+### 2026-07-09 — Using latest ESLint pulled an incompatible major version
+
+Observation:
+
+TASK-0002 verification failed at lint after the first ESLint config recovery.
+
+Concrete friction:
+
+- `pnpm lint` used ESLint 10.6.0.
+- The lint run failed inside eslint-plugin-react with `contextOrFilename.getFilename is not a function`.
+- TypeScript checking passed.
+- Next.js production build passed.
+- The issue was isolated to the lint dependency/config combination.
+
+Resolution for ForgePilot:
+
+- Pinned ESLint to a stable 9.x version instead of using the latest major.
+- Kept the direct Next flat config style.
+- Added `*.tsbuildinfo` to .gitignore because Next/TypeScript generated it during build.
+
+Potential Forge improvement:
+
+Project Forge framework bootstrap recipes should avoid `latest` for lint/tooling dependencies and should include generated build-cache ignores such as `*.tsbuildinfo`.
+
+### 2026-07-09 — Reviewer stage rerun is not idempotent
+
+Observation:
+
+After TASK-0002 had already reached `ready_for_pr`, rerunning the Reviewer stage command produced a failure message because the task was no longer `in_progress`.
+
+Concrete friction:
+
+- The repository state was already correct.
+- TASK-0002 already had the review artifact.
+- The task board already pointed to PR preparation.
+- The rerun still printed a blocking-looking error: the task must be `in_progress` before reviewer transition.
+
+Resolution for ForgePilot:
+
+- Treated the error as harmless because the task was already in the expected `ready_for_pr` state.
+- Continued to PR preparation after verifying the repository state.
+
+Potential Forge improvement:
+
+Project Forge stage commands could be idempotent for already-completed stages, or they could return a clearer message such as: "No action needed: task is already ready_for_pr."

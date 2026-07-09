@@ -1,0 +1,102 @@
+schema_version: 1
+
+id: TASK-0002
+title: "Bootstrap Next.js app with CI and base layout"
+status: ready_for_pr
+workflow: .forge/workflows/feature.yaml
+
+goal: "Bootstrap the ForgePilot Next.js application shell with TypeScript, Tailwind, base routes, root project scripts, and CI checks without implementing product features."
+
+in_scope:
+  - Create the initial Next.js App Router application shell.
+  - Add TypeScript project configuration for the application.
+  - Add Tailwind/global styling foundation.
+  - Add a minimal base layout and home page that clearly identify ForgePilot as an early dogfood dashboard.
+  - Add root package scripts for local app checks.
+  - Update ForgePilot verification commands so project verification covers both Forge contracts and the application bootstrap checks.
+  - Add or update GitHub Actions so PRs validate the application bootstrap and Forge contracts.
+  - Update README setup instructions for the new app shell.
+  - Record any Forge workflow friction discovered during application bootstrap.
+
+out_of_scope:
+  - Implementing product dashboard feature logic.
+  - Implementing product spec editor.
+  - Implementing task lifecycle board.
+  - Implementing decision log.
+  - Implementing dogfooding log UI.
+  - Implementing handoff prompt generator.
+  - Implementing release timeline UI.
+  - Adding PostgreSQL, Prisma, database schema, migrations, or seed data.
+  - Adding authentication, billing, teams, OAuth, GitHub import automation, or AI agent execution.
+  - Creating releases or deployments.
+  - Modifying completed task contracts or completed task artifacts.
+  - Rewriting previous task evidence.
+  - Adding unrelated features outside TASK-0002.
+
+allowed_files:
+  - .forge/tasks/TASK-0002.yaml
+  - docs/TASKS.md
+  - docs/DOGFOODING_LOG.md
+  - docs/ARCHITECTURE.md
+  - docs/MVP_SCOPE.md
+  - README.md
+  - .forge/project.yaml
+  - .github/workflows/forge-contracts.yml
+  - .github/workflows/app-ci.yml
+  - package.json
+  - pnpm-lock.yaml
+  - pnpm-workspace.yaml
+  - next.config.ts
+  - tsconfig.json
+  - next-env.d.ts
+  - eslint.config.mjs
+  - postcss.config.mjs
+  - tailwind.config.ts
+  - app/layout.tsx
+  - app/page.tsx
+  - app/globals.css
+  - components/layout/AppShell.tsx
+  - components/ui/StatusBadge.tsx
+  - lib/utils.ts
+  - public/favicon.ico
+  - .env.example
+  - .gitignore
+  - .forge/artifacts/TASK-0002/plan-001.md
+  - .forge/artifacts/TASK-0002/build-report-001.md
+  - .forge/artifacts/TASK-0002/test-report-001.md
+  - .forge/artifacts/TASK-0002/review-report-001.md
+
+protected_files:
+  - .forge/workflows/feature.yaml
+  - .forge/roles/planner.md
+  - .forge/roles/builder.md
+  - .forge/roles/tester.md
+  - .forge/roles/reviewer.md
+  - .forge/tasks/TASK-0001.yaml
+  - .forge/artifacts/TASK-0001/
+  - tools/forge-validator/
+  - scripts/operator/
+  - completed task contracts and artifacts
+
+acceptance_criteria:
+  - id: AC-01
+    description: A minimal Next.js App Router shell exists and can be built locally.
+  - id: AC-02
+    description: TypeScript, styling, and base layout configuration are present and documented.
+  - id: AC-03
+    description: Root package scripts provide reproducible install, lint/typecheck/build or equivalent bootstrap checks.
+  - id: AC-04
+    description: ForgePilot verification covers both Forge contract validation and application bootstrap checks.
+  - id: AC-05
+    description: GitHub Actions are updated so PRs validate the app bootstrap and Forge contracts.
+  - id: AC-06
+    description: README explains how to install, verify, and run the app locally.
+  - id: AC-07
+    description: No product feature modules beyond the base shell are implemented in TASK-0002.
+  - id: AC-08
+    description: Any Forge workflow friction found during bootstrap is recorded in the dogfooding log.
+  - id: AC-09
+    description: The task lifecycle artifacts are created and linked correctly.
+
+required_checks:
+  - verify

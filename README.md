@@ -10,6 +10,20 @@ ForgePilot exists to answer one practical question:
 
 Can Project Forge guide the development of a real product from product spec to release without the workflow becoming chaotic?
 
+## Current status
+
+ForgePilot is in early dogfood stage.
+
+Completed:
+
+- TASK-0001 — product spec and architecture foundation.
+
+Current focus:
+
+- TASK-0002 — Next.js app shell, base layout, scripts, and CI.
+
+No product feature modules are implemented yet.
+
 ## Product idea
 
 ForgePilot helps manage AI-assisted product development through:
@@ -21,11 +35,31 @@ ForgePilot helps manage AI-assisted product development through:
 - handoff prompt generator;
 - release timeline.
 
-## Current phase
+## Local setup
 
-TASK-0001 is defining the product specification and architecture.
+Install dependencies:
 
-No Next.js application has been created yet.
+    pnpm install
+
+Run the development server:
+
+    pnpm dev
+
+Run full verification:
+
+    pnpm verify
+
+Run Forge contract validation only:
+
+    pnpm forge:verify
+
+Run app checks only:
+
+    pnpm app:verify
+
+Build the app:
+
+    pnpm build
 
 ## Repository boundaries
 
@@ -39,41 +73,11 @@ ForgePilot repo:
 
 These repositories must stay separate.
 
-## Local Forge workflow
-
-Install Forge Validator dependencies:
-
-    pnpm -C tools/forge-validator install --frozen-lockfile
-
-Check lifecycle status:
-
-    node tools/forge-validator/src/cli.mjs status
-
-Run ForgePilot contract verification:
-
-    pnpm -C tools/forge-validator verify
-
-Show next recommended action:
-
-    node tools/forge-validator/src/cli.mjs next
-
-## Important note about verification
+## Important verification note
 
 ForgePilot is a consumer project.
 
-For ForgePilot, `verify` runs Forge contract validation only. It does not run the original Forge Validator internal test suite.
-
-## Current task
-
-TASK-0001 — Define ForgePilot product spec and architecture.
-
-Status:
-
-    approved
-
-Next expected lifecycle step:
-
-    Builder
+For ForgePilot, Forge validation checks the project contract and lifecycle artifacts. Internal Forge Validator test suites are not part of ForgePilot verification.
 
 ## Planned MVP modules
 

@@ -1,0 +1,33 @@
+{
+  "name": "forgepilot",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Dogfood dashboard for testing Project Forge AI-assisted development workflow.",
+  "packageManager": "pnpm@11.6.0",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "forge:verify": "pnpm -C tools/forge-validator validate",
+    "app:verify": "pnpm lint && pnpm typecheck && pnpm build",
+    "verify": "pnpm forge:verify && pnpm app:verify"
+  },
+  "dependencies": {
+    "next": "16.2.10",
+    "react": "19.2.7",
+    "react-dom": "19.2.7"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "3.3.5",
+    "@tailwindcss/postcss": "4.3.2",
+    "@types/node": "26.1.1",
+    "@types/react": "19.2.17",
+    "@types/react-dom": "19.2.3",
+    "eslint": "9.39.1",
+    "eslint-config-next": "16.2.10",
+    "postcss": "8.5.16",
+    "tailwindcss": "4.3.2",
+    "typescript": "6.0.3"
+  }
+}
