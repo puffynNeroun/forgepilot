@@ -79,3 +79,25 @@ Resolution for ForgePilot:
 Potential Forge improvement:
 
 Forge project templates could make the first product-definition task more explicit, with prompts that prevent premature application bootstrap.
+
+### 2026-07-09 — First task used local-only completion because no GitHub remote existed
+
+Observation:
+
+TASK-0001 reached ready_for_pr, but ForgePilot did not yet have a GitHub remote.
+
+Concrete friction:
+
+- Forge recommended a completion PR.
+- The repository was still local-only.
+- TASK-0001 work had already been committed directly on local main during bootstrap.
+- Creating a real PR for TASK-0001 would require artificial history manipulation.
+
+Resolution for ForgePilot:
+
+- TASK-0001 is completed locally as a bootstrap exception.
+- Full GitHub remote and PR workflow should start before TASK-0002.
+
+Potential Forge improvement:
+
+Project Forge should document a clean bootstrap mode for the first local task, then switch to full GitHub Flow after the repository remote is created.
