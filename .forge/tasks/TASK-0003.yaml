@@ -1,0 +1,108 @@
+schema_version: 1
+
+id: TASK-0003
+title: "Add database schema for products, tasks, decisions, and releases"
+status: proposed
+workflow: .forge/workflows/feature.yaml
+
+goal: "Add the first ForgePilot persistence foundation with Prisma, PostgreSQL configuration, database models, seed/demo data direction, and safe verification scripts without implementing product UI features."
+
+in_scope:
+  - Add Prisma and PostgreSQL-oriented database foundation.
+  - Define the initial data model for ForgePilot MVP entities.
+  - Add models for product/workspace-level data, product specs, tasks, decisions, dogfooding entries, releases, and handoff snapshots.
+  - Add a Prisma client helper suitable for Next.js development.
+  - Add database-related package scripts.
+  - Add Docker Compose configuration for local PostgreSQL.
+  - Update .env.example with database variables.
+  - Add minimal seed/demo data if it can be done safely and reproducibly.
+  - Update README and architecture docs with database setup instructions.
+  - Keep pnpm verify green without requiring a live database service.
+  - Record any Forge workflow friction discovered during database bootstrap.
+
+out_of_scope:
+  - Building product dashboard UI.
+  - Building product spec editor UI.
+  - Building task lifecycle board UI.
+  - Building decision log UI.
+  - Building dogfooding log UI.
+  - Building release timeline UI.
+  - Building handoff prompt generator UI.
+  - Implementing authentication, teams, billing, OAuth, or multi-tenant SaaS behavior.
+  - Implementing GitHub import automation.
+  - Implementing AI agent execution.
+  - Adding production deployment infrastructure.
+  - Running destructive database operations against non-local databases.
+  - Creating a release.
+  - Modifying completed TASK-0001 or TASK-0002 artifacts.
+  - Rewriting previous Git history.
+
+allowed_files:
+  - .forge/tasks/TASK-0003.yaml
+  - docs/TASKS.md
+  - docs/ARCHITECTURE.md
+  - docs/MVP_SCOPE.md
+  - docs/DOGFOODING_LOG.md
+  - README.md
+  - .forge/project.yaml
+  - .env.example
+  - .gitignore
+  - package.json
+  - pnpm-lock.yaml
+  - pnpm-workspace.yaml
+  - docker-compose.yml
+  - prisma/schema.prisma
+  - prisma/seed.ts
+  - prisma/README.md
+  - lib/prisma.ts
+  - lib/env.ts
+  - lib/db/schema-notes.ts
+  - .github/workflows/app-ci.yml
+  - .github/workflows/forge-contracts.yml
+  - .forge/artifacts/TASK-0003/plan-001.md
+  - .forge/artifacts/TASK-0003/build-report-001.md
+  - .forge/artifacts/TASK-0003/test-report-001.md
+  - .forge/artifacts/TASK-0003/review-report-001.md
+
+protected_files:
+  - .forge/workflows/feature.yaml
+  - .forge/roles/planner.md
+  - .forge/roles/builder.md
+  - .forge/roles/tester.md
+  - .forge/roles/reviewer.md
+  - .forge/tasks/TASK-0001.yaml
+  - .forge/tasks/TASK-0002.yaml
+  - .forge/artifacts/TASK-0001/
+  - .forge/artifacts/TASK-0002/
+  - tools/forge-validator/
+  - scripts/operator/
+  - app/
+  - components/
+  - completed task contracts and artifacts
+
+acceptance_criteria:
+  - id: AC-01
+    description: Prisma is installed and configured for ForgePilot without breaking existing app verification.
+  - id: AC-02
+    description: A PostgreSQL-backed Prisma schema exists for products, specs, tasks, decisions, dogfooding entries, releases, and handoff snapshots.
+  - id: AC-03
+    description: Local database setup is documented and supported through Docker Compose.
+  - id: AC-04
+    description: .env.example documents DATABASE_URL and any required database-related variables without committing secrets.
+  - id: AC-05
+    description: A reusable Prisma client helper exists for future Next.js server-side usage.
+  - id: AC-06
+    description: Root package scripts include safe database commands such as db:generate, db:push, and db:seed if implemented.
+  - id: AC-07
+    description: pnpm verify remains green without requiring a running database service.
+  - id: AC-08
+    description: Database bootstrap documentation is added to README and architecture docs.
+  - id: AC-09
+    description: No product UI features or auth/multi-tenant behavior are implemented in TASK-0003.
+  - id: AC-10
+    description: Any Forge or bootstrap friction is recorded in docs/DOGFOODING_LOG.md.
+  - id: AC-11
+    description: Planner, Builder, Tester, and Reviewer artifacts are created and linked correctly.
+
+required_checks:
+  - verify
