@@ -265,3 +265,9 @@ TASK-0002 creates only the application shell, scripts, and CI.
 It must not implement the product dashboard, database schema, product spec editor, task board, decision log, dogfooding UI, handoff generator, or release timeline.
 
 Those modules remain assigned to later MVP tasks.
+
+## TASK-0003 database boundary
+
+TASK-0003 adds the persistence foundation only.
+
+It does not add product dashboard UI, product spec editor UI, task board UI, decision log UI, dogfooding UI, handoff generator UI, release timeline UI, authentication, teams, billing, or GitHub import automation.

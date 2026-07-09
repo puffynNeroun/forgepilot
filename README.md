@@ -98,3 +98,35 @@ For ForgePilot, Forge validation checks the project contract and lifecycle artif
 - GitHub import automation;
 - public SaaS infrastructure;
 - AI agent execution.
+
+## Database setup
+
+ForgePilot uses Prisma with PostgreSQL for local persistence.
+
+Start the local PostgreSQL service:
+
+    docker compose up -d postgres
+
+Generate Prisma Client:
+
+    pnpm db:generate
+
+Validate Prisma schema:
+
+    pnpm db:validate
+
+Push the schema to the local database:
+
+    pnpm db:push
+
+Seed local demo data:
+
+    pnpm db:seed
+
+Open Prisma Studio:
+
+    pnpm db:studio
+
+The default local database URL is documented in `.env.example`.
+
+`pnpm verify` does not require a running PostgreSQL service. Database runtime commands such as `db:push`, `db:seed`, and `db:studio` are manual local development commands.

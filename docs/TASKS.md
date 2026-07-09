@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0003` — Add database schema for products, tasks, decisions, and releases (`approved`).
+- [ ] `TASK-0003` — Add database schema for products, tasks, decisions, and releases (`in_progress`).
 
 ## Next
 
-- [ ] Run Builder for `TASK-0003`.
+- [ ] Run Tester for `TASK-0003`.
 
 ## Later
 

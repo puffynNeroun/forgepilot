@@ -302,3 +302,76 @@ Resolution for ForgePilot:
 Potential Forge improvement:
 
 Project Forge could make the implementation-merge-to-completion-PR transition more guided, including a clearer post-merge command sequence.
+
+### 2026-07-09 — Prisma bootstrap pulled another package-manager build approval case
+
+Observation:
+
+TASK-0003 Prisma bootstrap initially failed because `tsx` pulled `esbuild`, and pnpm blocked the esbuild build script.
+
+Concrete friction:
+
+- Prisma dependencies were partially added.
+- The Builder stage stopped before database files were written.
+- The working tree was left dirty with package and lockfile updates only.
+- This is similar to the TASK-0002 sharp/unrs-resolver build approval friction.
+
+Resolution for ForgePilot:
+
+- Added `esbuild` to pnpm-workspace.yaml allowBuilds.
+- Pinned Prisma and tsx versions exactly.
+- Continued Builder only after installation recovered.
+
+Potential Forge improvement:
+
+Project Forge framework/bootstrap recipes should maintain known package-manager approval lists for common stacks such as Next.js, Prisma, and tsx.
+
+### 2026-07-09 — Database bootstrap needs separate safe checks and local-service checks
+
+Observation:
+
+Adding Prisma/PostgreSQL introduces commands that have different runtime requirements.
+
+Concrete friction:
+
+- Prisma schema validation and client generation can run safely in normal verification.
+- db push, seed, and studio require a local PostgreSQL service.
+- If these command types are mixed together, CI becomes flaky or requires unnecessary service setup.
+
+Resolution for ForgePilot:
+
+- `pnpm verify` includes Prisma validation and generation.
+- Database runtime commands remain explicit local commands.
+- Docker Compose setup is documented but not required for normal verification.
+
+Potential Forge improvement:
+
+Project Forge task planning could include a standard "service-dependent checks" section so CI-safe checks and local runtime checks are not mixed accidentally.
+
+### 2026-07-09 — Docker Compose config check needs better error capture
+
+Observation:
+
+TASK-0003 Builder initially blocked at `docker compose config`, but the command redirected stdout and did not show stderr in the terminal output.
+
+Concrete friction:
+
+- Prisma schema validation passed.
+- Prisma Client generation passed.
+- Docker Compose config returned a non-zero exit code.
+- The first recovery output did not include the actual Docker Compose error.
+- This made it unclear whether the issue was a compose-file problem or an environment/plugin/runtime problem.
+
+Resolution for ForgePilot:
+
+- Added a recovery step that captures Docker Compose version output and config stderr.
+- Treats Docker Compose environment availability issues separately from actual compose-file validation errors.
+- Keeps `pnpm verify` independent from Docker runtime availability.
+
+Potential Forge improvement:
+
+Project Forge database/bootstrap recipes should capture stderr for optional service checks and classify failures as either project-config failures or local-environment failures.
+
+Docker Compose recovery classification for this run:
+
+- Result: valid

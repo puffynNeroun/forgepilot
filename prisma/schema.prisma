@@ -1,0 +1,158 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum ProductStatus {
+  ACTIVE
+  ARCHIVED
+}
+
+enum ForgeTaskStatus {
+  PROPOSED
+  APPROVED
+  IN_PROGRESS
+  READY_FOR_PR
+  COMPLETED
+  CANCELLED
+}
+
+enum DogfoodingSeverity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum ProductReleaseStatus {
+  PLANNED
+  IN_PROGRESS
+  RELEASED
+  CANCELLED
+}
+
+model Product {
+  id        String        @id @default(cuid())
+  slug      String        @unique
+  name      String
+  summary   String
+  status    ProductStatus @default(ACTIVE)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  specs             ProductSpec[]
+  tasks             ForgeTask[]
+  decisions         Decision[]
+  dogfoodingEntries DogfoodingEntry[]
+  releases          ProductRelease[]
+  handoffSnapshots  HandoffSnapshot[]
+
+  @@map("products")
+}
+
+model ProductSpec {
+  id        String   @id @default(cuid())
+  productId String
+  title     String
+  content   String
+  version   Int      @default(1)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, version])
+  @@index([productId])
+  @@map("product_specs")
+}
+
+model ForgeTask {
+  id             String          @id @default(cuid())
+  productId      String
+  externalId     String
+  title          String
+  status         ForgeTaskStatus @default(PROPOSED)
+  summary        String?
+  branchName     String?
+  pullRequestUrl String?
+  order          Int             @default(0)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, externalId])
+  @@index([productId, status])
+  @@index([productId, order])
+  @@map("tasks")
+}
+
+model Decision {
+  id           String   @id @default(cuid())
+  productId    String
+  title        String
+  context      String
+  decision     String
+  consequences String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+  @@map("decisions")
+}
+
+model DogfoodingEntry {
+  id               String             @id @default(cuid())
+  productId        String
+  title            String
+  observation      String
+  friction         String?
+  resolution       String?
+  forgeImprovement String?
+  severity         DogfoodingSeverity @default(MEDIUM)
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId, severity])
+  @@map("dogfooding_entries")
+}
+
+model ProductRelease {
+  id         String               @id @default(cuid())
+  productId  String
+  version    String
+  title      String
+  summary    String?
+  status     ProductReleaseStatus @default(PLANNED)
+  releasedAt DateTime?
+  createdAt  DateTime             @default(now())
+  updatedAt  DateTime             @updatedAt
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, version])
+  @@index([productId, status])
+  @@map("releases")
+}
+
+model HandoffSnapshot {
+  id        String   @id @default(cuid())
+  productId String
+  title     String
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  product Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@index([productId])
+  @@map("handoff_snapshots")
+}
