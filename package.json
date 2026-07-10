@@ -11,9 +11,15 @@
     "typecheck": "tsc --noEmit",
     "forge:verify": "pnpm -C tools/forge-validator validate",
     "app:verify": "pnpm lint && pnpm typecheck && pnpm build",
-    "verify": "pnpm forge:verify && pnpm app:verify"
+    "verify": "pnpm forge:verify && pnpm db:validate && pnpm db:generate && pnpm app:verify",
+    "db:validate": "DATABASE_URL=${DATABASE_URL:-postgresql://forgepilot:forgepilot@localhost:5434/forgepilot?schema=public} prisma validate",
+    "db:generate": "DATABASE_URL=${DATABASE_URL:-postgresql://forgepilot:forgepilot@localhost:5434/forgepilot?schema=public} prisma generate",
+    "db:push": "DATABASE_URL=${DATABASE_URL:-postgresql://forgepilot:forgepilot@localhost:5434/forgepilot?schema=public} prisma db push",
+    "db:seed": "DATABASE_URL=${DATABASE_URL:-postgresql://forgepilot:forgepilot@localhost:5434/forgepilot?schema=public} prisma db seed",
+    "db:studio": "DATABASE_URL=${DATABASE_URL:-postgresql://forgepilot:forgepilot@localhost:5434/forgepilot?schema=public} prisma studio"
   },
   "dependencies": {
+    "@prisma/client": "6.19.3",
     "next": "16.2.10",
     "react": "19.2.7",
     "react-dom": "19.2.7"
@@ -27,7 +33,12 @@
     "eslint": "9.39.1",
     "eslint-config-next": "16.2.10",
     "postcss": "8.5.16",
+    "prisma": "6.19.3",
     "tailwindcss": "4.3.2",
+    "tsx": "4.23.0",
     "typescript": "6.0.3"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   }
 }

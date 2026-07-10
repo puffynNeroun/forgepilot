@@ -302,3 +302,119 @@ Resolution for ForgePilot:
 Potential Forge improvement:
 
 Project Forge could make the implementation-merge-to-completion-PR transition more guided, including a clearer post-merge command sequence.
+
+### 2026-07-09 — Prisma bootstrap pulled another package-manager build approval case
+
+Observation:
+
+TASK-0003 Prisma bootstrap initially failed because `tsx` pulled `esbuild`, and pnpm blocked the esbuild build script.
+
+Concrete friction:
+
+- Prisma dependencies were partially added.
+- The Builder stage stopped before database files were written.
+- The working tree was left dirty with package and lockfile updates only.
+- This is similar to the TASK-0002 sharp/unrs-resolver build approval friction.
+
+Resolution for ForgePilot:
+
+- Added `esbuild` to pnpm-workspace.yaml allowBuilds.
+- Pinned Prisma and tsx versions exactly.
+- Continued Builder only after installation recovered.
+
+Potential Forge improvement:
+
+Project Forge framework/bootstrap recipes should maintain known package-manager approval lists for common stacks such as Next.js, Prisma, and tsx.
+
+### 2026-07-09 — Database bootstrap needs separate safe checks and local-service checks
+
+Observation:
+
+Adding Prisma/PostgreSQL introduces commands that have different runtime requirements.
+
+Concrete friction:
+
+- Prisma schema validation and client generation can run safely in normal verification.
+- db push, seed, and studio require a local PostgreSQL service.
+- If these command types are mixed together, CI becomes flaky or requires unnecessary service setup.
+
+Resolution for ForgePilot:
+
+- `pnpm verify` includes Prisma validation and generation.
+- Database runtime commands remain explicit local commands.
+- Docker Compose setup is documented but not required for normal verification.
+
+Potential Forge improvement:
+
+Project Forge task planning could include a standard "service-dependent checks" section so CI-safe checks and local runtime checks are not mixed accidentally.
+
+### 2026-07-09 — Docker Compose config check needs better error capture
+
+Observation:
+
+TASK-0003 Builder initially blocked at `docker compose config`, but the command redirected stdout and did not show stderr in the terminal output.
+
+Concrete friction:
+
+- Prisma schema validation passed.
+- Prisma Client generation passed.
+- Docker Compose config returned a non-zero exit code.
+- The first recovery output did not include the actual Docker Compose error.
+- This made it unclear whether the issue was a compose-file problem or an environment/plugin/runtime problem.
+
+Resolution for ForgePilot:
+
+- Added a recovery step that captures Docker Compose version output and config stderr.
+- Treats Docker Compose environment availability issues separately from actual compose-file validation errors.
+- Keeps `pnpm verify` independent from Docker runtime availability.
+
+Potential Forge improvement:
+
+Project Forge database/bootstrap recipes should capture stderr for optional service checks and classify failures as either project-config failures or local-environment failures.
+
+Docker Compose recovery classification for this run:
+
+- Result: valid
+
+### 2026-07-09 — Prisma package.json seed config is deprecated
+
+Observation:
+
+TASK-0003 verification passes, but Prisma prints a warning that `package.json#prisma` is deprecated and will be removed in Prisma 7.
+
+Concrete friction:
+
+- `pnpm db:validate` passes.
+- `pnpm db:generate` passes.
+- `pnpm verify` passes.
+- The current seed configuration still creates forward-compatibility noise.
+
+Resolution for ForgePilot:
+
+- Kept the current Prisma 6-compatible seed setup in TASK-0003 because it is non-blocking and verification is green.
+- Recorded the warning as technical debt before moving to Tester.
+
+Potential Forge improvement:
+
+Project Forge Prisma bootstrap recipes should prefer the current Prisma config-file pattern instead of `package.json#prisma`, or explicitly pin the recipe to Prisma 6 behavior.
+
+
+### 2026-07-09 — Tester stage transition output can look like a no-op
+
+Observation:
+
+TASK-0003 Tester stage transitioned successfully, but the command printed status `in_progress -> in_progress`.
+
+Concrete friction:
+
+- The actual workflow state advanced because Forge Next changed from Tester to Reviewer.
+- The printed status transition alone can look like nothing changed.
+- This can confuse an operator who expects every lifecycle stage to have a distinct task status.
+
+Resolution for ForgePilot:
+
+- Treated the transition as successful because the tester artifact was present, verification passed, and Forge Next recommended Reviewer.
+
+Potential Forge improvement:
+
+Project Forge stage output could include both task status and lifecycle stage progress, for example: `stage: tester completed; next: reviewer`.

@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] No active task.
+- [ ] `TASK-0003` — Add database schema for products, tasks, decisions, and releases (`ready_for_pr`).
 
 ## Next
 
-- [ ] Define the next task.
+- [ ] Prepare PR for `TASK-0003`.
 
 ## Later
 

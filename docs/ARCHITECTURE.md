@@ -403,3 +403,32 @@ The initial app shell includes:
 - lib/utils.ts
 
 Feature modules remain deferred to later tasks.
+
+## TASK-0003 persistence foundation
+
+TASK-0003 adds the first persistence layer for ForgePilot.
+
+Persistence stack:
+
+- PostgreSQL for local relational storage.
+- Prisma as the ORM and schema definition layer.
+- Docker Compose for local database runtime.
+- Prisma Client singleton helper for future Next.js server-side usage.
+
+Initial model set:
+
+- Product
+- ProductSpec
+- ForgeTask
+- Decision
+- DogfoodingEntry
+- ProductRelease
+- HandoffSnapshot
+
+Verification policy:
+
+- `pnpm verify` validates the Prisma schema and generates Prisma Client.
+- `pnpm verify` must not require a running PostgreSQL service.
+- Runtime database commands such as `db:push`, `db:seed`, and `db:studio` remain manual local commands.
+
+This keeps CI deterministic while still giving future feature tasks a typed persistence foundation.

@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:18
+    container_name: forgepilot_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: forgepilot
+      POSTGRES_PASSWORD: forgepilot
+      POSTGRES_DB: forgepilot
+    ports:
+      - "5434:5432"
+    volumes:
+      - forgepilot_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U forgepilot -d forgepilot"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  forgepilot_postgres_data:
