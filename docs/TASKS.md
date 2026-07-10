@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0011` — Fix local Postgres Docker config (`proposed`).
+- [ ] `TASK-0011` — Fix local Postgres Docker config (`approved`).
 
 ## Next
 
-- [ ] Run Planner for `TASK-0011`.
+- [ ] Run Builder for `TASK-0011`.
 
 ## Later
 
