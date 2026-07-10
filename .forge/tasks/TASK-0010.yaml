@@ -1,7 +1,7 @@
 schema_version: 1
 id: TASK-0010
 title: Add handoff summary MVP
-status: proposed
+status: approved
 workflow: .forge/workflows/feature.yaml
 goal: Add a read-only handoff summary MVP that turns current ForgePilot product state into a copyable AI handoff without using AI or adding persistence.
 in_scope:

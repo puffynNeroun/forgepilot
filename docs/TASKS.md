@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0010` — Add handoff summary MVP (`proposed`).
+- [ ] `TASK-0010` — Add handoff summary MVP (`approved`).
 
 ## Next
 
-- [ ] Run Planner for `TASK-0010`.
+- [ ] Run Builder for `TASK-0010`.
 
 ## Later
 

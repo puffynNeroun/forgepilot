@@ -1080,3 +1080,23 @@ Define TASK-0010 as a read-only /handoff surface that produces a copyable markdo
 Potential Forge improvement:
 
 Forge could recommend handoff generation after a dashboard or composition milestone is completed.
+
+### 2026-07-11 — TASK-0010 planner deterministic handoff boundary
+
+Observation:
+
+TASK-0010 introduces a handoff surface after the dashboard milestone.
+
+Concrete workflow detail:
+
+- The handoff should help start a new AI chat with accurate context.
+- The first MVP should be deterministic and read-only.
+- It should not use AI generation or save snapshots yet.
+
+Resolution for ForgePilot:
+
+Plan /handoff as a copyable markdown-style summary generated from existing product data.
+
+Potential Forge improvement:
+
+Planner prompts should distinguish deterministic handoff generation from AI summarization and persistent snapshot workflows.
