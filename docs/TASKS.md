@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0006` — Add dogfooding log MVP (`ready_for_pr`).
+- [ ] No active task.
 
 ## Next
 
-- [ ] Prepare PR for `TASK-0006`.
+- [ ] Define the next task.
 
 ## Later
 
@@ -14,6 +14,7 @@
 
 ## Completed
 
+- [x] `TASK-0006` — Add dogfooding log MVP (`completed`, 2026-07-10).
 - [x] `TASK-0005` — Add task board MVP (`completed`, 2026-07-10).
 - [x] `TASK-0004` — Implement product spec editor (`completed`, 2026-07-10).
 - [x] `TASK-0003` — Add database schema for products, tasks, decisions, and releases (`completed`, 2026-07-10).
