@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0004` — Implement product spec editor (`in_progress`).
+- [ ] `TASK-0004` — Implement product spec editor (`ready_for_pr`).
 
 ## Next
 
-- [ ] Run Reviewer for `TASK-0004`.
+- [ ] Prepare PR for `TASK-0004`.
 
 ## Later
 

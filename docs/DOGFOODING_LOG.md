@@ -530,3 +530,47 @@ Resolution for ForgePilot:
 Potential Forge improvement:
 
 Project Forge builder recipes should avoid `package@major` when the repository policy requires exact pins; they should resolve and write exact package versions immediately.
+
+### 2026-07-10 — TASK-0004 reviewer scope matcher false positive
+
+Observation:
+
+The first TASK-0004 Reviewer script blocked on valid changed files such as `app/spec/page.tsx` and `components/spec/ProductSpecEditor.tsx`.
+
+Concrete friction:
+
+- The reviewer scope check allowed directory names like `app/spec/`.
+- The grep matcher compared whole file paths and therefore did not match files under those directories.
+- This created a false positive even though the task scope was valid.
+
+Resolution for ForgePilot:
+
+- Replaced the brittle grep matcher with a Node-based exact/prefix allow-list.
+- Re-ran Reviewer checks after confirming the working tree was still clean.
+- Kept the actual implementation unchanged.
+
+Potential Forge improvement:
+
+Project Forge reviewer recipes should prefer structured exact/prefix file matching over regex-only path matching for task-scope checks.
+
+### 2026-07-10 — TASK-0004 reviewer confirms server-rendered route boundary
+
+Observation:
+
+TASK-0004 adds a Prisma-backed server component route. The build output shows `/spec` as dynamic server-rendered content.
+
+Concrete friction:
+
+- This is correct for the feature because the route reads from the database at runtime.
+- Reviewer needed to explicitly check that `/spec` did not become a static prerendered route.
+- Without this check, a future refactor could accidentally turn database-backed pages into build-time database dependencies.
+
+Resolution for ForgePilot:
+
+- Kept `export const dynamic = "force-dynamic"` on `/spec`.
+- Kept `export const runtime = "nodejs"` on `/spec`.
+- Added Reviewer verification for dynamic route output.
+
+Potential Forge improvement:
+
+Project Forge reviewer recipes for Next.js + Prisma tasks should include route-rendering checks when a task adds database-backed App Router pages.
