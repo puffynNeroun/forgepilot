@@ -2,7 +2,7 @@
 
 ## Now
 
-- [ ] No active task.
+- [ ] `TASK-0006` — Add dogfooding log MVP (`proposed`).
 
 ## Next
 

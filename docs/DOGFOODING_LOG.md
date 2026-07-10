@@ -641,3 +641,24 @@ Resolution for ForgePilot:
 - Added read-only task board UI components.
 - Added graceful database, missing-product, and empty-task states.
 - Kept the feature out of lifecycle-editing scope.
+
+### 2026-07-10 — TASK-0006 definition follows completed TASK-0005
+
+Observation:
+
+After TASK-0005 completed, Forge Next correctly returned to defining the next task.
+
+Concrete workflow detail:
+
+- TASK-0005 implementation and completion PRs were merged.
+- Main CI was green.
+- Local `pnpm verify` passed.
+- Forge status showed no active task.
+
+Resolution for ForgePilot:
+
+TASK-0006 is defined as the next focused product surface: a read-only dogfooding log MVP.
+
+Potential Forge improvement:
+
+ForgePilot should make dogfooding findings visible in-product so workflow friction is not trapped only in markdown logs.
