@@ -2,7 +2,7 @@ schema_version: 1
 
 id: TASK-0004
 title: "Implement product spec editor"
-status: proposed
+status: approved
 workflow: .forge/workflows/feature.yaml
 
 goal: "Implement the first ForgePilot product spec editor feature using the existing Next.js app shell and Prisma persistence foundation, while keeping the scope focused on editing and saving a product specification."

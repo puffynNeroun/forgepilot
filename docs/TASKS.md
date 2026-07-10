@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0004` — Implement product spec editor (`proposed`).
+- [ ] `TASK-0004` — Implement product spec editor (`approved`).
 
 ## Next
 
-- [ ] Run Planner for `TASK-0004`.
+- [ ] Run Builder for `TASK-0004`.
 
 ## Later
 
