@@ -1060,3 +1060,23 @@ Recovered Tester with a more precise static check that validates the data layer,
 Potential Forge improvement:
 
 Tester checks for composition tasks should validate data flow across files instead of searching for literal copy in a single component.
+
+### 2026-07-11 — TASK-0010 definition after dashboard
+
+Observation:
+
+After TASK-0009, ForgePilot has a dashboard overview plus focused detail surfaces.
+
+Concrete workflow detail:
+
+- The app now has spec, tasks, dogfooding, decisions, releases, and dashboard surfaces.
+- The next high-value workflow is a handoff summary that helps continue work in a new AI chat.
+- The first MVP should be deterministic and read-only, not AI-generated.
+
+Resolution for ForgePilot:
+
+Define TASK-0010 as a read-only /handoff surface that produces a copyable markdown-style summary from existing product data.
+
+Potential Forge improvement:
+
+Forge could recommend handoff generation after a dashboard or composition milestone is completed.
