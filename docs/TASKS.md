@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0006` — Add dogfooding log MVP (`proposed`).
+- [ ] `TASK-0006` — Add dogfooding log MVP (`approved`).
 
 ## Next
 
-- [ ] Define the next task.
+- [ ] Run Builder for `TASK-0006`.
 
 ## Later
 

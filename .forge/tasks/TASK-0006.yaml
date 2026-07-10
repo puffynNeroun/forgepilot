@@ -1,7 +1,7 @@
 schema_version: 1
 id: TASK-0006
 title: Add dogfooding log MVP
-status: proposed
+status: approved
 workflow: .forge/workflows/feature.yaml
 goal: Add a read-only dogfooding log MVP page that surfaces ForgePilot/Project Forge workflow friction, resolutions, and potential Forge improvements.
 in_scope:

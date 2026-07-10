@@ -662,3 +662,24 @@ TASK-0006 is defined as the next focused product surface: a read-only dogfooding
 Potential Forge improvement:
 
 ForgePilot should make dogfooding findings visible in-product so workflow friction is not trapped only in markdown logs.
+
+### 2026-07-10 — TASK-0006 next-state display mismatch
+
+Observation:
+
+After TASK-0006 was defined, `Forge Next` correctly recommended planning TASK-0006, but the task board section still showed `Define the next task`.
+
+Concrete friction:
+
+- Active task existed: TASK-0006.
+- Task status was `proposed`.
+- `Forge Next` said `Plan TASK-0006`.
+- Task board `Next` text said `Define the next task`.
+
+Resolution for ForgePilot:
+
+Continue with Planner because the actionable `Forge Next` recommendation is correct.
+
+Potential Forge improvement:
+
+Forge status rendering should keep the task board `Next` line consistent with the dedicated `Forge Next` recommendation when a proposed active task exists.
