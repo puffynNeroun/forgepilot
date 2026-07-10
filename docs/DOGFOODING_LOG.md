@@ -418,3 +418,26 @@ Resolution for ForgePilot:
 Potential Forge improvement:
 
 Project Forge stage output could include both task status and lifecycle stage progress, for example: `stage: tester completed; next: reviewer`.
+
+### 2026-07-10 — TASK-0003 completion follows implementation merge
+
+Observation:
+
+After the TASK-0003 implementation PR was merged, the task remained `ready_for_pr` on main and Forge recommended a separate completion PR.
+
+Concrete friction:
+
+- The implementation PR merge and lifecycle completion are separate operations.
+- This is correct for auditability, but it adds one extra post-merge PR.
+- Operators must wait for main push CI before creating the completion PR.
+
+Resolution for ForgePilot:
+
+- Verified main after implementation merge.
+- Created a dedicated completion branch.
+- Used the official Forge task completion command.
+- Prepared a completion PR instead of silently marking the task complete on main.
+
+Potential Forge improvement:
+
+Project Forge could provide a guided "after implementation PR merge" command that waits for main CI, creates the completion branch, completes the task, and opens the completion PR.
