@@ -729,3 +729,27 @@ Resolution for ForgePilot:
 Potential Forge improvement:
 
 Forge artifact creation commands should fail in a way that prevents a partially malformed artifact from being left behind, or provide an explicit repair command for invalid artifact front matter.
+
+### 2026-07-10 — TASK-0006 reviewer regex false positive on Updated label
+
+Observation:
+
+TASK-0006 Reviewer initially blocked on the read-only UI check even though the implementation had no form, server action, mutation, or Prisma write operation.
+
+Concrete friction:
+
+- Reviewer static check searched for broad text like `update`.
+- The UI contained the display label `Updated`.
+- The check incorrectly treated that read-only timestamp label as possible update functionality.
+
+Resolution for ForgePilot:
+
+- Re-ran Reviewer with a narrower check:
+  - no `<form>`;
+  - no `formAction`;
+  - no `"use server"`;
+  - no Prisma `create`, `update`, `delete`, `upsert`, `createMany`, `updateMany`, or `deleteMany` operations.
+
+Potential Forge improvement:
+
+Forge reviewer prompts should avoid broad substring checks for forbidden capabilities. They should check concrete code constructs and mutation APIs instead.

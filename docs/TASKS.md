@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0006` — Add dogfooding log MVP (`in_progress`).
+- [ ] `TASK-0006` — Add dogfooding log MVP (`ready_for_pr`).
 
 ## Next
 
-- [ ] Run Reviewer for `TASK-0006`.
+- [ ] Prepare PR for `TASK-0006`.
 
 ## Later
 
