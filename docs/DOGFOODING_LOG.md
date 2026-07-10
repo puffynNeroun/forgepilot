@@ -397,3 +397,24 @@ Resolution for ForgePilot:
 Potential Forge improvement:
 
 Project Forge Prisma bootstrap recipes should prefer the current Prisma config-file pattern instead of `package.json#prisma`, or explicitly pin the recipe to Prisma 6 behavior.
+
+
+### 2026-07-09 — Tester stage transition output can look like a no-op
+
+Observation:
+
+TASK-0003 Tester stage transitioned successfully, but the command printed status `in_progress -> in_progress`.
+
+Concrete friction:
+
+- The actual workflow state advanced because Forge Next changed from Tester to Reviewer.
+- The printed status transition alone can look like nothing changed.
+- This can confuse an operator who expects every lifecycle stage to have a distinct task status.
+
+Resolution for ForgePilot:
+
+- Treated the transition as successful because the tester artifact was present, verification passed, and Forge Next recommended Reviewer.
+
+Potential Forge improvement:
+
+Project Forge stage output could include both task status and lifecycle stage progress, for example: `stage: tester completed; next: reviewer`.

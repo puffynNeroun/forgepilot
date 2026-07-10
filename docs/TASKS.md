@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0003` — Add database schema for products, tasks, decisions, and releases (`in_progress`).
+- [ ] `TASK-0003` — Add database schema for products, tasks, decisions, and releases (`ready_for_pr`).
 
 ## Next
 
-- [ ] Run Reviewer for `TASK-0003`.
+- [ ] Prepare PR for `TASK-0003`.
 
 ## Later
 
