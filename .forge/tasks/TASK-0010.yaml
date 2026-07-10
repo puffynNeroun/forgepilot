@@ -1,0 +1,89 @@
+schema_version: 1
+id: TASK-0010
+title: Add handoff summary MVP
+status: ready_for_pr
+workflow: .forge/workflows/feature.yaml
+goal: Add a read-only handoff summary MVP that turns current ForgePilot product state into a copyable AI handoff without using AI or adding persistence.
+in_scope:
+  - Add a dynamic /handoff route for the demo ForgePilot product.
+  - Add a narrow Prisma data access layer for handoff summary data.
+  - Summarize product identity, spec state, task counts, dogfooding counts, decisions, releases, and dashboard availability.
+  - Render a copyable markdown-style handoff block.
+  - Link /handoff from the home page.
+  - Render graceful database-error and missing-product states.
+  - Update README, architecture, MVP scope, and dogfooding documentation.
+  - Keep verification green.
+out_of_scope:
+  - AI-generated summaries.
+  - Saving handoff snapshots to the database.
+  - Creating, editing, or deleting handoff snapshots.
+  - GitHub import.
+  - Release automation.
+  - Deployment.
+  - Auth, teams, billing, or permissions.
+  - Prisma schema changes.
+  - Dependency changes.
+  - Replacing the existing dashboard or detail pages.
+allowed_files:
+  - .forge/tasks/TASK-0010.yaml
+  - .forge/artifacts/TASK-0010/
+  - docs/TASKS.md
+  - docs/DOGFOODING_LOG.md
+  - docs/ARCHITECTURE.md
+  - docs/MVP_SCOPE.md
+  - README.md
+  - app/page.tsx
+  - app/handoff/
+  - app/handoff/page.tsx
+  - app/handoff/loading.tsx
+  - components/handoff/
+  - components/handoff/HandoffSummary.tsx
+  - components/handoff/HandoffCopyBlock.tsx
+  - lib/db/handoff.ts
+protected_files:
+  - .forge/tasks/TASK-0001.yaml
+  - .forge/tasks/TASK-0002.yaml
+  - .forge/tasks/TASK-0003.yaml
+  - .forge/tasks/TASK-0004.yaml
+  - .forge/tasks/TASK-0005.yaml
+  - .forge/tasks/TASK-0006.yaml
+  - .forge/tasks/TASK-0007.yaml
+  - .forge/tasks/TASK-0008.yaml
+  - .forge/tasks/TASK-0009.yaml
+  - .forge/artifacts/TASK-0001/
+  - .forge/artifacts/TASK-0002/
+  - .forge/artifacts/TASK-0003/
+  - .forge/artifacts/TASK-0004/
+  - .forge/artifacts/TASK-0005/
+  - .forge/artifacts/TASK-0006/
+  - .forge/artifacts/TASK-0007/
+  - .forge/artifacts/TASK-0008/
+  - .forge/artifacts/TASK-0009/
+  - prisma/schema.prisma
+  - docker-compose.yml
+  - package.json
+  - pnpm-lock.yaml
+  - tools/forge-validator/
+acceptance_criteria:
+  - id: AC-01
+    description: /handoff route exists and is reachable from the home page.
+  - id: AC-02
+    description: Handoff data is loaded through lib/db/handoff.ts.
+  - id: AC-03
+    description: The page renders a copyable markdown-style handoff summary.
+  - id: AC-04
+    description: The handoff summarizes product identity, spec state, tasks, dogfooding, decisions, releases, and dashboard availability.
+  - id: AC-05
+    description: Missing-product and database-error states are handled gracefully.
+  - id: AC-06
+    description: The feature is read-only and does not add AI generation, persistence, create, edit, delete, GitHub import, release automation, deployment, schema, or dependency changes.
+  - id: AC-07
+    description: The route is dynamic if Prisma runtime reads are used.
+  - id: AC-08
+    description: README, architecture, MVP scope, and dogfooding docs are updated.
+  - id: AC-09
+    description: pnpm verify passes.
+  - id: AC-10
+    description: Planner, Builder, Tester, and Reviewer artifacts are created before PR.
+required_checks:
+  - verify

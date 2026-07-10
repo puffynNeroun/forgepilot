@@ -222,3 +222,25 @@ The dashboard loads the demo product from PostgreSQL and summarizes existing pro
 - releases.
 
 The dashboard is intentionally read-only. It does not create, edit, delete, import, automate releases, generate handoffs, deploy, or replace the existing detail pages.
+
+## TASK-0010 handoff summary MVP
+
+ForgePilot includes a read-only handoff summary at:
+
+- http://localhost:3000/handoff
+
+The page loads the demo product from PostgreSQL and renders a deterministic markdown-style summary for continuing work in a new AI-assisted development chat.
+
+The handoff summarizes:
+
+- product identity;
+- available surfaces;
+- product spec state;
+- task counts and status breakdown;
+- dogfooding counts and severity breakdown;
+- decision count;
+- release count and status breakdown;
+- dashboard availability;
+- suggested next step.
+
+The MVP is intentionally read-only. It does not use AI generation, save handoff snapshots, create/edit/delete data, import from GitHub, automate releases, deploy, or change the Prisma schema.

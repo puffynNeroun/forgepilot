@@ -1060,3 +1060,147 @@ Recovered Tester with a more precise static check that validates the data layer,
 Potential Forge improvement:
 
 Tester checks for composition tasks should validate data flow across files instead of searching for literal copy in a single component.
+
+### 2026-07-11 — TASK-0010 definition after dashboard
+
+Observation:
+
+After TASK-0009, ForgePilot has a dashboard overview plus focused detail surfaces.
+
+Concrete workflow detail:
+
+- The app now has spec, tasks, dogfooding, decisions, releases, and dashboard surfaces.
+- The next high-value workflow is a handoff summary that helps continue work in a new AI chat.
+- The first MVP should be deterministic and read-only, not AI-generated.
+
+Resolution for ForgePilot:
+
+Define TASK-0010 as a read-only /handoff surface that produces a copyable markdown-style summary from existing product data.
+
+Potential Forge improvement:
+
+Forge could recommend handoff generation after a dashboard or composition milestone is completed.
+
+### 2026-07-11 — TASK-0010 planner deterministic handoff boundary
+
+Observation:
+
+TASK-0010 introduces a handoff surface after the dashboard milestone.
+
+Concrete workflow detail:
+
+- The handoff should help start a new AI chat with accurate context.
+- The first MVP should be deterministic and read-only.
+- It should not use AI generation or save snapshots yet.
+
+Resolution for ForgePilot:
+
+Plan /handoff as a copyable markdown-style summary generated from existing product data.
+
+Potential Forge improvement:
+
+Planner prompts should distinguish deterministic handoff generation from AI summarization and persistent snapshot workflows.
+
+### 2026-07-11 — TASK-0010 deterministic handoff implementation
+
+Observation:
+
+TASK-0010 adds a handoff surface after ForgePilot gained several focused detail pages and a dashboard.
+
+Concrete workflow detail:
+
+- The handoff summarizes current product state into a stable markdown-style block.
+- The MVP intentionally avoids AI generation and snapshot persistence.
+- The copy action is client-side only.
+
+Resolution for ForgePilot:
+
+Implement /handoff as a deterministic read-only continuation aid for new AI-assisted development chats.
+
+Potential Forge improvement:
+
+Builder prompts for handoff tasks should explicitly separate deterministic context packaging from AI summarization and persistent snapshot storage.
+
+### 2026-07-11 — TASK-0010 builder import corruption recovery
+
+Observation:
+
+TASK-0010 Builder generated the handoff files, but the import in app/handoff/page.tsx was corrupted.
+
+Concrete friction:
+
+- The import became `HandoffSummaryrom` instead of `HandoffSummary } from`.
+- ESLint failed with a parsing error.
+- Next build failed on the same malformed import.
+- The implementation was not committed before recovery.
+
+Resolution for ForgePilot:
+
+Rewrite app/handoff/page.tsx with the correct import, rerun verification, then continue Builder.
+
+Potential Forge improvement:
+
+Builder scripts should include a quick parser or import-sanity check immediately after generated file writes.
+
+### 2026-07-11 — TASK-0010 tester updatedAt false positive
+
+Observation:
+
+TASK-0010 Tester initially blocked on a read-only check.
+
+Concrete friction:
+
+- The check searched for `.update` as a raw substring.
+- The handoff data layer contains legitimate `updatedAt` field reads.
+- The check falsely treated `updatedAt` as a Prisma write operation.
+
+Resolution for ForgePilot:
+
+Replace substring matching with method-call matching for write operations such as `.update(`, `.create(`, `.delete(`, and `.upsert(`.
+
+Potential Forge improvement:
+
+Tester prompts should avoid broad grep patterns for write-safety checks and prefer parser-like or method-call-specific checks.
+
+### 2026-07-11 — TASK-0010 tester report metadata recovery
+
+Observation:
+
+TASK-0010 Tester verification passed, but the test report artifact was manually rewritten with invalid Forge metadata.
+
+Concrete friction:
+
+- Forge validator rejected the report because required metadata keys were missing.
+- Required keys included attempt, input_artifacts, outcome, and producing_role.
+- The helper script also suffered copy/paste corruption and produced a `btrip` NameError.
+
+Resolution for ForgePilot:
+
+Recreate the test report through Forge artifact scaffolding, preserve the generated frontmatter, and replace only the body.
+
+Potential Forge improvement:
+
+Artifact report recovery should provide a first-class command to rewrite artifact body while preserving valid metadata.
+
+### 2026-07-11 — TASK-0010 reviewer stage command corruption
+
+Observation:
+
+TASK-0010 Reviewer checks passed, but the stage transition command was corrupted during paste/execution.
+
+Concrete friction:
+
+- Reviewer static checks passed.
+- Docker Compose config passed.
+- pnpm verify passed.
+- next build passed.
+- /handoff built as dynamic.
+- The stage command failed because `node tools/forge-validator/src/cli.mjs` was corrupted into `notools/forge-validator/src/cli.mjs`.
+
+Resolution for ForgePilot:
+
+Recover by preserving the already-created review report, rerunning the Reviewer stage transition, verifying, and committing the Reviewer result.
+
+Potential Forge improvement:
+
+Long shell blocks should minimize command-adjacent text and maybe print critical commands before execution to make paste corruption easier to spot.

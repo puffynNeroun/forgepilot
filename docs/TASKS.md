@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] No active task.
+- [ ] `TASK-0010` — Add handoff summary MVP (`ready_for_pr`).
 
 ## Next
 
-- [ ] Define the next task.
+- [ ] Prepare PR for `TASK-0010`.
 
 ## Later
 

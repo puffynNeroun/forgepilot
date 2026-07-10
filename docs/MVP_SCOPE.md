@@ -364,3 +364,30 @@ Excluded:
 - Prisma schema changes.
 - Dependency changes.
 - Replacing existing detail pages.
+
+## TASK-0010 handoff summary MVP boundary
+
+Included:
+
+- Read-only /handoff route.
+- Prisma-backed handoff data loading.
+- Deterministic markdown-style handoff summary.
+- Copyable handoff block.
+- Product identity, spec, task, dogfooding, decision, release, and dashboard summary.
+- Missing-product and database-error states.
+- Home page navigation.
+- Documentation updates.
+
+Excluded:
+
+- AI-generated summaries.
+- Saving handoff snapshots.
+- Creating, editing, or deleting handoff snapshots.
+- Database writes.
+- GitHub import.
+- Release automation.
+- Deployment.
+- Auth, teams, billing, permissions.
+- Prisma schema changes.
+- Dependency changes.
+- Replacing the dashboard or existing detail pages.

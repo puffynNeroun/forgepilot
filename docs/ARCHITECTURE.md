@@ -530,3 +530,28 @@ Runtime behavior:
 - Missing demo product state is explicit.
 - Summary cards link to existing detail surfaces instead of replacing them.
 - No Prisma schema, dependency, AI, GitHub import, release automation, handoff, auth, billing, team, or deployment changes are introduced.
+
+## TASK-0010 handoff summary MVP
+
+TASK-0010 adds a deterministic read-only handoff surface.
+
+Components:
+
+- app/handoff/page.tsx — dynamic server route for handoff rendering.
+- app/handoff/loading.tsx — loading shell.
+- lib/db/handoff.ts — narrow Prisma reads and deterministic markdown assembly.
+- components/handoff/HandoffSummary.tsx — page layout for ready handoff data.
+- components/handoff/HandoffCopyBlock.tsx — client-side clipboard helper and readonly textarea.
+
+Runtime behavior:
+
+- The route uses force-dynamic and Node.js runtime because it reads through Prisma.
+- The data layer reads existing product, spec, task, dogfooding, decision, and release data.
+- Handoff text is deterministic and assembled without AI.
+- Clipboard copy is client-side only and does not persist anything.
+- Database errors and missing demo product states render as explicit UI states.
+
+Boundaries:
+
+- The existing HandoffSnapshot model is not used in this MVP.
+- No Prisma schema, dependency, AI generation, GitHub import, release automation, deployment, auth, teams, billing, or permissions changes are introduced.
