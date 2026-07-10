@@ -510,3 +510,23 @@ Runtime behavior:
 - Database errors are caught and rendered as UI state.
 - Missing demo product and empty release list states are explicit.
 - No Prisma schema, dependency, tag, GitHub release, deployment, or release automation changes are introduced.
+
+## TASK-0009 dashboard overview MVP
+
+TASK-0009 adds a read-only dashboard composition surface.
+
+Components:
+
+- app/dashboard/page.tsx — dynamic server route for dashboard rendering.
+- app/dashboard/loading.tsx — loading shell.
+- lib/db/dashboard.ts — narrow Prisma data access for product-level summary counts.
+- components/dashboard/DashboardOverview.tsx — dashboard layout.
+- components/dashboard/DashboardStatusCard.tsx — reusable surface summary card.
+
+Runtime behavior:
+
+- The route uses force-dynamic and Node.js runtime because it reads through Prisma.
+- Database errors are caught and rendered as UI state.
+- Missing demo product state is explicit.
+- Summary cards link to existing detail surfaces instead of replacing them.
+- No Prisma schema, dependency, AI, GitHub import, release automation, handoff, auth, billing, team, or deployment changes are introduced.

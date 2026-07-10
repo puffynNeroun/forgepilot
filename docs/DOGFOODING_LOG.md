@@ -959,3 +959,104 @@ Recovered Reviewer with a narrower static check that searches for operational co
 Potential Forge improvement:
 
 Reviewer checks should distinguish forbidden behavior from user-facing copy that describes forbidden behavior as out of scope.
+
+### 2026-07-11 — TASK-0009 definition after product surfaces
+
+Observation:
+
+After TASK-0008, ForgePilot has several focused read-only product surfaces: spec, tasks, dogfooding, decisions, and releases.
+
+Concrete workflow detail:
+
+- TASK-0008 completed cleanly.
+- Main CI was green.
+- Local `pnpm verify` passed.
+- Forge returned to a no-active-task state.
+- The next product step is a dashboard overview, not another isolated surface.
+
+Resolution for ForgePilot:
+
+Define TASK-0009 as a read-only dashboard overview that aggregates existing surfaces without adding new business workflows.
+
+Potential Forge improvement:
+
+Forge could recommend a composition milestone after several related product surfaces have been completed.
+
+### 2026-07-11 — TASK-0009 planner composition boundary
+
+Observation:
+
+TASK-0009 is a composition task after several focused product surfaces were completed.
+
+Concrete workflow detail:
+
+- ForgePilot already has spec, tasks, dogfooding, decisions, and releases surfaces.
+- The dashboard should summarize and link to those surfaces.
+- It should not replace detail pages or introduce new write workflows.
+
+Resolution for ForgePilot:
+
+Plan /dashboard as a read-only overview layer with narrow summary counts and navigation.
+
+Potential Forge improvement:
+
+Planner prompts should explicitly warn when a composition task risks becoming a broad rewrite or dashboard god-page.
+
+### 2026-07-11 — TASK-0009 dashboard composition implementation
+
+Observation:
+
+TASK-0009 implements the first composition surface after the spec, task, dogfooding, decision, and release pages.
+
+Concrete workflow detail:
+
+- The dashboard summarizes existing surfaces instead of replacing them.
+- The data layer reads existing Prisma models through narrow read-only queries.
+- The UI links users back into detail surfaces for deeper work.
+ForgePilot:
+
+Use /dashboard as the product-level overview while preserving focused detail pages.
+
+Potential Forge improvement:
+
+Builder prompts for composition tasks should enforce summary-and-link behavior instead of duplicating every detail page.
+
+### 2026-07-11 — TASK-0009 builder cssName recovery
+
+Observation:
+
+TASK-0009 Builder generated the dashboard files, but one JSX prop was written as `cssName` instead of `className`.
+
+Concrete friction:
+
+- TypeScript blocked on `components/dashboard/DashboardOverview.tsx`.
+- Next build failed on the same prop typo.
+- The implementation was not committed before recovery.
+
+Resolution for ForgePilot:
+
+Replace `cssName` with `className`, rerun verification, then continue Builder.
+
+Potential Forge improvement:
+
+Builder scripts should include a targeted grep/check for common JSX prop typos before running the full verification suite.
+
+### 2026-07-11 — TASK-0009 tester surface-summary false positive
+
+Observation:
+
+TASK-0009 Tester initially blocked on the dashboard surface summary check.
+
+Concrete friction:
+
+- The check looked for lowercase surface names directly in DashboardOverview.tsx.
+- The implementation correctly defines surface data in lib/db/dashboard.ts and renders it through data.surfaces.map.
+- DashboardOverview.tsx is a composition component, not the source of truth for every surface label.
+
+Resolution for ForgePilot:
+
+Recovered Tester with a more precise static check that validates the data layer, surface hrefs, summary totals, and rendered card composition together.
+
+Potential Forge improvement:
+
+Tester checks for composition tasks should validate data flow across files instead of searching for literal copy in a single component.

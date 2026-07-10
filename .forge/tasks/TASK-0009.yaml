@@ -1,0 +1,87 @@
+schema_version: 1
+id: TASK-0009
+title: Add dashboard overview MVP
+status: ready_for_pr
+workflow: .forge/workflows/feature.yaml
+goal: Add a read-only dashboard overview MVP that summarizes the existing ForgePilot product surfaces without adding new business workflows.
+in_scope:
+  - Add a dynamic /dashboard route for the demo ForgePilot product.
+  - Add a narrow Prisma data access layer for dashboard summary counts.
+  - Summarize product spec, tasks, dogfooding entries, decisions, and releases.
+  - Link /dashboard from the home page.
+  - Render graceful database-error and missing-product states.
+  - Update README, architecture, MVP scope, and dogfooding documentation.
+  - Keep verification green.
+out_of_scope:
+  - Editing product data from the dashboard.
+  - Creating tasks, decisions, releases, dogfooding entries, or specs from the dashboard.
+  - AI summarization.
+  - GitHub import.
+  - Release automation.
+  - Handoff generator.
+  - Auth, teams, billing, or permissions.
+  - Deployment.
+  - Prisma schema changes.
+  - Dependency changes.
+  - Replacing the existing individual product surfaces.
+allowed_files:
+  - .forge/tasks/TASK-0009.yaml
+  - .forge/artifacts/TASK-0009/
+  - docs/TASKS.md
+  - docs/DOGFOODING_LOG.md
+  - docs/ARCHITECTURE.md
+  - docs/MVP_SCOPE.md
+  - README.md
+  - app/page.tsx
+  - app/dashboard/
+  - app/dashboard/page.tsx
+  - app/dashboard/loading.tsx
+  - components/dashboard/
+  - components/dashboard/DashboardOverview.tsx
+  - components/dashboard/DashboardStatusCard.tsx
+  - lib/db/dashboard.ts
+protected_files:
+  - .forge/tasks/TASK-0001.yaml
+  - .forge/tasks/TASK-0002.yaml
+  - .forge/tasks/TASK-0003.yaml
+  - .forge/tasks/TASK-0004.yaml
+  - .forge/tasks/TASK-0005.yaml
+  - .forge/tasks/TASK-0006.yaml
+  - .forge/tasks/TASK-0007.yaml
+  - .forge/tasks/TASK-0008.yaml
+  - .forge/artifacts/TASK-0001/
+  - .forge/artifacts/TASK-0002/
+  - .forge/artifacts/TASK-0003/
+  - .forge/artifacts/TASK-0004/
+  - .forge/artifacts/TASK-0005/
+  - .forge/artifacts/TASK-0006/
+  - .forge/artifacts/TASK-0007/
+  - .forge/artifacts/TASK-0008/
+  - prisma/schema.prisma
+  - docker-compose.yml
+  - package.json
+  - pnpm-lock.yaml
+  - tools/forge-validator/
+acceptance_criteria:
+  - id: AC-01
+    description: /dashboard route exists and is reachable from the home page.
+  - id: AC-02
+    description: Dashboard data is loaded through lib/db/dashboard.ts.
+  - id: AC-03
+    description: Dashboard summarizes product spec, tasks, dogfooding entries, decisions, and releases using read-only data.
+  - id: AC-04
+    description: Missing-product and database-error states are handled gracefully.
+  - id: AC-05
+    description: The dashboard links to the existing product surfaces.
+  - id: AC-06
+    description: The feature is read-only and does not add create, edit, delete, AI, GitHub import, release automation, handoff generation, auth, teams, billing, deployment, schema, or dependency changes.
+  - id: AC-07
+    description: The route is dynamic if Prisma runtime reads are used.
+  - id: AC-08
+    description: README, architecture, MVP scope, and dogfooding docs are updated.
+  - id: AC-09
+    description: pnpm verify passes.
+  - id: AC-10
+    description: Planner, Builder, Tester, and Reviewer artifacts are created before PR.
+required_checks:
+  - verify

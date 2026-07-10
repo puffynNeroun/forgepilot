@@ -337,3 +337,30 @@ Excluded:
 - Handoff generator.
 - Auth, teams, billing, and release automation.
 - Prisma schema and dependency changes.
+
+## TASK-0009 dashboard overview MVP boundary
+
+Included:
+
+- Read-only /dashboard route.
+- Prisma-backed summary data loading.
+- Product-level summary cards for spec, tasks, dogfooding, decisions, and releases.
+- Links to existing product surfaces.
+- Missing-product and database-error states.
+- Home page navigation.
+- Documentation updates.
+
+Excluded:
+
+- Dashboard editing.
+- Creating tasks, decisions, releases, dogfooding entries, or specs.
+- Deleting data.
+- AI summarization.
+- GitHub import.
+- Release automation.
+- Handoff generator.
+- Auth, teams, billing, permissions.
+- Deployment.
+- Prisma schema changes.
+- Dependency changes.
+- Replacing existing detail pages.
