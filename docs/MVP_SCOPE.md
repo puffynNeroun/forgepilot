@@ -271,3 +271,9 @@ Those modules remain assigned to later MVP tasks.
 TASK-0003 adds the persistence foundation only.
 
 It does not add product dashboard UI, product spec editor UI, task board UI, decision log UI, dogfooding UI, handoff generator UI, release timeline UI, authentication, teams, billing, or GitHub import automation.
+
+## TASK-0004 product spec editor boundary
+
+TASK-0004 adds only the product spec editor.
+
+It does not add the full dashboard, task board, decision log UI, dogfooding log UI, release timeline, handoff prompt generator, authentication, billing, teams, or AI generation.

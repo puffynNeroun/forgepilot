@@ -130,3 +130,18 @@ Open Prisma Studio:
 The default local database URL is documented in `.env.example`.
 
 `pnpm verify` does not require a running PostgreSQL service. Database runtime commands such as `db:push`, `db:seed`, and `db:studio` are manual local development commands.
+
+## Product spec editor
+
+ForgePilot includes a first editable product feature at:
+
+    http://localhost:3000/spec
+
+For the full local demo, start and seed the database first:
+
+    docker compose up -d postgres
+    pnpm db:push
+    pnpm db:seed
+    pnpm dev
+
+The `/spec` page is dynamic and uses the Prisma persistence foundation from TASK-0003. Normal verification still does not require a running PostgreSQL service.

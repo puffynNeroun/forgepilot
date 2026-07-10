@@ -432,3 +432,19 @@ Verification policy:
 - Runtime database commands such as `db:push`, `db:seed`, and `db:studio` remain manual local commands.
 
 This keeps CI deterministic while still giving future feature tasks a typed persistence foundation.
+
+## TASK-0004 product spec editor
+
+TASK-0004 adds the first user-facing persistence-backed feature.
+
+The `/spec` route loads the demo ForgePilot product spec through a narrow data access module and saves updates through a server action.
+
+Implementation shape:
+
+- `app/spec/page.tsx` loads the current product spec.
+- `app/spec/actions.ts` handles server-side validation and persistence.
+- `components/spec/ProductSpecEditor.tsx` renders the editable form.
+- `lib/db/product-specs.ts` isolates Prisma reads/writes.
+- `lib/validators/product-spec.ts` owns Zod validation.
+
+The route is marked dynamic so the default build does not require a running local database.
