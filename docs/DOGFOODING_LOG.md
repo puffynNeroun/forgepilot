@@ -1181,3 +1181,26 @@ Recreate the test report through Forge artifact scaffolding, preserve the genera
 Potential Forge improvement:
 
 Artifact report recovery should provide a first-class command to rewrite artifact body while preserving valid metadata.
+
+### 2026-07-11 — TASK-0010 reviewer stage command corruption
+
+Observation:
+
+TASK-0010 Reviewer checks passed, but the stage transition command was corrupted during paste/execution.
+
+Concrete friction:
+
+- Reviewer static checks passed.
+- Docker Compose config passed.
+- pnpm verify passed.
+- next build passed.
+- /handoff built as dynamic.
+- The stage command failed because `node tools/forge-validator/src/cli.mjs` was corrupted into `notools/forge-validator/src/cli.mjs`.
+
+Resolution for ForgePilot:
+
+Recover by preserving the already-created review report, rerunning the Reviewer stage transition, verifying, and committing the Reviewer result.
+
+Potential Forge improvement:
+
+Long shell blocks should minimize command-adjacent text and maybe print critical commands before execution to make paste corruption easier to spot.

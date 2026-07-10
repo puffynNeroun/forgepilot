@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0010` — Add handoff summary MVP (`in_progress`).
+- [ ] `TASK-0010` — Add handoff summary MVP (`ready_for_pr`).
 
 ## Next
 
-- [ ] Run Reviewer for `TASK-0010`.
+- [ ] Prepare PR for `TASK-0010`.
 
 ## Later
 
