@@ -683,3 +683,49 @@ Continue with Planner because the actionable `Forge Next` recommendation is corr
 Potential Forge improvement:
 
 Forge status rendering should keep the task board `Next` line consistent with the dedicated `Forge Next` recommendation when a proposed active task exists.
+
+### 2026-07-10 — TASK-0006 schema-driven dogfooding data layer
+
+Observation:
+
+TASK-0006 needed a Prisma-backed read-only dogfooding log using the existing DogfoodingEntry model.
+
+Concrete implementation detail:
+
+- Builder inspected `prisma/schema.prisma`.
+- Builder generated `lib/db/dogfooding.ts` against the actual DogfoodingEntry fields.
+- `/dogfooding` is dynamic and reads runtime data through Prisma.
+
+Resolution for ForgePilot:
+
+- Added a narrow dogfooding data access layer.
+- Added read-only dogfooding UI components.
+- Added graceful database, missing-product, and empty-list states.
+- Kept the feature out of create/edit/delete, AI, import, release, and dashboard scope.
+
+Potential Forge improvement:
+
+Forge should provide a safer built-in recipe for Prisma-backed read-only surfaces that first inspects schema fields and then records the selected fields in build artifacts.
+
+### 2026-07-10 — TASK-0006 build-report scaffold path corruption
+
+Observation:
+
+During TASK-0006 Builder, the implementation and verification passed, but build-report artifact creation failed because the pasted command was corrupted.
+
+Concrete friction:
+
+- The intended Forge CLI path was `tools/forge-validator/src/cli.mjs`.
+- The executed path became `tools/forge-validator/li.mjs`.
+- A build report file was then left without YAML front matter.
+- Forge contract validation correctly failed on the malformed artifact.
+
+Resolution for ForgePilot:
+
+- Recreated `build-report-001.md` through the correct Forge artifact scaffold command.
+- Rewrote the build report body while preserving valid YAML front matter.
+- Re-ran verification before committing Builder.
+
+Potential Forge improvement:
+
+Forge artifact creation commands should fail in a way that prevents a partially malformed artifact from being left behind, or provide an explicit repair command for invalid artifact front matter.

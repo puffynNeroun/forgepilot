@@ -11,6 +11,11 @@ const surfaces = [
     title: "Task board MVP",
     description: "Review Forge task lifecycle state in a read-only board.",
   },
+  {
+    href: "/dogfooding",
+    title: "Dogfooding log MVP",
+    description: "Review workflow friction, resolutions, and Forge improvement candidates.",
+  },
 ];
 
 const completed = [
@@ -18,6 +23,7 @@ const completed = [
   "TASK-0002 Next.js app shell",
   "TASK-0003 Prisma/PostgreSQL persistence",
   "TASK-0004 product spec editor",
+  "TASK-0005 task board MVP",
 ];
 
 export default function HomePage() {
@@ -50,6 +56,12 @@ export default function HomePage() {
             >
               Open task board
             </Link>
+            <Link
+              className="rounded-xl border border-white/10 px-5 py-3 font-semibold text-slate-200 transition hover:border-white/20"
+              href="/dogfooding"
+            >
+              Open dogfooding log
+            </Link>
           </div>
         </section>
 
@@ -59,7 +71,7 @@ export default function HomePage() {
             <div className="mt-4 grid gap-3">
               {surfaces.map((surface) => (
                 <Link
-                  className="rounded-xl border border-white/10 p-4 transition hover:border-sky-300/40 hover:bg-sky-300/5"
+                  className="rounded-xl border border-white/10 p-4 transition hover:bder-sky-300/40 hover:bg-sky-300/5"
                   href={surface.href}
                   key={surface.href}
                 >

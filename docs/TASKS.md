@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0006` — Add dogfooding log MVP (`approved`).
+- [ ] `TASK-0006` — Add dogfooding log MVP (`in_progress`).
 
 ## Next
 
-- [ ] Run Builder for `TASK-0006`.
+- [ ] Run Tester for `TASK-0006`.
 
 ## Later
 
