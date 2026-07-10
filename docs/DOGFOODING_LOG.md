@@ -836,3 +836,23 @@ Recovered by keeping the generated implementation, re-running verification, crea
 Potential Forge improvement:
 
 Large generated operator blocks should be split into smaller recovery-safe chunks, especially around verification and lifecycle stage transitions.
+
+### 2026-07-10 — TASK-0007 tester home-link false positive
+
+Observation:
+
+TASK-0007 Tester initially blocked on the home link check even though `/decisions` was configured on the home page.
+
+Concrete friction:
+
+- The static check searched for literal JSX `href="/decisions"`.
+- The home page uses a `productSurfaces` array with `href: "/decisions"` and renders links through `href={surface.href}`.
+- The implementation was valid, but the test was too implementation-specific.
+
+Resolution for ForgePilot:
+
+Recovered Tester with a check that verifies the home surface configuration instead of requiring a specific JSX literal.
+
+Potential Forge improvement:
+
+Tester prompts should avoid brittle JSX string matching when the application uses configuration-driven rendering.
