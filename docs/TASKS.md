@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0007` — Add decision log MVP (`approved`).
+- [ ] `TASK-0007` — Add decision log MVP (`in_progress`).
 
 ## Next
 
-- [ ] Run Builder for `TASK-0007`.
+- [ ] Run Tester for `TASK-0007`.
 
 ## Later
 

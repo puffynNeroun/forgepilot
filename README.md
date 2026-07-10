@@ -175,3 +175,24 @@ For the full local demo, start and seed the database first:
     pnpm dev
 
 The `/dogfooding` page is dynamic and reads dogfooding entries through the Prisma persistence foundation. Normal verification still does not require a running PostgreSQL service.
+
+## TASK-0007 decision log MVP
+
+ForgePilot now includes a read-only decision log at:
+
+- http://localhost:3000/decisions
+
+The page loads the demo prodom PostgreSQL and renders existing Decision records through lib/db/decisions.ts.
+
+Local demo setup:
+
+    cat > .env.local <<'ENV'
+    DATABASE_URL="postgresql://forgepilot:forgepilot@localhost:5434/forgepilot?schema=public"
+    ENV
+
+    docker compose up -d postgres
+    pnpm db:push
+    pnpm db:seed
+    pnpm dev
+
+The route intentionally stays read-only. It does not add decision create, edit, delete, AI summarization, GitHub import, or dashboard composition.

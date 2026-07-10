@@ -472,3 +472,22 @@ Implementation shape:
 - `components/dogfooding/*` contains the read-only log and severity badge UI.
 - The route is marked dynamic because it reads runtime dogfooding data.
 - The feature intentionally does not create, edit, or delete dogfooding entries from the UI.
+
+## TASK-0007 decision log MVP
+
+TASK-0007 adds a focused read-only decision log surface.
+
+Components:
+
+- app/decisions/page.tsx — dynamic server route for decision log rendering.
+- app/decisions/loading.tsx — loading shell.
+- lib/db/decisions.ts — narrow Prisma data access for the demo product decisions.
+- components/decisions/DecisionLog.tsx — read-only decision list UI.
+- components/decisions/DecisionStatusBadge.tsx — normalized decision status display.
+
+Runtime behavior:
+
+- The route uses force-dynamic and Node.js runtime because it reads through Prisma.
+- Database errors are caught and rendered as UI state.
+- Missing demo product and empty decision list states are explicit.
+- No Prisma schema or dependency changes are introduced.

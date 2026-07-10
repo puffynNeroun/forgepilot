@@ -1,102 +1,62 @@
 import Link from "next/link";
 
-const surfaces = [
+const productSurfaces = [
   {
     href: "/spec",
-    title: "Product spec editor",
-    description: "Edit the demo ForgePilot product specification.",
+    title: "Product spec",
+    description: "Edit the current ForgePilot product specification.",
+    action: "Open spec editor",
   },
   {
     href: "/tasks",
-    title: "Task board MVP",
-    description: "Review Forge task lifecycle state in a read-only board.",
+    title: "Task board",
+    description: "Review Forge task lifecycle state and implementation progress.",
+    action: "Open task board",
   },
   {
     href: "/dogfooding",
-    title: "Dogfooding log MVP",
-    description: "Review workflow friction, resolutions, and Forge improvement candidates.",
+    title: "Dogfooding log",
+    description: "Inspect workflow friction and improvement opportunities discovered while building ForgePilot.",
+    action: "Open dogfooding log",
+  },
+  {
+    href: "/decisions",
+    title: "Decision log",
+    description: "Review product and architecture decisions captured for ForgePilot.",
+    action: "Open decision log",
   },
 ];
 
-const completed = [
-  "TASK-0001 product foundation",
-  "TASK-0002 Next.js app shell",
-  "TASK-0003 Prisma/PostgreSQL persistence",
-  "TASK-0004 product spec editor",
-  "TASK-0005 task board MVP",
-];
-
-export default function HomePage() {
+export default function Home() {
   return (
     <main className="min-h-screen bg-slate-950 px-6 py-10 text-slate-100">
-      <div className="mx-auto flex max-w-6xl flex-col gap-10">
-        <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-8">
-          <p className="text-sm uppercase tracking-[0.35em] text-sky-300">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-8">
+        <section className="rounded-3xl border border-white/10 bg-white/[0.03] p-8 shadow-2xl shadow-black/20">
+          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-sky-300">
             ForgePilot
           </p>
-          <h1 className="mt-4 max-w-4xl text-5xl font-bold tracking-tight">
-            Dogfood dashboard for AI-assisted product development.
+          <h1 className="mt-4 max-w-4xl text-5xl font-semibold tracking-tight text-white">
+            Dogfooding Project Forge on a real product surface.
           </h1>
-          <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-400">
-            ForgePilot turns Project Forge lifecycle artifacts into a focused
-            product workspace: specs, tasks, decisions, dogfooding findings,
-            handoff prompts, and releases.
+          <p className="mt-5 max-w-3xl text-base leading-7 text-slate-300">
+            ForgePilot is a small product dashboard built through Forge lifecycle tasks.
+            Each page validates a focused slice of product orchestration before the app grows
+            into a larger AI-assisted development cockpit.
           </p>
-
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link
-              className="rounded-xl bg-sky-400 px-5 py-3 font-semibold text-slate-950 transition hover:bg-sky-300"
-              href="/spec"
-            >
-              Open product spec editor
-            </Link>
-            <Link
-              className="rounded-xl border border-white/10 px-5 py-3 font-semibold text-slate-200 transition hover:border-white/20"
-              href="/tasks"
-            >
-              Open task board
-            </Link>
-            <Link
-              className="rounded-xl border border-white/10 px-5 py-3 font-semibold text-slate-200 transition hover:border-white/20"
-              href="/dogfooding"
-            >
-              Open dogfooding log
-            </Link>
-          </div>
         </section>
 
-        <section className="grid gap-6 md:grid-cols-2">
-          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
-            <h2 className="text-xl font-semibold">Current product surfaces</h2>
-            <div className="mt-4 grid gap-3">
-              {surfaces.map((surface) => (
-                <Link
-                  className="rounded-xl border border-white/10 p-4 transition hover:bder-sky-300/40 hover:bg-sky-300/5"
-                  href={surface.href}
-                  key={surface.href}
-                >
-                  <h3 className="font-semibold text-slate-100">
-                    {surface.title}
-                  </h3>
-                  <p className="mt-1 text-sm text-slate-400">
-                    {surface.description}
-                  </p>
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
-            <h2 className="text-xl font-semibold">Completed foundation</h2>
-            <ul className="mt-4 space-y-3 text-slate-300">
-              {completed.map((task) => (
-                <li className="flex gap-3" key={task}>
-                  <span className="text-emerald-300">✓</span>
-                  <span>{task}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
+        <section className="grid gap-4 md:grid-cols-2">
+          {productSurfaces.map((surface) => (
+            <Link
+              className="rounded-3xl border border-white/10 bg-slate-900/80 p-6 transition hover:border-sky-400/50 hover:bg-slate-900"
+              href={surface.href}
+              key={surface.href}
+            >
+              <h2 className="text-2xl font-semibold text-white">{surface.title}</h2>
+              <p className="mt-3 text-sm leading-6 text-slate-400">{surface.description}</p>
+              <p className="mt-5 text-sm font-medium text-sky-300">{surface.action} →</p>
+            </Link>
+          ))}
         </section>
       </div>
     </main>

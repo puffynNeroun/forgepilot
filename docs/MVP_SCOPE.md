@@ -289,3 +289,26 @@ It does not add task creation, task status editing, task deletion, GitHub import
 TASK-0006 adds only a read-only dogfooding log.
 
 It does not add dogfooding entry creation, editing, deletion, AI summarization, GitHub import, full dashboard composition, release timeline, handoff generator, authentication, teams, billing, production deployment, or release.
+
+## TASK-0007 decision log MVP boundary
+
+Included:
+
+- Read-only /decisions route.
+- Prisma-backed decision data loading.
+- Decision cards with title, summary/content, rationale, type/category, status, and timestamps where fields exist.
+- Home page navigation.
+- Documentation updates.
+
+Excluded:
+
+- Decision creation UI.
+- Decision editing UI.
+- Decision deletion UI.
+- AI summarization.
+- GitHub import.
+- Full dashboard composition.
+- Release timeline.
+- Handoff generator.
+- Auth, teams, billing, deployment, and release work.
+- Prisma schema and dependency changes.

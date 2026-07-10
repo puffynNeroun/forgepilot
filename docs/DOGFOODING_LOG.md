@@ -795,3 +795,44 @@ Continue through Planner without manual `docs/TASKS.md` recovery.
 Potential Forge improvement:
 
 The TASK-0007 flow confirms the corrected/manual task-board state shape needed after task definition.
+
+### 2026-07-10 — TASK-0007 schema-driven decision data layer
+
+Observation:
+
+TASK-0007 Builder inspected the actual Prisma Decision model before generating the data access layer and UI.
+
+Concrete workflow detail:
+
+- The route was generated as a dynamic Node.js route.
+- The data layer maps available Decision fields into a stable UI shape.
+- The implementation keeps /decisions read-only and avoids schema/dependency changes.
+
+Resolution for ForgePilot:
+
+Use a schema-driven adapter for early MVP surfaces when the database model exists but the UI contract needs a stable shape.
+
+Potential Forge improvement:
+
+Builder prompts for consumer apps should explicitly inspect existing models before assuming field names, especially for product logs such as decisions, releases, and handoffs.
+
+### 2026-07-10 — TASK-0007 builder paste corruption recovery
+
+Observation:
+
+TASK-0007 Builder implementation was written successfully, but the long shell block was corrupted during paste/execution.
+
+Concrete friction:
+
+- A command line was merged into `dbDB_GENERATE_EXIT=0`.
+- Bash later hit `syntax error near unexpected token fi`.
+- The actual app verification still passed through `pnpm verify`.
+- Build output confirmed `/decisions` as a dynamic route.
+
+Resolution for ForgePilot:
+
+Recovered by keeping the generated implementation, re-running verification, creating the build report, staging Builder, and committing the Builder stage.
+
+Potential Forge improvement:
+
+Large generated operator blocks should be split into smaller recovery-safe chunks, especially around verification and lifecycle stage transitions.
