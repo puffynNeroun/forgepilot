@@ -1,0 +1,87 @@
+schema_version: 1
+id: TASK-0008
+title: Add release timeline MVP
+status: ready_for_pr
+workflow: .forge/workflows/feature.yaml
+goal: Add a read-only release timeline MVP page that surfaces ForgePilot product releases from the existing ProductRelease model.
+in_scope:
+  - Add a dynamic /releases route for the demo ForgePilot product.
+  - Load releases through a narrow Prisma data access layer.
+  - Render release cards or timeline entries with name/version/title, status, notes/summary, date fields, and timestamps where available.
+  - Add graceful database, missing-product, and empty-state UI.
+  - Link /releases from the home page.
+  - Update README, architecture, MVP scope, and dogfooding documentation.
+  - Keep verification green.
+out_of_scope:
+  - Creating releases from the UI.
+  - Editing releases from the UI.
+  - Deleting releases from the UI.
+  - Publishing a real GitHub release.
+  - Creating git tags.
+  - Deployment.
+  - AI summarization.
+  - GitHub import.
+  - Full dashboard composition.
+  - Handoff generator.
+  - Auth, teams, billing, or release automation.
+  - Prisma schema changes.
+  - Dependency changes.
+allowed_files:
+  - .forge/tasks/TASK-0008.yaml
+  - .forge/artifacts/TASK-0008/
+  - docs/TASKS.md
+  - docs/DOGFOODING_LOG.md
+  - docs/ARCHITECTURE.md
+  - docs/MVP_SCOPE.md
+  - README.md
+  - app/page.tsx
+  - app/releases/
+  - app/releases/page.tsx
+  - app/releases/loading.tsx
+  - components/releases/
+  - components/releases/ReleaseTimeline.tsx
+  - components/releases/ReleaseStatusBadge.tsx
+  - lib/db/releases.ts
+protected_files:
+  - .forge/tasks/TASK-0001.yaml
+  - .forge/tasks/TASK-0002.yaml
+  - .forge/tasks/TASK-0003.yaml
+  - .forge/tasks/TASK-0004.yaml
+  - .forge/tasks/TASK-0005.yaml
+  - .forge/tasks/TASK-0006.yaml
+  - .forge/tasks/TASK-0007.yaml
+  - .forge/artifacts/TASK-0001/
+  - .forge/artifacts/TASK-0002/
+  - .forge/artifacts/TASK-0003/
+  - .forge/artifacts/TASK-0004/
+  - .forge/artifacts/TASK-0005/
+  - .forge/artifacts/TASK-0006/
+  - .forge/artifacts/TASK-0007/
+  - prisma/schema.prisma
+  - docker-compose.yml
+  - package.json
+  - pnpm-lock.yaml
+  - tools/forge-validator/
+acceptance_criteria:
+  - id: AC-01
+    description: /releases route exists and is reachable from the home page.
+  - id: AC-02
+    description: Releases are loaded through lib/db/releases.ts.
+  - id: AC-03
+    description: UI renders release timeline/cards with name/version/title, status, notes/summary, date fields, and timestamps where available.
+  - id: AC-04
+    description: Missing-product, empty-list, and database-error states are handled gracefully.
+  - id: AC-05
+    description: The feature is read-only and does not add create, edit, delete, release publishing, tags, deployment, AI, GitHub import, or dashboard expansion.
+  - id: AC-06
+    description: The route is dynamic if Prisma runtime reads are used.
+  - id: AC-07
+    description: README and architecture/MVP docs are updated.
+  - id: AC-08
+    description: Dogfooding friction from this task is recorded when relevant.
+  - id: AC-09
+    description: pnpm verify passes.
+  - id: AC-10
+    description: Planner, Builder, Tester, and Reviewer artifacts are created before PR.
+required_checks:
+  - verify

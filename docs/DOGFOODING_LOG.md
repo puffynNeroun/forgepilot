@@ -856,3 +856,106 @@ Recovered Tester with a check that verifies the home surface configuration inste
 Potential Forge improvement:
 
 Tester prompts should avoid brittle JSX string matching when the application uses configuration-driven rendering.
+
+### 2026-07-11 — TASK-0008 definition after TASK-0007 completion
+
+Observation:
+
+After TASK-0007 completed, Forge returned to a clean no-active-task state on main.
+
+Concrete workflow detail:
+
+- TASK-0007 implementation and completion PRs were merged.
+- Main CI was green.
+- Local `pnpm verify` passed.
+- Forge Next recommended defining the next task.
+
+Resolution for ForgePilot:
+
+TASK-0008 is defined as the next focused product surface: a read-only release timeline MVP.
+
+Potential Forge improvement:
+
+ForgePilot should keep adding narrow read-only product surfaces before composing them into a full dashboard.
+
+### 2026-07-11 — TASK-0008 planner next-env generated-file recovery
+
+Observation:
+
+TASK-0008 Planner was initially blocked because `next-env.d.ts` became dirty before the Planner stage.
+
+Concrete friction:
+
+- Next tooling changed generated `next-env.d.ts`.
+- The Planner pre-check correctly blocked on a dirty working tree.
+- The file was not part of TASK-0008 scope and should not be committed.
+
+Resolution for ForgePilot:
+
+Restore `next-env.d.ts`, rerun verification, then continue Planner.
+
+Potential Forge improvement:
+
+Operator blocks should automatically restore known generated files like `next-env.d.ts` after Next build/verify when they are out of task scope.
+
+### 2026-07-11 — TASK-0008 schema-driven release timeline
+
+Observation:
+
+TASK-0008 Builder inspected the actual Prisma ProductRelease model before generating the data access layer and UI.
+
+Concrete workflow detail:
+
+- The route was generated as a dynamic Node.js route.
+- The data layer maps available ProductRelease fields into a stable UI shape.
+- The implementation keeps /releases read-only and avoids schema, dependency, tag, GitHub release, deployment, and release automation changes.
+
+Resolution for ForgePilot:
+
+Use a schema-driven adapter for release visibility while keeping operational release actions out of scope.
+
+Potential Forge improvement:
+
+Builder prompts should clearly separate release visibility surfaces from release automation because the latter mutates repository or deployment state.
+
+### 2026-07-11 — TASK-0008 builder JSX loading recovery
+
+Observation:
+
+TASK-0008 Builder generated the release timeline files, but `app/releases/loading.tsx` contained invalid JSX.
+
+Concrete friction:
+
+- The generated loading component missed a closing `>` after the wrapper div className.
+- ESLint blocked with a parsing error.
+- Next build also failed on the same JSX syntax issue.
+- The implementation was not committed before recovery.
+
+Resolution for ForgePilot:
+
+Rewrite `app/releases/loading.tsx`, rerun verification, then continue Builder.
+
+Potential Forge improvement:
+
+Builder scripts should run a focused syntax check immediately after generating JSX files and before continuing to broader verification.
+
+### 2026-07-11 — TASK-0008 reviewer release-automation false positive
+
+Observation:
+
+TASK-0008 Reviewer initially blocked on the release automation check even though the implementation did not add release automation.
+
+Concrete friction:
+
+- The static check searched for broad words like deploy.
+- The UI contains explanatory copy saying the page does not publish releases, create tags, or deploy.
+- That text is product messaging, not an operational command.
+- The implementation contains no real release publishing, git tag, deployment, child process, or shell execution path.
+
+Resolution for ForgePilot:
+
+Recovered Reviewer with a narrower static check that searches for operational commands and execution APIs instead of plain explanatory words.
+
+Potential Forge improvement:
+
+Reviewer checks should distinguish forbidden behavior from user-facing copy that describes forbidden behavior as out of scope.
