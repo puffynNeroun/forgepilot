@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] No active task.
+- [ ] `TASK-0007` — Add decision log MVP (`ready_for_pr`).
 
 ## Next
 
-- [ ] Define the next task.
+- [ ] Prepare PR for `TASK-0007`.
 
 ## Later
 

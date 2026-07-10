@@ -753,3 +753,106 @@ Resolution for ForgePilot:
 Potential Forge improvement:
 
 Forge reviewer prompts should avoid broad substring checks for forbidden capabilities. They should check concrete code constructs and mutation APIs instead.
+
+### 2026-07-10 — TASK-0007 definition follows completed TASK-0006
+
+Observation:
+
+After TASK-0006 completed, Forge Next returned to defining the next task and the repository was clean on main.
+
+Concrete workflow detail:
+
+- TASK-0006 implementation and completion PRs were merged.
+- Main CI was green.
+- Local `pnpm verify` passed.
+- Forge status showed no active task.
+
+Resolution for ForgePilot:
+
+TASK-0007 is defined as the next focused product surface: a read-only decision log MVP.
+
+Potential Forge improvement:
+
+ForgePilot should continue adding focused product surfaces one at a time before composing them into a larger dashboard.
+
+### 2026-07-10 — TASK-0007 planner state is consistent
+
+Observation:
+
+After TASK-0007 was defined, Forge status and Forge Next were aligned.
+
+Concrete workflow detail:
+
+- Active task existed: TASK-0007.
+- Task status was `proposed`.
+- Task board `Next` showed `Run Planner for TASK-0007`.
+- Forge Next showed `Plan TASK-0007`.
+
+Resolution for ForgePilot:
+
+Continue through Planner without manual `docs/TASKS.md` recovery.
+
+Potential Forge improvement:
+
+The TASK-0007 flow confirms the corrected/manual task-board state shape needed after task definition.
+
+### 2026-07-10 — TASK-0007 schema-driven decision data layer
+
+Observation:
+
+TASK-0007 Builder inspected the actual Prisma Decision model before generating the data access layer and UI.
+
+Concrete workflow detail:
+
+- The route was generated as a dynamic Node.js route.
+- The data layer maps available Decision fields into a stable UI shape.
+- The implementation keeps /decisions read-only and avoids schema/dependency changes.
+
+Resolution for ForgePilot:
+
+Use a schema-driven adapter for early MVP surfaces when the database model exists but the UI contract needs a stable shape.
+
+Potential Forge improvement:
+
+Builder prompts for consumer apps should explicitly inspect existing models before assuming field names, especially for product logs such as decisions, releases, and handoffs.
+
+### 2026-07-10 — TASK-0007 builder paste corruption recovery
+
+Observation:
+
+TASK-0007 Builder implementation was written successfully, but the long shell block was corrupted during paste/execution.
+
+Concrete friction:
+
+- A command line was merged into `dbDB_GENERATE_EXIT=0`.
+- Bash later hit `syntax error near unexpected token fi`.
+- The actual app verification still passed through `pnpm verify`.
+- Build output confirmed `/decisions` as a dynamic route.
+
+Resolution for ForgePilot:
+
+Recovered by keeping the generated implementation, re-running verification, creating the build report, staging Builder, and committing the Builder stage.
+
+Potential Forge improvement:
+
+Large generated operator blocks should be split into smaller recovery-safe chunks, especially around verification and lifecycle stage transitions.
+
+### 2026-07-10 — TASK-0007 tester home-link false positive
+
+Observation:
+
+TASK-0007 Tester initially blocked on the home link check even though `/decisions` was configured on the home page.
+
+Concrete friction:
+
+- The static check searched for literal JSX `href="/decisions"`.
+- The home page uses a `productSurfaces` array with `href: "/decisions"` and renders links through `href={surface.href}`.
+- The implementation was valid, but the test was too implementation-specific.
+
+Resolution for ForgePilot:
+
+Recovered Tester with a check that verifies the home surface configuration instead of requiring a specific JSX literal.
+
+Potential Forge improvement:
+
+Tester prompts should avoid brittle JSX string matching when the application uses configuration-driven rendering.
