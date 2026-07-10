@@ -37,6 +37,12 @@ const productSurfaces = [
     description: "Review product-level summary counts across spec, tasks, dogfooding, decisions, and releases.",
     action: "Open dashboard",
   },
+  {
+    href: "/handoff",
+    title: "Handoff summary",
+    description: "Copy a deterministic markdown summary for continuing ForgePilot work in a new AI chat.",
+    action: "Open handoff",
+  },
 ];
 
 export default function Home() {

@@ -1100,3 +1100,44 @@ Plan /handoff as a copyable markdown-style summary generated from existing produ
 Potential Forge improvement:
 
 Planner prompts should distinguish deterministic handoff generation from AI summarization and persistent snapshot workflows.
+
+### 2026-07-11 — TASK-0010 deterministic handoff implementation
+
+Observation:
+
+TASK-0010 adds a handoff surface after ForgePilot gained several focused detail pages and a dashboard.
+
+Concrete workflow detail:
+
+- The handoff summarizes current product state into a stable markdown-style block.
+- The MVP intentionally avoids AI generation and snapshot persistence.
+- The copy action is client-side only.
+
+Resolution for ForgePilot:
+
+Implement /handoff as a deterministic read-only continuation aid for new AI-assisted development chats.
+
+Potential Forge improvement:
+
+Builder prompts for handoff tasks should explicitly separate deterministic context packaging from AI summarization and persistent snapshot storage.
+
+### 2026-07-11 — TASK-0010 builder import corruption recovery
+
+Observation:
+
+TASK-0010 Builder generated the handoff files, but the import in app/handoff/page.tsx was corrupted.
+
+Concrete friction:
+
+- The import became `HandoffSummaryrom` instead of `HandoffSummary } from`.
+- ESLint failed with a parsing error.
+- Next build failed on the same malformed import.
+- The implementation was not committed before recovery.
+
+Resolution for ForgePilot:
+
+Rewrite app/handoff/page.tsx with the correct import, rerun verification, then continue Builder.
+
+Potential Forge improvement:
+
+Builder scripts should include a quick parser or import-sanity check immediately after generated file writes.
