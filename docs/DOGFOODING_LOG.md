@@ -938,3 +938,24 @@ Rewrite `app/releases/loading.tsx`, rerun verification, then continue Builder.
 Potential Forge improvement:
 
 Builder scripts should run a focused syntax check immediately after generating JSX files and before continuing to broader verification.
+
+### 2026-07-11 — TASK-0008 reviewer release-automation false positive
+
+Observation:
+
+TASK-0008 Reviewer initially blocked on the release automation check even though the implementation did not add release automation.
+
+Concrete friction:
+
+- The static check searched for broad words like deploy.
+- The UI contains explanatory copy saying the page does not publish releases, create tags, or deploy.
+- That text is product messaging, not an operational command.
+- The implementation contains no real release publishing, git tag, deployment, child process, or shell execution path.
+
+Resolution for ForgePilot:
+
+Recovered Reviewer with a narrower static check that searches for operational commands and execution APIs instead of plain explanatory words.
+
+Potential Forge improvement:
+
+Reviewer checks should distinguish forbidden behavior from user-facing copy that describes forbidden behavior as out of scope.
