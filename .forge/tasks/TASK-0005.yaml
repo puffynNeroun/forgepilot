@@ -1,0 +1,111 @@
+schema_version: 1
+id: TASK-0005
+title: Add task board MVP
+status: ready_for_pr
+workflow: .forge/workflows/feature.yaml
+
+goal: >
+  Add the first MVP task board screen for ForgePilot. The screen should show
+  Forge task lifecycle information in a simple, readable UI and establish the
+  product direction toward a real Forge workspace dashboard.
+
+in_scope:
+  - Add a /tasks page.
+  - Add a home page link to /tasks.
+  - Display a simple list or board of Forge tasks.
+  - Use the existing Prisma schema where practical.
+  - Prefer seeded/demo data when runtime DB is available.
+  - Provide a graceful missing-data/database-error state.
+  - Add a small server-side data access layer for tasks if useful.
+  - Add task status UI components if useful.
+  - Keep the route dynamic if it reads from Prisma at runtime.
+  - Keep pnpm verify green.
+  - Update README and architecture/MVP docs.
+  - Record dogfooding friction in docs/DOGFOODING_LOG.md.
+  - Produce Planner, Builder, Tester, and Reviewer artifacts.
+
+out_of_scope:
+  - Editing task status from the UI.
+  - Creating tasks from the UI.
+  - Deleting tasks from the UI.
+  - GitHub issue or PR import.
+  - AI task generation.
+  - Full dashboard composition.
+  - Decision log UI.
+  - Dogfooding log UI.
+  - Release timeline UI.
+  - Handoff generator.
+  - Multi-product management.
+  - Authentication.
+  - Teams.
+  - Billing.
+  - Production deployment.
+  - Release.
+  - Prisma schema changes unless absolutely necessary.
+  - Modifying completed TASK-0001, TASK-0002, TASK-0003, or TASK-0004 artifacts/contracts.
+
+allowed_files:
+  - .forge/tasks/TASK-0005.yaml
+  - .forge/artifacts/TASK-0005/
+  - docs/TASKS.md
+  - docs/DOGFOODING_LOG.md
+  - docs/ARCHITECTURE.md
+  - docs/MVP_SCOPE.md
+  - README.md
+  - package.json
+  - pnpm-lock.yaml
+  - app/page.tsx
+  - app/tasks/
+  - app/tasks/page.tsx
+  - app/tasks/loading.tsx
+  - app/tasks/error.tsx
+  - components/tasks/
+  - components/tasks/TaskBoard.tsx
+  - components/tasks/TaskCard.tsx
+  - components/tasks/TaskStatusBadge.tsx
+  - components/tasks/TaskBoardEmptyState.tsx
+  - lib/db/
+  - lib/db/tasks.ts
+  - lib/validators/
+  - lib/validators/tasks.ts
+
+protected_files:
+  - .forge/tasks/TASK-0001.yaml
+  - .forge/tasks/TASK-0002.yaml
+  - .forge/tasks/TASK-0003.yaml
+  - .forge/tasks/TASK-0004.yaml
+  - .forge/artifacts/TASK-0001/
+  - .forge/artifacts/TASK-0002/
+  - .forge/artifacts/TASK-0003/
+  - .forge/artifacts/TASK-0004/
+  - tools/forge-validator/
+  - scripts/operator/
+  - prisma/schema.prisma
+  - docker-compose.yml
+
+acceptance_criteria:
+  - id: AC-01
+    description: /tasks page exists and is reachable from the home page.
+  - id: AC-02
+    description: /tasks displays task board/list UI with task title, status, and useful metadata.
+  - id: AC-03
+    description: Task data is loaded through a narrow server-side data access layer.
+  - id: AC-04
+    description: If runtime DB/demo data is unavailable, /tasks shows a graceful empty/error state.
+  - id: AC-05
+    description: The implementation does not add lifecycle editing or unrelated dashboard features.
+  - id: AC-06
+    description: The route is dynamic if it depends on Prisma runtime reads.
+  - id: AC-07
+    description: README and docs describe the task board MVP and its boundaries.
+  - id: AC-08
+    description: docs/DOGFOODING_LOG.md records relevant workflow friction.
+  - id: AC-09
+    description: pnpm verify passes.
+  - id: AC-10
+    description: Planner, Builder, Tester, and Reviewer artifacts are created.
+  - id: AC-11
+    description: Completed task contracts/artifacts are not modified.
+
+required_checks:
+  - verify

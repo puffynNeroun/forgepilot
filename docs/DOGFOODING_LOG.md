@@ -598,3 +598,46 @@ Resolution for ForgePilot:
 Potential Forge improvement:
 
 Project Forge could provide a guided post-merge command that syncs main, waits for main CI, completes the task, opens the completion PR, and clearly stops before release.
+
+### 2026-07-10 — TASK-0005 contract schema recovery
+
+Observation:
+
+The first TASK-0005 definition attempt replaced the Forge-generated task contract with a hand-written YAML shape that did not match the repository contract schema.
+
+Concrete friction:
+
+- The generated scaffold was valid, but the replacement omitted `schema_version` and `workflow`.
+- Acceptance criteria used `text` instead of `description`.
+- `required_checks` used `pnpm verify` instead of the project command key `verify`.
+- Forge validation correctly blocked the definition before commit.
+
+Resolution for ForgePilot:
+
+- Recovered TASK-0005 using the existing valid workflow reference from TASK-0004.
+- Rewrote acceptance criteria with `description`.
+- Replaced the required check with `verify`.
+- Kept the branch local and did not push or create a PR.
+
+Potential Forge improvement:
+
+Project Forge task-definition recipes should preserve scaffold metadata and patch only task-specific fields instead of replacing the full contract shape blindly.
+
+### 2026-07-10 — TASK-0005 concrete task board data layer
+
+Observation:
+
+TASK-0005 needed a Prisma-backed read-only task board using the existing Product and ForgeTask models.
+
+Concrete implementation detail:
+
+- Product fields used: id, slug, name, summary.
+- ForgeTask fields used: id, externalId, title, status, summary, branchName, pullRequestUrl, order, createdAt, updatedAt.
+- `/tasks` is dynamic and reads runtime data through `lib/db/tasks.ts`.
+
+Resolution for ForgePilot:
+
+- Added a narrow task board data access layer.
+- Added read-only task board UI components.
+- Added graceful database, missing-product, and empty-task states.
+- Kept the feature out of lifecycle-editing scope.

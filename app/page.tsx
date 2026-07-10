@@ -1,16 +1,23 @@
 import Link from "next/link";
 
-const completedTasks = [
+const surfaces = [
+  {
+    href: "/spec",
+    title: "Product spec editor",
+    description: "Edit the demo ForgePilot product specification.",
+  },
+  {
+    href: "/tasks",
+    title: "Task board MVP",
+    description: "Review Forge task lifecycle state in a read-only board.",
+  },
+];
+
+const completed = [
   "TASK-0001 product foundation",
   "TASK-0002 Next.js app shell",
   "TASK-0003 Prisma/PostgreSQL persistence",
-];
-
-const upcomingTasks = [
-  "Task lifecycle board",
-  "Decision and dogfooding logs",
-  "Handoff prompt generator",
-  "Release timeline",
+  "TASK-0004 product spec editor",
 ];
 
 export default function HomePage() {
@@ -37,36 +44,42 @@ export default function HomePage() {
             >
               Open product spec editor
             </Link>
-            <a
+            <Link
               className="rounded-xl border border-white/10 px-5 py-3 font-semibold text-slate-200 transition hover:border-white/20"
-              href="https://github.com/puffynNeroun/forgepilot"
-              rel="noreferrer"
-              target="_blank"
+              href="/tasks"
             >
-              View repository
-            </a>
+              Open task board
+            </Link>
           </div>
         </section>
 
         <section className="grid gap-6 md:grid-cols-2">
           <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
-            <h2 className="text-xl font-semibold">Completed foundation</h2>
-            <ul className="mt-4 space-y-3 text-slate-300">
-              {completedTasks.map((task) => (
-                <li className="flex gap-3" key={task}>
-                  <span className="text-emerald-300">✓</span>
-                  <span>{task}</span>
-                </li>
+            <h2 className="text-xl font-semibold">Current product surfaces</h2>
+            <div className="mt-4 grid gap-3">
+              {surfaces.map((surface) => (
+                <Link
+                  className="rounded-xl border border-white/10 p-4 transition hover:border-sky-300/40 hover:bg-sky-300/5"
+                  href={surface.href}
+                  key={surface.href}
+                >
+                  <h3 className="font-semibold text-slate-100">
+                    {surface.title}
+                  </h3>
+                  <p className="mt-1 text-sm text-slate-400">
+                    {surface.description}
+                  </p>
+                </Link>
               ))}
-            </ul>
+            </div>
           </div>
 
           <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-6">
-            <h2 className="text-xl font-semibold">MVP still ahead</h2>
+            <h2 className="text-xl font-semibold">Completed foundation</h2>
             <ul className="mt-4 space-y-3 text-slate-300">
-              {upcomingTasks.map((task) => (
+              {completed.map((task) => (
                 <li className="flex gap-3" key={task}>
-                  <span className="text-sky-300">→</span>
+                  <span className="text-emerald-300">✓</span>
                   <span>{task}</span>
                 </li>
               ))}
