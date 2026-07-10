@@ -1,0 +1,64 @@
+schema_version: 1
+id: TASK-0011
+title: Fix local Postgres Docker config
+status: ready_for_pr
+workflow: .forge/workflows/feature.yaml
+goal: Fix ForgePilot local PostgreSQL Docker configuration so postgres:18 starts reliably and DB-backed development pages can run locally.
+in_scope:
+  - Update docker-compose.yml to use a postgres:18-compatible persistent volume mount.
+  - Verify docker compose config passes.
+  - Verify a fresh local Docker volume can start without the Postgres restart loop.
+  - Verify forgepilot_postgres reaches healthy status.
+  - Verify pnpm db:push succeeds against localhost:5434.
+  - Verify pnpm db:seed succeeds against localhost:5434.
+  - Verify pnpm verify passes.
+  - Document the issue and fix in docs/DOGFOODING_LOG.md.
+out_of_scope:
+  - Prisma schema changes.
+  - Dependency changes.
+  - Application UI changes.
+  - Production deployment changes.
+  - Release automation.
+  - Database migrations beyond local db push.
+acceptance_criteria:
+  - id: AC-01
+    description: docker-compose.yml uses a postgres:18-compatible persistent volume mount.
+  - id: AC-02
+    description: docker compose config passes.
+  - id: AC-03
+    description: A fresh local Docker volume can be created without the Postgres restart loop.
+  - id: AC-04
+    description: forgepilot_postgres reaches healthy status.
+  - id: AC-05
+    description: pnpm db:push succeeds against localhost:5434.
+  - id: AC-06
+    description: pnpm db:seed succeeds against localhost:5434.
+  - id: AC-07
+    description: pnpm verify passes.
+  - id: AC-08
+    description: docs/DOGFOODING_LOG.md documents the issue and fix.
+required_checks:
+  - verify
+allowed_files:
+  - .forge/tasks/TASK-0011.yaml
+  - .forge/artifacts/TASK-0011/plan-001.md
+  - .forge/artifacts/TASK-0011/build-report-001.md
+  - .forge/artifacts/TASK-0011/test-report-001.md
+  - .forge/artifacts/TASK-0011/review-report-001.md
+  - docs/TASKS.md
+  - docs/DOGFOODING_LOG.md
+  - docker-compose.yml
+protected_files:
+  - prisma/schema.prisma
+  - package.json
+  - pnpm-lock.yaml
+  - tools/forge-validator/package.json
+  - app/page.tsx
+  - app/handoff/page.tsx
+  - app/dashboard/page.tsx
+  - app/spec/page.tsx
+  - app/tasks/page.tsx
+  - app/dogfooding/page.tsx
+  - app/decisions/page.tsx
+  - app/releases/page.tsx
+  - lib/prisma.ts
