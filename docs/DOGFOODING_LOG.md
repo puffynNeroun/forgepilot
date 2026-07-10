@@ -574,3 +574,27 @@ Resolution for ForgePilot:
 Potential Forge improvement:
 
 Project Forge reviewer recipes for Next.js + Prisma tasks should include route-rendering checks when a task adds database-backed App Router pages.
+
+### 2026-07-10 — TASK-0004 completion follows implementation merge
+
+Observation:
+
+After the TASK-0004 implementation PR was merged, the task remained `ready_for_pr` on main and Forge recommended a separate completion PR.
+
+Concrete friction:
+
+- Implementation merge and lifecycle completion are separate operations.
+- This preserves auditability, but it adds one extra branch, PR, CI run, and merge.
+- Operators must sync main after the implementation merge before completing the task.
+
+Resolution for ForgePilot:
+
+- Synced main after PR #5.
+- Verified main locally.
+- Created a dedicated completion branch.
+- Used the official Forge completion command.
+- Prepared a completion PR without creating a release.
+
+Potential Forge improvement:
+
+Project Forge could provide a guided post-merge command that syncs main, waits for main CI, completes the task, opens the completion PR, and clearly stops before release.
