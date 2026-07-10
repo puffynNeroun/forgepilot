@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0009` — Add dashboard overview MVP (`approved`).
+- [ ] `TASK-0009` — Add dashboard overview MVP (`in_progress`).
 
 ## Next
 
-- [ ] Run Builder for `TASK-0009`.
+- [ ] Run Tester for `TASK-0009`.
 
 ## Later
 

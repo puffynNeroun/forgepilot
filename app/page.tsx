@@ -31,6 +31,12 @@ const productSurfaces = [
     description: "Review planned, in-progress, and shipped product releases for ForgePilot.",
     action: "Open release timeline",
   },
+  {
+    href: "/dashboard",
+    title: "Dashboard overview",
+    description: "Review product-level summary counts across spec, tasks, dogfooding, decisions, and releases.",
+    action: "Open dashboard",
+  },
 ];
 
 export default function Home() {

@@ -206,3 +206,19 @@ ForgePilot includes a read-only release timeline at:
 The page loads the demo product from PostgreSQL and renders existing ProductRelease records through lib/db/releases.ts.
 
 The route is intentionally read-only. It does not create releases, edit releases, delete releases, publish GitHub releases, create tags, deploy, or add release automation.
+
+## TASK-0009 dashboard overview MVP
+
+ForgePilot includes a read-only dashboard overview at:
+
+- http://localhost:3000/dashboard
+
+The dashboard loads the demo product from PostgreSQL and summarizes existing product surfaces:
+
+- product spec;
+- tasks;
+- dogfooding entries;
+- decisions;
+- releases.
+
+The dashboard is intentionally read-only. It does not create, edit, delete, import, automate releases, generate handoffs, deploy, or replace the existing detail pages.

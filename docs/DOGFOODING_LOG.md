@@ -1001,3 +1001,42 @@ Plan /dashboard as a read-only overview layer with narrow summary counts and nav
 Potential Forge improvement:
 
 Planner prompts should explicitly warn when a composition task risks becoming a broad rewrite or dashboard god-page.
+
+### 2026-07-11 — TASK-0009 dashboard composition implementation
+
+Observation:
+
+TASK-0009 implements the first composition surface after the spec, task, dogfooding, decision, and release pages.
+
+Concrete workflow detail:
+
+- The dashboard summarizes existing surfaces instead of replacing them.
+- The data layer reads existing Prisma models through narrow read-only queries.
+- The UI links users back into detail surfaces for deeper work.
+ForgePilot:
+
+Use /dashboard as the product-level overview while preserving focused detail pages.
+
+Potential Forge improvement:
+
+Builder prompts for composition tasks should enforce summary-and-link behavior instead of duplicating every detail page.
+
+### 2026-07-11 — TASK-0009 builder cssName recovery
+
+Observation:
+
+TASK-0009 Builder generated the dashboard files, but one JSX prop was written as `cssName` instead of `className`.
+
+Concrete friction:
+
+- TypeScript blocked on `components/dashboard/DashboardOverview.tsx`.
+- Next build failed on the same prop typo.
+- The implementation was not committed before recovery.
+
+Resolution for ForgePilot:
+
+Replace `cssName` with `className`, rerun verification, then continue Builder.
+
+Potential Forge improvement:
+
+Builder scripts should include a targeted grep/check for common JSX prop typos before running the full verification suite.
