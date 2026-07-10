@@ -1,7 +1,7 @@
 schema_version: 1
 id: TASK-0008
 title: Add release timeline MVP
-status: ready_for_pr
+status: completed
 workflow: .forge/workflows/feature.yaml
 goal: Add a read-only release timeline MVP page that surfaces ForgePilot product releases from the existing ProductRelease model.
 in_scope:
