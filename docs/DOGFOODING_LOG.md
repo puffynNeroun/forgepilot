@@ -375,3 +375,25 @@ Project Forge database/bootstrap recipes should capture stderr for optional serv
 Docker Compose recovery classification for this run:
 
 - Result: valid
+
+### 2026-07-09 — Prisma package.json seed config is deprecated
+
+Observation:
+
+TASK-0003 verification passes, but Prisma prints a warning that `package.json#prisma` is deprecated and will be removed in Prisma 7.
+
+Concrete friction:
+
+- `pnpm db:validate` passes.
+- `pnpm db:generate` passes.
+- `pnpm verify` passes.
+- The current seed configuration still creates forward-compatibility noise.
+
+Resolution for ForgePilot:
+
+- Kept the current Prisma 6-compatible seed setup in TASK-0003 because it is non-blocking and verification is green.
+- Recorded the warning as technical debt before moving to Tester.
+
+Potential Forge improvement:
+
+Project Forge Prisma bootstrap recipes should prefer the current Prisma config-file pattern instead of `package.json#prisma`, or explicitly pin the recipe to Prisma 6 behavior.
