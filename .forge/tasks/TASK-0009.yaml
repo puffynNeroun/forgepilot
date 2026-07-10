@@ -1,7 +1,7 @@
 schema_version: 1
 id: TASK-0009
 title: Add dashboard overview MVP
-status: ready_for_pr
+status: completed
 workflow: .forge/workflows/feature.yaml
 goal: Add a read-only dashboard overview MVP that summarizes the existing ForgePilot product surfaces without adding new business workflows.
 in_scope:
