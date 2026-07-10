@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0010` — Add handoff summary MVP (`ready_for_pr`).
+- [ ] No active task.
 
 ## Next
 
-- [ ] Prepare PR for `TASK-0010`.
+- [ ] Define the next task.
 
 ## Later
 
@@ -14,6 +14,7 @@
 
 ## Completed
 
+- [x] `TASK-0010` — Add handoff summary MVP (`completed`, 2026-07-11).
 - [x] `TASK-0009` — Add dashboard overview MVP (`completed`, 2026-07-11).
 - [x] `TASK-0008` — Add release timeline MVP (`completed`, 2026-07-11).
 - [x] `TASK-0007` — Add decision log MVP (`completed`, 2026-07-11).
