@@ -1,7 +1,7 @@
 schema_version: 1
 id: TASK-0007
 title: Add decision log MVP
-status: in_progress
+status: ready_for_pr
 workflow: .forge/workflows/feature.yaml
 goal: Add a read-only decision log MVP page that surfaces ForgePilot product and architecture decisions from the existing Decision model.
 in_scope:

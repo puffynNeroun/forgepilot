@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0007` — Add decision log MVP (`in_progress`).
+- [ ] `TASK-0007` — Add decision log MVP (`ready_for_pr`).
 
 ## Next
 
-- [ ] Run Reviewer for `TASK-0007`.
+- [ ] Prepare PR for `TASK-0007`.
 
 ## Later
 
