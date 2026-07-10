@@ -1040,3 +1040,23 @@ Replace `cssName` with `className`, rerun verification, then continue Builder.
 Potential Forge improvement:
 
 Builder scripts should include a targeted grep/check for common JSX prop typos before running the full verification suite.
+
+### 2026-07-11 — TASK-0009 tester surface-summary false positive
+
+Observation:
+
+TASK-0009 Tester initially blocked on the dashboard surface summary check.
+
+Concrete friction:
+
+- The check looked for lowercase surface names directly in DashboardOverview.tsx.
+- The implementation correctly defines surface data in lib/db/dashboard.ts and renders it through data.surfaces.map.
+- DashboardOverview.tsx is a composition component, not the source of truth for every surface label.
+
+Resolution for ForgePilot:
+
+Recovered Tester with a more precise static check that validates the data layer, surface hrefs, summary totals, and rendered card composition together.
+
+Potential Forge improvement:
+
+Tester checks for composition tasks should validate data flow across files instead of searching for literal copy in a single component.
