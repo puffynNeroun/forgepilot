@@ -145,3 +145,18 @@ For the full local demo, start and seed the database first:
     pnpm dev
 
 The `/spec` page is dynamic and uses the Prisma persistence foundation from TASK-0003. Normal verification still does not require a running PostgreSQL service.
+
+## Task board MVP
+
+ForgePilot includes a read-only task board at:
+
+    http://localhost:3000/tasks
+
+For the full local demo, start and seed the database first:
+
+    docker compose up -d postgres
+    pnpm db:push
+    pnpm db:seed
+    pnpm dev
+
+The `/tasks` page is dynamic and reads task lifecycle data through the Prisma persistence foundation. Normal verification still does not require a running PostgreSQL service.

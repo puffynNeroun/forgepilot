@@ -277,3 +277,9 @@ It does not add product dashboard UI, product spec editor UI, task board UI, dec
 TASK-0004 adds only the product spec editor.
 
 It does not add the full dashboard, task board, decision log UI, dogfooding log UI, release timeline, handoff prompt generator, authentication, billing, teams, or AI generation.
+
+## TASK-0005 task board MVP boundary
+
+TASK-0005 adds only a read-only task board.
+
+It does not add task creation, task status editing, task deletion, GitHub import, AI generation, decision log UI, dogfooding log UI, release timeline, handoff generator, authentication, teams, billing, or production deployment.

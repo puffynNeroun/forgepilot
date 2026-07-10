@@ -622,3 +622,22 @@ Resolution for ForgePilot:
 Potential Forge improvement:
 
 Project Forge task-definition recipes should preserve scaffold metadata and patch only task-specific fields instead of replacing the full contract shape blindly.
+
+### 2026-07-10 — TASK-0005 concrete task board data layer
+
+Observation:
+
+TASK-0005 needed a Prisma-backed read-only task board using the existing Product and ForgeTask models.
+
+Concrete implementation detail:
+
+- Product fields used: id, slug, name, summary.
+- ForgeTask fields used: id, externalId, title, status, summary, branchName, pullRequestUrl, order, createdAt, updatedAt.
+- `/tasks` is dynamic and reads runtime data through `lib/db/tasks.ts`.
+
+Resolution for ForgePilot:
+
+- Added a narrow task board data access layer.
+- Added read-only task board UI components.
+- Added graceful database, missing-product, and empty-task states.
+- Kept the feature out of lifecycle-editing scope.

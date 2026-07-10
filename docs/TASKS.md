@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0005` — Add task board MVP (`approved`).
+- [ ] `TASK-0005` — Add task board MVP (`in_progress`).
 
 ## Next
 
-- [ ] Run Builder for `TASK-0005`.
+- [ ] Run Tester for `TASK-0005`.
 
 ## Later
 

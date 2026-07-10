@@ -448,3 +448,15 @@ Implementation shape:
 - `lib/validators/product-spec.ts` owns Zod validation.
 
 The route is marked dynamic so the default build does not require a running local database.
+
+## TASK-0005 task board MVP
+
+TASK-0005 adds the second focused product surface: a read-only task board at `/tasks`.
+
+Implementation shape:
+
+- `app/tasks/page.tsx` renders the dynamic task board route.
+- `lib/db/tasks.ts` owns task-board data access through Prisma.
+- `components/tasks/*` contains the read-only board and status badge UI.
+- The route is marked dynamic because it reads runtime task data.
+- The feature intentionally does not edit lifecycle status from the UI.
