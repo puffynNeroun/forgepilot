@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0005` — Add task board MVP (`proposed`).
+- [ ] `TASK-0005` — Add task board MVP (`approved`).
 
 ## Next
 
-- [ ] Run Planner for `TASK-0005`.
+- [ ] Run Builder for `TASK-0005`.
 
 ## Later
 
