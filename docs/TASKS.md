@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] No active task.
+- [ ] `TASK-0009` — Add dashboard overview MVP (`proposed`).
 
 ## Next
 
-- [ ] Define the next task.
+- [ ] Run Planner for `TASK-0009`.
 
 ## Later
 

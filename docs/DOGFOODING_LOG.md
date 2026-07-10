@@ -959,3 +959,25 @@ Recovered Reviewer with a narrower static check that searches for operational co
 Potential Forge improvement:
 
 Reviewer checks should distinguish forbidden behavior from user-facing copy that describes forbidden behavior as out of scope.
+
+### 2026-07-11 — TASK-0009 definition after product surfaces
+
+Observation:
+
+After TASK-0008, ForgePilot has several focused read-only product surfaces: spec, tasks, dogfooding, decisions, and releases.
+
+Concrete workflow detail:
+
+- TASK-0008 completed cleanly.
+- Main CI was green.
+- Local `pnpm verify` passed.
+- Forge returned to a no-active-task state.
+- The next product step is a dashboard overview, not another isolated surface.
+
+Resolution for ForgePilot:
+
+Define TASK-0009 as a read-only dashboard overview that aggregates existing surfaces without adding new business workflows.
+
+Potential Forge improvement:
+
+Forge could recommend a composition milestone after several related product surfaces have been completed.
