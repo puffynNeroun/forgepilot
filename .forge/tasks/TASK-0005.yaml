@@ -1,7 +1,7 @@
 schema_version: 1
 id: TASK-0005
 title: Add task board MVP
-status: ready_for_pr
+status: completed
 workflow: .forge/workflows/feature.yaml
 
 goal: >
