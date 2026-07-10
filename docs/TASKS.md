@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0005` — Add task board MVP (`in_progress`).
+- [ ] `TASK-0005` — Add task board MVP (`ready_for_pr`).
 
 ## Next
 
-- [ ] Run Reviewer for `TASK-0005`.
+- [ ] Prepare PR for `TASK-0005`.
 
 ## Later
 
