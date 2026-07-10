@@ -507,3 +507,26 @@ Resolution for ForgePilot:
 Potential Forge improvement:
 
 Project Forge Builder prompts for Next.js server components should explicitly avoid constructing JSX inside `try/catch`; use result objects plus separate render branches instead.
+
+### 2026-07-10 — TASK-0004 zod dependency exact-pin recovery
+
+Observation:
+
+TASK-0004 Reviewer blocked because the `zod` dependency was not pinned exactly in `package.json`.
+
+Concrete friction:
+
+- The feature implementation passed lint, typecheck, build, and full verification.
+- Reviewer dependency hygiene still failed because ForgePilot expects exact dependency versions.
+- This keeps dependency drift visible before the implementation PR.
+
+Resolution for ForgePilot:
+
+- Read the installed `zod` version from `node_modules`.
+- Rewrote `package.json` to pin `zod` exactly.
+- Regenerated the lockfile with `pnpm install`.
+- Re-ran frozen install and verification.
+
+Potential Forge improvement:
+
+Project Forge builder recipes should avoid `package@major` when the repository policy requires exact pins; they should resolve and write exact package versions immediately.
