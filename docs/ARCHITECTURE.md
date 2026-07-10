@@ -460,3 +460,15 @@ Implementation shape:
 - `components/tasks/*` contains the read-only board and status badge UI.
 - The route is marked dynamic because it reads runtime task data.
 - The feature intentionally does not edit lifecycle status from the UI.
+
+## TASK-0006 dogfooding log MVP
+
+TASK-0006 adds the third focused product surface: a read-only dogfooding log at `/dogfooding`.
+
+Implementation shape:
+
+- `app/dogfooding/page.tsx` renders the dynamic dogfooding route.
+- `lib/db/dogfooding.ts` owns dogfooding data access through Prisma.
+- `components/dogfooding/*` contains the read-only log and severity badge UI.
+- The route is marked dynamic because it reads runtime dogfooding data.
+- The feature intentionally does not create, edit, or delete dogfooding entries from the UI.

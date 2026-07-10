@@ -160,3 +160,18 @@ For the full local demo, start and seed the database first:
     pnpm dev
 
 The `/tasks` page is dynamic and reads task lifecycle data through the Prisma persistence foundation. Normal verification still does not require a running PostgreSQL service.
+
+## Dogfooding log MVP
+
+ForgePilot includes a read-only dogfooding log at:
+
+    http://localhost:3000/dogfooding
+
+For the full local demo, start and seed the database first:
+
+    docker compose up -d postgres
+    pnpm db:push
+    pnpm db:seed
+    pnpm dev
+
+The `/dogfooding` page is dynamic and reads dogfooding entries through the Prisma persistence foundation. Normal verification still does not require a running PostgreSQL service.

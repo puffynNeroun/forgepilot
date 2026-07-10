@@ -283,3 +283,9 @@ It does not add the full dashboard, task board, decision log UI, dogfooding log 
 TASK-0005 adds only a read-only task board.
 
 It does not add task creation, task status editing, task deletion, GitHub import, AI generation, decision log UI, dogfooding log UI, release timeline, handoff generator, authentication, teams, billing, or production deployment.
+
+## TASK-0006 dogfooding log MVP boundary
+
+TASK-0006 adds only a read-only dogfooding log.
+
+It does not add dogfooding entry creation, editing, deletion, AI summarization, GitHub import, full dashboard composition, release timeline, handoff generator, authentication, teams, billing, production deployment, or release.
