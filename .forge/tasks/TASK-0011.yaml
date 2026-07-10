@@ -1,7 +1,7 @@
 schema_version: 1
 id: TASK-0011
 title: Fix local Postgres Docker config
-status: in_progress
+status: ready_for_pr
 workflow: .forge/workflows/feature.yaml
 goal: Fix ForgePilot local PostgreSQL Docker configuration so postgres:18 starts reliably and DB-backed development pages can run locally.
 in_scope:

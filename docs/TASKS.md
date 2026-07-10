@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0011` — Fix local Postgres Docker config (`in_progress`).
+- [ ] `TASK-0011` — Fix local Postgres Docker config (`ready_for_pr`).
 
 ## Next
 
-- [ ] Run Reviewer for `TASK-0011`.
+- [ ] Prepare PR for `TASK-0011`.
 
 ## Later
 
