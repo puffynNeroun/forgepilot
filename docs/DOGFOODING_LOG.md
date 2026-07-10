@@ -981,3 +981,23 @@ Define TASK-0009 as a read-only dashboard overview that aggregates existing surf
 Potential Forge improvement:
 
 Forge could recommend a composition milestone after several related product surfaces have been completed.
+
+### 2026-07-11 — TASK-0009 planner composition boundary
+
+Observation:
+
+TASK-0009 is a composition task after several focused product surfaces were completed.
+
+Concrete workflow detail:
+
+- ForgePilot already has spec, tasks, dogfooding, decisions, and releases surfaces.
+- The dashboard should summarize and link to those surfaces.
+- It should not replace detail pages or introduce new write workflows.
+
+Resolution for ForgePilot:
+
+Plan /dashboard as a read-only overview layer with narrow summary counts and navigation.
+
+Potential Forge improvement:
+
+Planner prompts should explicitly warn when a composition task risks becoming a broad rewrite or dashboard god-page.

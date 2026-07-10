@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0009` — Add dashboard overview MVP (`proposed`).
+- [ ] `TASK-0009` — Add dashboard overview MVP (`approved`).
 
 ## Next
 
-- [ ] Run Planner for `TASK-0009`.
+- [ ] Run Builder for `TASK-0009`.
 
 ## Later
 
