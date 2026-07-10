@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] No active task.
+- [ ] `TASK-0008` — Add release timeline MVP (`proposed`).
 
 ## Next
 
-- [ ] Define the next task.
+- [ ] Run Planner for `TASK-0008`.
 
 ## Later
 

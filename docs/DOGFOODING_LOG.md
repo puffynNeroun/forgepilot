@@ -856,3 +856,24 @@ Recovered Tester with a check that verifies the home surface configuration inste
 Potential Forge improvement:
 
 Tester prompts should avoid brittle JSX string matching when the application uses configuration-driven rendering.
+
+### 2026-07-11 — TASK-0008 definition after TASK-0007 completion
+
+Observation:
+
+After TASK-0007 completed, Forge returned to a clean no-active-task state on main.
+
+Concrete workflow detail:
+
+- TASK-0007 implementation and completion PRs were merged.
+- Main CI was green.
+- Local `pnpm verify` passed.
+- Forge Next recommended defining the next task.
+
+Resolution for ForgePilot:
+
+TASK-0008 is defined as the next focused product surface: a read-only release timeline MVP.
+
+Potential Forge improvement:
+
+ForgePilot should keep adding narrow read-only product surfaces before composing them into a full dashboard.
