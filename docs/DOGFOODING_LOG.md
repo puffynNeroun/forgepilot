@@ -1141,3 +1141,43 @@ Rewrite app/handoff/page.tsx with the correct import, rerun verification, then c
 Potential Forge improvement:
 
 Builder scripts should include a quick parser or import-sanity check immediately after generated file writes.
+
+### 2026-07-11 — TASK-0010 tester updatedAt false positive
+
+Observation:
+
+TASK-0010 Tester initially blocked on a read-only check.
+
+Concrete friction:
+
+- The check searched for `.update` as a raw substring.
+- The handoff data layer contains legitimate `updatedAt` field reads.
+- The check falsely treated `updatedAt` as a Prisma write operation.
+
+Resolution for ForgePilot:
+
+Replace substring matching with method-call matching for write operations such as `.update(`, `.create(`, `.delete(`, and `.upsert(`.
+
+Potential Forge improvement:
+
+Tester prompts should avoid broad grep patterns for write-safety checks and prefer parser-like or method-call-specific checks.
+
+### 2026-07-11 — TASK-0010 tester report metadata recovery
+
+Observation:
+
+TASK-0010 Tester verification passed, but the test report artifact was manually rewritten with invalid Forge metadata.
+
+Concrete friction:
+
+- Forge validator rejected the report because required metadata keys were missing.
+- Required keys included attempt, input_artifacts, outcome, and producing_role.
+- The helper script also suffered copy/paste corruption and produced a `btrip` NameError.
+
+Resolution for ForgePilot:
+
+Recreate the test report through Forge artifact scaffolding, preserve the generated frontmatter, and replace only the body.
+
+Potential Forge improvement:
+
+Artifact report recovery should provide a first-class command to rewrite artifact body while preserving valid metadata.
