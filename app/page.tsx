@@ -25,6 +25,12 @@ const productSurfaces = [
     description: "Review product and architecture decisions captured for ForgePilot.",
     action: "Open decision log",
   },
+  {
+    href: "/releases",
+    title: "Release timeline",
+    description: "Review planned, in-progress, and shipped product releases for ForgePilot.",
+    action: "Open release timeline",
+  },
 ];
 
 export default function Home() {

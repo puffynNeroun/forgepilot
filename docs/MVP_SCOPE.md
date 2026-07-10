@@ -312,3 +312,28 @@ Excluded:
 - Handoff generator.
 - Auth, teams, billing, deployment, and release work.
 - Prisma schema and dependency changes.
+
+## TASK-0008 release timeline MVP boundary
+
+Included:
+
+- Read-only /releases route.
+- Prisma-backed release data loading.
+- Release timeline/cards with name/version/title, status, notes/summary, date fields, and timestamps where fields exist.
+- Home page navigation.
+- Documentation updates.
+
+Excluded:
+
+- Release creation UI.
+- Release editing UI.
+- Release deletion UI.
+- GitHub release publishing.
+- Git tags.
+- Deployment.
+- AI summarization.
+- GitHub import.
+- Dashboard composition.
+- Handoff generator.
+- Auth, teams, billing, and release automation.
+- Prisma schema and dependency changes.

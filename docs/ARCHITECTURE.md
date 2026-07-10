@@ -491,3 +491,22 @@ Runtime behavior:
 - Database errors are caught and rendered as UI state.
 - Missing demo product and empty decision list states are explicit.
 - No Prisma schema or dependency changes are introduced.
+
+## TASK-0008 release timeline MVP
+
+TASK-0008 adds a focused read-only release timeline surface.
+
+Components:
+
+- app/releases/page.tsx — dynamic server route for release timeline rendering.
+- app/releases/loading.tsx — loading shell.
+- lib/db/releases.ts — narrow Prisma data access for demo product releases.
+- components/releases/ReleaseTimeline.tsx — read-only release timeline UI.
+- components/releases/ReleaseStatusBadge.tsx — normalized release status display.
+
+Runtime behavior:
+
+- The route uses force-dynamic and Node.js runtime because it reads through Prisma.
+- Database errors are caught and rendered as UI state.
+- Missing demo product and empty release list states are explicit.
+- No Prisma schema, dependency, tag, GitHub release, deployment, or release automation changes are introduced.

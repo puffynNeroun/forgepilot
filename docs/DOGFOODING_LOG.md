@@ -897,3 +897,44 @@ Restore `next-env.d.ts`, rerun verification, then continue Planner.
 Potential Forge improvement:
 
 Operator blocks should automatically restore known generated files like `next-env.d.ts` after Next build/verify when they are out of task scope.
+
+### 2026-07-11 — TASK-0008 schema-driven release timeline
+
+Observation:
+
+TASK-0008 Builder inspected the actual Prisma ProductRelease model before generating the data access layer and UI.
+
+Concrete workflow detail:
+
+- The route was generated as a dynamic Node.js route.
+- The data layer maps available ProductRelease fields into a stable UI shape.
+- The implementation keeps /releases read-only and avoids schema, dependency, tag, GitHub release, deployment, and release automation changes.
+
+Resolution for ForgePilot:
+
+Use a schema-driven adapter for release visibility while keeping operational release actions out of scope.
+
+Potential Forge improvement:
+
+Builder prompts should clearly separate release visibility surfaces from release automation because the latter mutates repository or deployment state.
+
+### 2026-07-11 — TASK-0008 builder JSX loading recovery
+
+Observation:
+
+TASK-0008 Builder generated the release timeline files, but `app/releases/loading.tsx` contained invalid JSX.
+
+Concrete friction:
+
+- The generated loading component missed a closing `>` after the wrapper div className.
+- ESLint blocked with a parsing error.
+- Next build also failed on the same JSX syntax issue.
+- The implementation was not committed before recovery.
+
+Resolution for ForgePilot:
+
+Rewrite `app/releases/loading.tsx`, rerun verification, then continue Builder.
+
+Potential Forge improvement:
+
+Builder scripts should run a focused syntax check immediately after generating JSX files and before continuing to broader verification.

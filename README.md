@@ -196,3 +196,13 @@ Local demo setup:
     pnpm dev
 
 The route intentionally stays read-only. It does not add decision create, edit, delete, AI summarization, GitHub import, or dashboard composition.
+
+## TASK-0008 release timeline MVP
+
+ForgePilot includes a read-only release timeline at:
+
+- http://localhost:3000/releases
+
+The page loads the demo product from PostgreSQL and renders existing ProductRelease records through lib/db/releases.ts.
+
+The route is intentionally read-only. It does not create releases, edit releases, delete releases, publish GitHub releases, create tags, deploy, or add release automation.
