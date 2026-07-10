@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0008` — Add release timeline MVP (`proposed`).
+- [ ] `TASK-0008` — Add release timeline MVP (`approved`).
 
 ## Next
 
-- [ ] Run Planner for `TASK-0008`.
+- [ ] Run Builder for `TASK-0008`.
 
 ## Later
 

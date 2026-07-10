@@ -877,3 +877,23 @@ TASK-0008 is defined as the next focused product surface: a read-only release ti
 Potential Forge improvement:
 
 ForgePilot should keep adding narrow read-only product surfaces before composing them into a full dashboard.
+
+### 2026-07-11 — TASK-0008 planner next-env generated-file recovery
+
+Observation:
+
+TASK-0008 Planner was initially blocked because `next-env.d.ts` became dirty before the Planner stage.
+
+Concrete friction:
+
+- Next tooling changed generated `next-env.d.ts`.
+- The Planner pre-check correctly blocked on a dirty working tree.
+- The file was not part of TASK-0008 scope and should not be committed.
+
+Resolution for ForgePilot:
+
+Restore `next-env.d.ts`, rerun verification, then continue Planner.
+
+Potential Forge improvement:
+
+Operator blocks should automatically restore known generated files like `next-env.d.ts` after Next build/verify when they are out of task scope.
