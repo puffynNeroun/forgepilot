@@ -1204,3 +1204,12 @@ Recover by preserving the already-created review report, rerunning the Reviewer 
 Potential Forge improvement:
 
 Long shell blocks should minimize command-adjacent text and maybe print critical commands before execution to make paste corruption easier to spot.
+
+## TASK-0011 — Local Postgres Docker config failure
+
+- Observation: After TASK-0010, DB-backed local pages loaded through Next.js but failed when Prisma attempted to query the local database.
+- Friction: The `postgres:18` container entered a restart loop because `docker-compose.yml` mounted the persistent volume at `/var/lib/postgresql/data`.
+- Root cause: PostgreSQL 18 Docker images use a major-version-specific directory layout and reject the old data mount target.
+- Fix: Change the local persistent volume target to `/var/lib/postgresql`.
+- Verification: A fresh local volume reaches healthy status, `pnpm db:push` succeeds, `pnpm db:seed` succeeds, and `pnpm verify` passes.
+- Forge improvement: Future DB-backed templates should either avoid bleeding-edge Postgres major images or encode image-specific volume mount requirements in generated Docker Compose contracts.
