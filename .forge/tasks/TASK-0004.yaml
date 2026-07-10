@@ -1,0 +1,119 @@
+schema_version: 1
+
+id: TASK-0004
+title: "Implement product spec editor"
+status: proposed
+workflow: .forge/workflows/feature.yaml
+
+goal: "Implement the first ForgePilot product spec editor feature using the existing Next.js app shell and Prisma persistence foundation, while keeping the scope focused on editing and saving a product specification."
+
+in_scope:
+  - Add a product spec editor route/page to the existing Next.js app.
+  - Load the active/demo ForgePilot product spec from the database where practical.
+  - Provide a simple editable form for product spec title/content.
+  - Save product spec updates through a server-side action or route handler.
+  - Add minimal validation for spec title/content.
+  - Add a graceful empty/loading/error state.
+  - Keep the implementation suitable for local demo usage.
+  - Add a small data access layer for product spec reads/writes if useful.
+  - Update navigation/homepage links so the spec editor is reachable.
+  - Update README or docs with how to run the editor locally.
+  - Keep pnpm verify green.
+  - Record any Forge/Next/Prisma friction in docs/DOGFOODING_LOG.md.
+
+out_of_scope:
+  - Full dashboard implementation.
+  - Task lifecycle board UI.
+  - Decision log UI.
+  - Dogfooding log UI.
+  - Release timeline UI.
+  - Handoff prompt generator UI.
+  - Multi-product management UI.
+  - Authentication.
+  - Teams, billing, OAuth, or SaaS account management.
+  - Rich collaborative editing.
+  - AI generation of specs.
+  - GitHub import automation.
+  - Production deployment.
+  - Database migrations beyond what is necessary for the existing schema.
+  - Creating a release.
+  - Modifying completed TASK-0001, TASK-0002, or TASK-0003 artifacts.
+  - Rewriting previous Git history.
+
+allowed_files:
+  - .forge/tasks/TASK-0004.yaml
+  - docs/TASKS.md
+  - docs/DOGFOODING_LOG.md
+  - docs/ARCHITECTURE.md
+  - docs/MVP_SCOPE.md
+  - README.md
+  - package.json
+  - pnpm-lock.yaml
+  - app/page.tsx
+  - app/layout.tsx
+  - app/globals.css
+  - app/spec/
+  - app/spec/page.tsx
+  - app/spec/actions.ts
+  - app/api/spec/
+  - app/api/spec/route.ts
+  - components/layout/AppShell.tsx
+  - components/ui/
+  - components/spec/
+  - components/spec/ProductSpecEditor.tsx
+  - components/spec/ProductSpecStatus.tsx
+  - lib/prisma.ts
+  - lib/env.ts
+  - lib/db/
+  - lib/db/product-specs.ts
+  - lib/validators/
+  - lib/validators/product-spec.ts
+  - .forge/artifacts/TASK-0004/plan-001.md
+  - .forge/artifacts/TASK-0004/build-report-001.md
+  - .forge/artifacts/TASK-0004/test-report-001.md
+  - .forge/artifacts/TASK-0004/review-report-001.md
+
+protected_files:
+  - .forge/workflows/feature.yaml
+  - .forge/roles/planner.md
+  - .forge/roles/builder.md
+  - .forge/roles/tester.md
+  - .forge/roles/reviewer.md
+  - .forge/tasks/TASK-0001.yaml
+  - .forge/tasks/TASK-0002.yaml
+  - .forge/tasks/TASK-0003.yaml
+  - .forge/artifacts/TASK-0001/
+  - .forge/artifacts/TASK-0002/
+  - .forge/artifacts/TASK-0003/
+  - tools/forge-validator/
+  - scripts/operator/
+  - prisma/schema.prisma
+  - docker-compose.yml
+  - completed task contracts and artifacts
+
+acceptance_criteria:
+  - id: AC-01
+    description: A product spec editor page exists and is reachable from the app.
+  - id: AC-02
+    description: The editor can display the current/demo ForgePilot product spec.
+  - id: AC-03
+    description: The editor supports editing and saving spec title/content.
+  - id: AC-04
+    description: Server-side persistence uses the existing Prisma foundation safely.
+  - id: AC-05
+    description: Validation prevents empty or invalid spec title/content.
+  - id: AC-06
+    description: The page has basic loading/empty/error states or equivalent graceful handling.
+  - id: AC-07
+    description: The implementation does not add auth, teams, billing, AI generation, dashboard, task board, decision log, release timeline, or handoff generator features.
+  - id: AC-08
+    description: pnpm verify passes.
+  - id: AC-09
+    description: Relevant documentation is updated.
+  - id: AC-10
+    description: Any Forge/Next/Prisma friction is recorded in docs/DOGFOODING_LOG.md.
+  - id: AC-11
+    description: Planner, Builder, Tester, and Reviewer artifacts are created and linked correctly.
+
+required_checks:
+  - verify
