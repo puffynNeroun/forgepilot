@@ -774,3 +774,24 @@ TASK-0007 is defined as the next focused product surface: a read-only decision l
 Potential Forge improvement:
 
 ForgePilot should continue adding focused product surfaces one at a time before composing them into a larger dashboard.
+
+### 2026-07-10 — TASK-0007 planner state is consistent
+
+Observation:
+
+After TASK-0007 was defined, Forge status and Forge Next were aligned.
+
+Concrete workflow detail:
+
+- Active task existed: TASK-0007.
+- Task status was `proposed`.
+- Task board `Next` showed `Run Planner for TASK-0007`.
+- Forge Next showed `Plan TASK-0007`.
+
+Resolution for ForgePilot:
+
+Continue through Planner without manual `docs/TASKS.md` recovery.
+
+Potential Forge improvement:
+
+The TASK-0007 flow confirms the corrected/manual task-board state shape needed after task definition.

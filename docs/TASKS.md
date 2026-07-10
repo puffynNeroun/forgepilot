@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0007` — Add decision log MVP (`proposed`).
+- [ ] `TASK-0007` — Add decision log MVP (`approved`).
 
 ## Next
 
-- [ ] Run Planner for `TASK-0007`.
+- [ ] Run Builder for `TASK-0007`.
 
 ## Later
 
