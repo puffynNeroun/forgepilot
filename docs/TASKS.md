@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0004` — Implement product spec editor (`ready_for_pr`).
+- [ ] No active task.
 
 ## Next
 
-- [ ] Prepare PR for `TASK-0004`.
+- [ ] Define the next task.
 
 ## Later
 
@@ -14,6 +14,7 @@
 
 ## Completed
 
+- [x] `TASK-0004` — Implement product spec editor (`completed`, 2026-07-10).
 - [x] `TASK-0003` — Add database schema for products, tasks, decisions, and releases (`completed`, 2026-07-10).
 - [x] `TASK-0002` — Bootstrap Next.js app with CI and base layout (`completed`, 2026-07-09).
 - [x] `TASK-0001` — Define ForgePilot product spec and architecture (`completed`, 2026-07-09).
