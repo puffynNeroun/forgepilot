@@ -753,3 +753,24 @@ Resolution for ForgePilot:
 Potential Forge improvement:
 
 Forge reviewer prompts should avoid broad substring checks for forbidden capabilities. They should check concrete code constructs and mutation APIs instead.
+
+### 2026-07-10 — TASK-0007 definition follows completed TASK-0006
+
+Observation:
+
+After TASK-0006 completed, Forge Next returned to defining the next task and the repository was clean on main.
+
+Concrete workflow detail:
+
+- TASK-0006 implementation and completion PRs were merged.
+- Main CI was green.
+- Local `pnpm verify` passed.
+- Forge status showed no active task.
+
+Resolution for ForgePilot:
+
+TASK-0007 is defined as the next focused product surface: a read-only decision log MVP.
+
+Potential Forge improvement:
+
+ForgePilot should continue adding focused product surfaces one at a time before composing them into a larger dashboard.
