@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0008` — Add release timeline MVP (`ready_for_pr`).
+- [ ] No active task.
 
 ## Next
 
-- [ ] Prepare PR for `TASK-0008`.
+- [ ] Define the next task.
 
 ## Later
 
@@ -14,6 +14,7 @@
 
 ## Completed
 
+- [x] `TASK-0008` — Add release timeline MVP (`completed`, 2026-07-11).
 - [x] `TASK-0007` — Add decision log MVP (`completed`, 2026-07-11).
 - [x] `TASK-0006` — Add dogfooding log MVP (`completed`, 2026-07-10).
 - [x] `TASK-0005` — Add task board MVP (`completed`, 2026-07-10).
