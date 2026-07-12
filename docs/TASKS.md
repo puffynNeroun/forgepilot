@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0012` — Add dogfooding insights MVP (`in_progress`).
+- [ ] `TASK-0012` — Add dogfooding insights MVP (`ready_for_pr`).
 
 ## Next
 
-- [ ] Run Reviewer for `TASK-0012`.
+- [ ] Prepare PR for `TASK-0012`.
 
 ## Later
 
