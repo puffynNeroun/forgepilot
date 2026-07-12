@@ -1314,3 +1314,45 @@ Medium.
 **Classification**
 
 Validation quality and task-runner configuration.
+
+### 2026-07-12 — Forge Validator full-suite fixture and isolation debt
+
+**Observation**
+
+An exploratory wildcard run of every Forge Validator test did not provide a
+stable baseline comparison.
+
+The TASK-0013 branch reported 384 tests with 374 passing and 10 failing.
+The unchanged origin/main baseline reported 243 tests with 234 passing and
+9 failing.
+
+**Friction**
+
+The failure sets could not be compared directly because TASK-0013 intentionally
+expanded several test files, while the baseline reported validate.test.mjs as
+one file-level failure instead of exposing the same internal test inventory.
+
+Several unrelated failures also depend on missing template-era fixtures,
+hard-coded task IDs, repository names, documents, and artifact paths.
+
+**Resolution**
+
+TASK-0013 uses its approved focused test matrix, live read-only GitHub smoke
+test, and required pnpm verify check as delivery gates.
+
+The exploratory full-suite result is recorded but is not misrepresented as
+green or used as a TASK-0013 regression signal.
+
+**Forge improvement**
+
+Create a separate task to make the complete Forge Validator suite
+self-contained, deterministic, repository-agnostic, and safe to run through
+one canonical package command.
+
+**Severity**
+
+High.
+
+**Classification**
+
+Validation quality and test-fixture isolation.
