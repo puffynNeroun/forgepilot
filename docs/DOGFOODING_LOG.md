@@ -1213,3 +1213,33 @@ Long shell blocks should minimize command-adjacent text and maybe print critical
 - Fix: Change the local persistent volume target to `/var/lib/postgresql`.
 - Verification: A fresh local volume reaches healthy status, `pnpm db:push` succeeds, `pnpm db:seed` succeeds, and `pnpm verify` passes.
 - Forge improvement: Future DB-backed templates should either avoid bleeding-edge Postgres major images or encode image-specific volume mount requirements in generated Docker Compose contracts.
+
+### 2026-07-12 — TASK-0012 repeated terminal copy-paste corruption
+
+**Observation**
+
+Large terminal blocks were repeatedly altered while being pasted during TASK-0012. Spaces disappeared, fragments of later commands appeared inside earlier lines, and harmless text corrections became unreliable.
+
+**Friction**
+
+The operator could not confidently distinguish actual repository content from terminal paste corruption. This caused repeated retries and unnecessary investigation of a non-blocking acceptance-criterion typo.
+
+**Root cause**
+
+The workflow depended on transferring long multi-step shell blocks through the terminal instead of using smaller idempotent commands or repository-managed scripts.
+
+**Resolution**
+
+The task continued with smaller implementation blocks, immediate typechecking, exact file checks, and deferred cleanup of cosmetic text that did not affect contract validity.
+
+**Forge improvement**
+
+Project Forge should prefer short operator commands, generated script files, integrity checks, and idempotent lifecycle operations over long manual shell pastes.
+
+**Severity**
+
+High.
+
+**Classification**
+
+Operator/copy-paste issue and Forge UX friction.

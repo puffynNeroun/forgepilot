@@ -391,3 +391,29 @@ Excluded:
 - Prisma schema changes.
 - Dependency changes.
 - Replacing the dashboard or existing detail pages.
+
+## TASK-0012 dogfooding insights MVP boundary
+
+TASK-0012 adds only a read-only `/insights` surface over existing dogfooding database records.
+
+Included:
+
+- deterministic local classification;
+- severity and category breakdowns;
+- recurring friction ranking;
+- recorded or rule-derived improvement suggestions;
+- explainable matched-rule evidence;
+- loading, empty, missing-product, and database-error states.
+
+Excluded:
+
+- AI-generated analysis;
+- external APIs;
+- database writes;
+- persisted insight snapshots;
+- dogfooding entry creation, editing, or deletion;
+- Markdown log import;
+- GitHub issue creation;
+- Prisma schema or dependency changes;
+- deployment or release work;
+- synchronization with real Forge repository state.

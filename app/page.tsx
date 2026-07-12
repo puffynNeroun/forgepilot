@@ -20,6 +20,13 @@ const productSurfaces = [
     action: "Open dogfooding log",
   },
   {
+    href: "/insights",
+    title: "Dogfooding insights",
+    description:
+      "Review deterministic categories, recurring friction, and suggested workflow improvements.",
+    action: "Open insights",
+  },
+  {
     href: "/decisions",
     title: "Decision log",
     description: "Review product and architecture decisions captured for ForgePilot.",
