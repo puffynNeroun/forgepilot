@@ -1,7 +1,7 @@
 schema_version: 1
 id: TASK-0012
 title: Add dogfooding insights MVP
-status: proposed
+status: approved
 workflow: .forge/workflows/feature.yaml
 goal: Add a read-only dogfooding insights MVP that turns ForgePilot dogfooding entries into deterministic, explainable, actionable product and workflow insights without AI or derived-data persistence.
 in_scope:

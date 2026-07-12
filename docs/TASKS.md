@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0012` — Add dogfooding insights MVP (`proposed`).
+- [ ] `TASK-0012` — Add dogfooding insights MVP (`approved`).
 
 ## Next
 
-- [ ] Run Planner for `TASK-0012`.
+- [ ] Run Builder for `TASK-0012`.
 
 ## Later
 
