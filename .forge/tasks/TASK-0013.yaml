@@ -1,0 +1,86 @@
+schema_version: 1
+
+id: TASK-0013
+title: "Harden PR checks watch for delayed GitHub check registration"
+status: ready_for_pr
+workflow: .forge/workflows/feature.yaml
+
+goal: "Make Forge PR check watching tolerate GitHub's short check-registration delay without hiding persistent missing checks, real GitHub CLI failures, or failed CI."
+
+in_scope:
+  - Add a bounded check-registration grace period before starting the blocking PR checks watch.
+  - Retry only the transient GitHub CLI no-checks-reported condition while waiting for the first check rows.
+  - Distinguish delayed registration, persistent missing checks, pending checks, failed checks, passing checks, and unavailable check data.
+  - Keep retry timing injectable so unit tests run deterministically without real sleeping.
+  - Preserve the existing read-only forge pr watch command and its exit-code contract.
+  - Update PR status recommendations to prefer the hardened Forge watch command for pending or unavailable check data.
+  - Route the legacy operator watch helper through the hardened Forge command.
+  - Add focused automated tests for immediate, delayed, missing, pending, passing, failing, and unavailable scenarios.
+  - Record the delayed GitHub check-registration friction and any separately discovered deferred Forge issue in the dogfooding log.
+
+out_of_scope:
+  - Creating, pushing, merging, closing, or deleting pull requests or branches.
+  - Automatically merging after checks pass.
+  - Changing GitHub Actions workflows, branch protection, or required-check policy.
+  - Adding a background daemon, scheduler, webhook listener, or persistent watcher state.
+  - Adding AI analysis or external services.
+  - Modifying completed TASK-0001 through TASK-0012 contracts or artifacts.
+  - Fixing unrelated validator test-runner defects unless a separate task explicitly approves that work.
+  - Releasing or deploying ForgePilot.
+
+allowed_files:
+  - .forge/tasks/TASK-0013.yaml
+  - .forge/artifacts/TASK-0013/plan-001.md
+  - .forge/artifacts/TASK-0013/build-report-001.md
+  - .forge/artifacts/TASK-0013/test-report-001.md
+  - .forge/artifacts/TASK-0013/review-report-001.md
+  - docs/TASKS.md
+  - docs/DOGFOODING_LOG.md
+  - scripts/operator/lib.sh
+  - tools/forge-validator/src/pr-watch.mjs
+  - tools/forge-validator/src/pr-status.mjs
+  - tools/forge-validator/test/pr-watch.test.mjs
+  - tools/forge-validator/test/pr-status.test.mjs
+  - tools/forge-validator/test/operator-compact-output.test.mjs
+
+protected_files:
+  - .github/workflows/forge-contracts.yml
+  - .github/workflows/app-ci.yml
+  - .forge/workflows/feature.yaml
+  - .forge/roles/planner.md
+  - .forge/roles/builder.md
+  - .forge/roles/tester.md
+  - .forge/roles/reviewer.md
+  - tools/forge-validator/src/cli.mjs
+  - tools/forge-validator/package.json
+  - package.json
+  - pnpm-lock.yaml
+  - scripts/operator/create-implementation-pr.sh
+  - scripts/operator/create-completion-pr.sh
+  - scripts/operator/merge-implementation-pr.sh
+  - scripts/operator/merge-completion-pr.sh
+  - completed TASK-0001..TASK-0012 contracts and artifacts
+  - application, Prisma, Docker, and database files unrelated to TASK-0013
+
+acceptance_criteria:
+  - id: AC-01
+    description: "When GitHub initially reports no checks but check rows appear within the bounded grace period, forge pr watch retries registration and then continues into the normal checks watch."
+  - id: AC-02
+    description: "When no checks appear before the grace period expires, the command terminates without hanging, reports a persistent missing-checks state, and does not invoke the blocking watch."
+  - id: AC-03
+    description: "Authentication, network, malformed JSON, and other non-registration failures remain unavailable errors and are not incorrectly retried as delayed registration."
+  - id: AC-04
+    description: "Passing, failing, pending, skipped, and unknown final check classifications preserve their existing fail-closed behavior."
+  - id: AC-05
+    description: "The report exposes enough registration diagnostics to show whether checks were immediate, delayed, or still missing after the configured attempts."
+  - id: AC-06
+    description: "PR status recommendations use forge pr watch for pending or unavailable checks, and the compatibility operator watcher delegates to the hardened Forge command."
+  - id: AC-07
+    description: "The implementation remains read-only and performs no Git, GitHub, task, artifact, PR, merge, or filesystem mutation."
+  - id: AC-08
+    description: "Focused unit tests cover immediate registration, delayed registration, persistent absence, passing, failing, pending, malformed output, and real GitHub CLI errors."
+  - id: AC-09
+    description: "Forge contract validation and the repository verification required by the task continue to pass."
+
+required_checks:
+  - verify

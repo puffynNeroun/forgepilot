@@ -183,7 +183,7 @@ forge_check_pr_ci() {
 forge_watch_pr_ci() {
   local pr_number="$1"
 
-  gh pr checks "$pr_number" --watch --interval 10
+  node tools/forge-validator/src/cli.mjs pr watch -- --pr "$pr_number"
 }
 
 forge_slug_task_id() {

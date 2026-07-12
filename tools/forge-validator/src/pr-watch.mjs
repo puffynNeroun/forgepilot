@@ -3,6 +3,9 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const DEFAULT_MAX_BUFFER = 10 * 1024 * 1024;
+const DEFAULT_REGISTRATION_ATTEMPTS = 12;
+const DEFAULT_REGISTRATION_DELAY_MS = 5_000;
+const CHECK_FIELDS = "name,state,bucket,link";
 
 export function stripSeparator(args) {
   return args[0] === "--" ? args.slice(1) : args;
@@ -231,6 +234,10 @@ function nextActionForState(state, prNumber) {
     return "Wait for PR checks to finish.";
   }
 
+  if (state === "missing") {
+    return `No checks registered within the grace period. Inspect GitHub checks manually with \`gh pr checks ${prNumber}\`.`;
+  }
+
   return `Inspect GitHub checks manually with \`gh pr checks ${prNumber}\`.`;
 }
 
@@ -240,6 +247,26 @@ function renderOptionalLine(label, value) {
 
 export function renderPrWatchReport(result) {
   const metadata = result.metadata || {};
+  const registration = result.registration || {
+    state: "unknown",
+    attempts: 0,
+    maxAttempts: 0,
+  };
+  const watch = result.watch || {
+    ok: false,
+    exitCode: null,
+    skipped: true,
+  };
+  const watchExitCode =
+    watch.exitCode === null || watch.exitCode === undefined
+      ? "(not run)"
+      : watch.exitCode;
+  const watchState = watch.skipped
+    ? "not run"
+    : watch.ok
+      ? "completed"
+      : "non-zero";
+
   const lines = [
     "Forge PR Checks Watch",
     "",
@@ -252,9 +279,14 @@ export function renderPrWatchReport(result) {
     renderOptionalLine("Base", metadata.baseRefName),
     renderOptionalLine("URL", metadata.url),
     "",
+    "Registration:",
+    `- State: ${registration.state}`,
+    `- Attempts: ${registration.attempts}/${registration.maxAttempts}`,
+    `- Delayed: ${registration.state === "delayed" ? "yes" : "no"}`,
+    "",
     "Watch:",
-    `- Exit code: ${result.watch.exitCode}`,
-    `- State: ${result.watch.ok ? "completed" : "non-zero"}`,
+    `- Exit code: ${watchExitCode}`,
+    `- State: ${watchState}`,
     "",
     "Checks:",
     `- Total: ${result.summary.total}`,
@@ -326,6 +358,148 @@ function parseJson(result, label, errors) {
   }
 }
 
+function commandDetail(result) {
+  return (
+    stringValue(result?.stderr).trim() ||
+    stringValue(result?.stdout).trim() ||
+    "command failed"
+  );
+}
+
+export function isNoChecksReported(result) {
+  if (result?.ok) {
+    return false;
+  }
+
+  return /no checks reported/i.test(
+    `${stringValue(result?.stderr)}\n${stringValue(result?.stdout)}`,
+  );
+}
+
+function parseRegistrationResult(result) {
+  if (!result.ok) {
+    if (isNoChecksReported(result)) {
+      return {
+        state: "missing",
+        checks: [],
+        error: null,
+      };
+    }
+
+    return {
+      state: "unavailable",
+      checks: [],
+      error: `PR check registration unavailable: ${commandDetail(result)}`,
+    };
+  }
+
+  let parsed;
+
+  try {
+    parsed = JSON.parse(result.stdout);
+  } catch (error) {
+    return {
+      state: "unavailable",
+      checks: [],
+      error: `PR check registration returned malformed JSON: ${error.message}`,
+    };
+  }
+
+  if (!Array.isArray(parsed)) {
+    return {
+      state: "unavailable",
+      checks: [],
+      error: "PR check registration JSON must be an array.",
+    };
+  }
+
+  const checks = normalizeCheckRows(parsed);
+
+  return {
+    state: checks.length > 0 ? "registered" : "missing",
+    checks,
+    error: null,
+  };
+}
+
+function wait(milliseconds) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, milliseconds);
+  });
+}
+
+export async function waitForCheckRegistration(options) {
+  const prNumber = options.prNumber;
+  const cwd = options.cwd || process.cwd();
+  const runner = options.runner || runCommand;
+  const sleep = options.sleep || wait;
+  const maxAttempts =
+    options.maxAttempts ?? DEFAULT_REGISTRATION_ATTEMPTS;
+  const delayMs =
+    options.delayMs ?? DEFAULT_REGISTRATION_DELAY_MS;
+
+  if (!Number.isSafeInteger(maxAttempts) || maxAttempts <= 0) {
+    throw new Error("Registration maxAttempts must be a positive integer.");
+  }
+
+  if (
+    !Number.isFinite(delayMs) ||
+    delayMs < 0
+  ) {
+    throw new Error("Registration delayMs must be a non-negative number.");
+  }
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt += 1) {
+    const result = await runner(
+      "gh",
+      [
+        "pr",
+        "checks",
+        String(prNumber),
+        "--json",
+        CHECK_FIELDS,
+      ],
+      { cwd },
+    );
+
+    const observation = parseRegistrationResult(result);
+
+    if (observation.state === "registered") {
+      return {
+        state: attempt === 1 ? "immediate" : "delayed",
+        attempts: attempt,
+        maxAttempts,
+        checks: observation.checks,
+        errors: [],
+      };
+    }
+
+    if (observation.state === "unavailable") {
+      return {
+        state: "unavailable",
+        attempts: attempt,
+        maxAttempts,
+        checks: [],
+        errors: [observation.error],
+      };
+    }
+
+    if (attempt < maxAttempts) {
+      await sleep(delayMs);
+    }
+  }
+
+  return {
+    state: "missing",
+    attempts: maxAttempts,
+    maxAttempts,
+    checks: [],
+    errors: [
+      `No PR checks registered after ${maxAttempts} attempts.`,
+    ],
+  };
+}
+
 export async function collectPrWatchStatus(options) {
   const prNumber = options.prNumber;
   const cwd = options.cwd || process.cwd();
@@ -346,6 +520,43 @@ export async function collectPrWatchStatus(options) {
 
   const metadata = parseJson(viewResult, "PR metadata", errors);
 
+  const registration = await waitForCheckRegistration({
+    prNumber,
+    cwd,
+    runner,
+    sleep: options.sleep,
+    maxAttempts: options.registrationAttempts,
+    delayMs: options.registrationDelayMs,
+  });
+
+  errors.push(...registration.errors);
+
+  if (
+    registration.state === "missing" ||
+    registration.state === "unavailable"
+  ) {
+    const summary = summarizeCheckRows(registration.checks);
+
+    return {
+      prNumber,
+      metadata,
+      registration,
+      watch: {
+        ok: false,
+        exitCode: null,
+        stderr: "",
+        skipped: true,
+      },
+      checks: registration.checks,
+      summary,
+      state:
+        registration.state === "missing"
+          ? "missing"
+          : "unavailable",
+      errors,
+    };
+  }
+
   const watchResult = await runner(
     "gh",
     ["pr", "checks", String(prNumber), "--watch"],
@@ -354,12 +565,24 @@ export async function collectPrWatchStatus(options) {
 
   const checksResult = await runner(
     "gh",
-    ["pr", "checks", String(prNumber), "--json", "name,state,bucket,link"],
+    [
+      "pr",
+      "checks",
+      String(prNumber),
+      "--json",
+      CHECK_FIELDS,
+    ],
     { cwd },
   );
 
-  const parsedChecks = parseJson(checksResult, "PR checks", errors);
-  const checks = Array.isArray(parsedChecks) ? parsedChecks : [];
+  const parsedChecks = parseJson(
+    checksResult,
+    "PR checks",
+    errors,
+  );
+  const checks = Array.isArray(parsedChecks)
+    ? parsedChecks
+    : [];
   const normalizedChecks = normalizeCheckRows(checks);
   const summary = summarizeCheckRows(normalizedChecks);
 
@@ -369,7 +592,10 @@ export async function collectPrWatchStatus(options) {
     state = "unavailable";
   }
 
-  if (parsedChecks !== null && !Array.isArray(parsedChecks)) {
+  if (
+    parsedChecks !== null &&
+    !Array.isArray(parsedChecks)
+  ) {
     errors.push("PR checks JSON must be an array.");
     state = "unavailable";
   }
@@ -377,10 +603,12 @@ export async function collectPrWatchStatus(options) {
   return {
     prNumber,
     metadata,
+    registration,
     watch: {
       ok: watchResult.ok,
       exitCode: watchResult.exitCode,
-      stderr: watchResult.stderr,
+      stderr: stringValue(watchResult.stderr),
+      skipped: false,
     },
     checks: normalizedChecks,
     summary,

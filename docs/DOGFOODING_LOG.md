@@ -1243,3 +1243,116 @@ High.
 **Classification**
 
 Operator/copy-paste issue and Forge UX friction.
+
+
+### 2026-07-12 — Delayed GitHub check registration after completion PR creation
+
+**Observation**
+
+Immediately after TASK-0012 completion PR #22 was created,
+`gh pr checks --watch` returned that no checks were reported.
+
+**Friction**
+
+The delivery shell block treated the temporary absence of registered checks
+as a terminal failure and stopped even though both expected GitHub Actions
+workflows had already been triggered.
+
+**Root cause**
+
+GitHub register the pull request before its check suites became visible to
+`gh pr checks`. The operator workflow had no bounded grace period for this
+eventual-consistency window.
+
+**Resolution**
+
+Retry initial check discovery for a bounded period, then start the normal
+blocking watch only after at least one check row is registered.
+
+**Forge improvement**
+
+Use `forge pr watch -- --pr <number>` as the canonical watcher. It must
+distinguish delayed registration, persistent absence, pending, failing,
+passing, and unavailable states without mutating the repository or PR.
+
+**Severity**
+
+High.
+
+**Classification**
+
+CLI ergonomics and workflow-state reliability.
+
+### 2026-07-12 — Deferred validator test-script path concatenation issue
+
+**Observation**
+
+TASK-0013 reconnaissance found two validator test paths concatenated in the
+`tools/forge-validator/package.json` test command:
+
+`create-implementation-guard.test.mjs./test/operator-compact-output.test.mjs`
+
+**Friction**
+
+The malformed command can prevent the intended validator tests from being
+executed through the package-level test script.
+
+**Resolution**
+
+TASK-0013 runs its focused tests directly with `node --test`.
+
+**Forge improvement**
+
+Create a separate task to repair and verify the validator package test command.
+This is intentionally deferred because TASK-0013 does not allow modifications
+to `tools/forge-validator/package.json`.
+
+**Severity**
+
+Medium.
+
+**Classification**
+
+Validation quality and task-runner configuration.
+
+### 2026-07-12 — Forge Validator full-suite fixture and isolation debt
+
+**Observation**
+
+An exploratory wildcard run of every Forge Validator test did not provide a
+stable baseline comparison.
+
+The TASK-0013 branch reported 384 tests with 374 passing and 10 failing.
+The unchanged origin/main baseline reported 243 tests with 234 passing and
+9 failing.
+
+**Friction**
+
+The failure sets could not be compared directly because TASK-0013 intentionally
+expanded several test files, while the baseline reported validate.test.mjs as
+one file-level failure instead of exposing the same internal test inventory.
+
+Several unrelated failures also depend on missing template-era fixtures,
+hard-coded task IDs, repository names, documents, and artifact paths.
+
+**Resolution**
+
+TASK-0013 uses its approved focused test matrix, live read-only GitHub smoke
+test, and required pnpm verify check as delivery gates.
+
+The exploratory full-suite result is recorded but is not misrepresented as
+green or used as a TASK-0013 regression signal.
+
+**Forge improvement**
+
+Create a separate task to make the complete Forge Validator suite
+self-contained, deterministic, repository-agnostic, and safe to run through
+one canonical package command.
+
+**Severity**
+
+High.
+
+**Classification**
+
+Validation quality and test-fixture isolation.
