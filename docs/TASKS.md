@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0013` — Harden PR checks watch for delayed GitHub check registration (`approved`).
+- [ ] `TASK-0013` — Harden PR checks watch for delayed GitHub check registration (`in_progress`).
 
 ## Next
 
-- [ ] Run Builder for `TASK-0013`.
+- [ ] Run Tester for `TASK-0013`.
 
 ## Later
 

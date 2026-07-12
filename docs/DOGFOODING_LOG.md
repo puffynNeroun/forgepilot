@@ -1243,3 +1243,74 @@ High.
 **Classification**
 
 Operator/copy-paste issue and Forge UX friction.
+
+
+### 2026-07-12 — Delayed GitHub check registration after completion PR creation
+
+**Observation**
+
+Immediately after TASK-0012 completion PR #22 was created,
+`gh pr checks --watch` returned that no checks were reported.
+
+**Friction**
+
+The delivery shell block treated the temporary absence of registered checks
+as a terminal failure and stopped even though both expected GitHub Actions
+workflows had already been triggered.
+
+**Root cause**
+
+GitHub register the pull request before its check suites became visible to
+`gh pr checks`. The operator workflow had no bounded grace period for this
+eventual-consistency window.
+
+**Resolution**
+
+Retry initial check discovery for a bounded period, then start the normal
+blocking watch only after at least one check row is registered.
+
+**Forge improvement**
+
+Use `forge pr watch -- --pr <number>` as the canonical watcher. It must
+distinguish delayed registration, persistent absence, pending, failing,
+passing, and unavailable states without mutating the repository or PR.
+
+**Severity**
+
+High.
+
+**Classification**
+
+CLI ergonomics and workflow-state reliability.
+
+### 2026-07-12 — Deferred validator test-script path concatenation issue
+
+**Observation**
+
+TASK-0013 reconnaissance found two validator test paths concatenated in the
+`tools/forge-validator/package.json` test command:
+
+`create-implementation-guard.test.mjs./test/operator-compact-output.test.mjs`
+
+**Friction**
+
+The malformed command can prevent the intended validator tests from being
+executed through the package-level test script.
+
+**Resolution**
+
+TASK-0013 runs its focused tests directly with `node --test`.
+
+**Forge improvement**
+
+Create a separate task to repair and verify the validator package test command.
+This is intentionally deferred because TASK-0013 does not allow modifications
+to `tools/forge-validator/package.json`.
+
+**Severity**
+
+Medium.
+
+**Classification**
+
+Validation quality and task-runner configuration.

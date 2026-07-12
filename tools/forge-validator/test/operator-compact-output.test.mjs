@@ -225,3 +225,24 @@ test('operator verify execution is centralized in compact helper', () => {
     'scripts/operator/lib.sh should contain exactly one direct full verify invocation',
   );
 });
+
+
+test('legacy PR watch helper delegates to hardened Forge PR watch', () => {
+  const lib = readRepoFile('scripts/operator/lib.sh');
+  const start = lib.indexOf('forge_watch_pr_ci()');
+  const end = lib.indexOf('forge_slug_task_id()', start);
+
+  assert.notEqual(start, -1);
+  assert.notEqual(end, -1);
+
+  const section = lib.slice(start, end);
+
+  assert.match(
+    section,
+    /node tools\/forge-validator\/src\/cli\.mjs pr watch -- --pr "\$pr_number"/,
+  );
+  assert.doesNotMatch(
+    section,
+    /gh pr checks "\$pr_number" --watch/,
+  );
+});

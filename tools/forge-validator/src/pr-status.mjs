@@ -295,7 +295,7 @@ function computeCompletionBranchNextAction(taskId, completionPr, branch) {
   if (target.checks.status === 'pending') {
     return {
       action: `Wait for completion PR #${prNumber} checks.`,
-      suggestedCommand: `gh pr checks ${prNumber} --watch`,
+      suggestedCommand: `forge pr watch -- --pr ${prNumber}`,
     };
   }
 
@@ -309,7 +309,7 @@ function computeCompletionBranchNextAction(taskId, completionPr, branch) {
   if (target.checks.status === 'unknown') {
     return {
       action: `Inspect checks on completion PR #${prNumber}; check data is unavailable.`,
-      suggestedCommand: `gh pr checks ${prNumber}`,
+      suggestedCommand: `forge pr watch -- --pr ${prNumber}`,
     };
   }
 
@@ -424,7 +424,7 @@ export function computePrStatusNextAction(status) {
   if (target.checks.status === 'pending') {
     return {
       action: `Wait for ${targetLabel} #${prNumber} checks.`,
-      suggestedCommand: `gh pr checks ${prNumber} --watch`,
+      suggestedCommand: `forge pr watch -- --pr ${prNumber}`,
     };
   }
 
@@ -438,7 +438,7 @@ export function computePrStatusNextAction(status) {
   if (target.checks.status === 'unknown') {
     return {
       action: `Inspect checks on ${targetLabel} #${prNumber}; check data is unavailable.`,
-      suggestedCommand: `gh pr checks ${prNumber}`,
+      suggestedCommand: `forge pr watch -- --pr ${prNumber}`,
     };
   }
 

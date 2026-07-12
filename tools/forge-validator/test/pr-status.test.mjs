@@ -191,7 +191,7 @@ test('ready_for_pr task branch with pending implementation PR recommends waiting
   const action = computePrStatusNextAction(status);
 
   assert.equal(action.action, 'Wait for implementation PR #12 checks.');
-  assert.equal(action.suggestedCommand, 'gh pr checks 12 --watch');
+  assert.equal(action.suggestedCommand, 'forge pr watch -- --pr 12');
 });
 
 test('ready_for_pr task branch with passing implementation PR recommends Forge merge-implementation', () => {
@@ -338,7 +338,7 @@ test('completion branch with pending completion PR recommends waiting', () => {
   const action = computePrStatusNextAction(status);
 
   assert.equal(action.action, 'Wait for completion PR #13 checks.');
-  assert.equal(action.suggestedCommand, 'gh pr checks 13 --watch');
+  assert.equal(action.suggestedCommand, 'forge pr watch -- --pr 13');
 });
 
 test('completion branch with failing completion PR recommends inspecting checks', () => {
@@ -484,4 +484,68 @@ test('collectPrStatus derives workflow task and completion PR on completion bran
   assert.equal(status.taskStatus, 'completed');
   assert.equal(status.completionPr.pr.number, 13);
   assert.equal(status.nextAction.action, 'Merge completion PR #13 for TASK-0042.');
+});
+
+
+test('ready_for_pr task branch with unavailable implementation checks recommends Forge watch', () => {
+  const status = prStatus({
+    implementationPr: openPr(
+      'implementation',
+      'task/TASK-0042-example',
+      {
+        status: 'unknown',
+        total: 0,
+        passing: 0,
+        failing: 0,
+        pending: 0,
+        skipped: 0,
+      },
+    ),
+  });
+
+  const action = computePrStatusNextAction(status);
+
+  assert.equal(
+    action.action,
+    'Inspect checks on implementation PR #12; check data is unavailable.',
+  );
+  assert.equal(
+    action.suggestedCommand,
+    'forge pr watch -- --pr 12',
+  );
+});
+
+test('completion branch with unavailable completion checks recommends Forge watch', () => {
+  const status = prStatus({
+    lifecycleStatus: lifecycleState({
+      branch: 'chore/complete-TASK-0042',
+      activeTaskId: null,
+      taskStatus: null,
+    }),
+    taskId: 'TASK-0042',
+    taskStatus: 'completed',
+    completionPr: openPr(
+      'completion',
+      'chore/complete-TASK-0042',
+      {
+        status: 'unknown',
+        total: 0,
+        passing: 0,
+        failing: 0,
+        pending: 0,
+        skipped: 0,
+      },
+    ),
+  });
+
+  const action = computePrStatusNextAction(status);
+
+  assert.equal(
+    action.action,
+    'Inspect checks on completion PR #13; check data is unavailable.',
+  );
+  assert.equal(
+    action.suggestedCommand,
+    'forge pr watch -- --pr 13',
+  );
 });
