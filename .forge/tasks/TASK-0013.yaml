@@ -1,0 +1,51 @@
+schema_version: 1
+
+id: TASK-0013
+title: "Harden PR checks watch for delayed GitHub check registration"
+status: proposed
+workflow: .forge/workflows/feature.yaml
+
+goal: "Define and deliver Harden PR checks watch for delayed GitHub check registration."
+
+in_scope:
+  - Clarify the implementation plan for TASK-0013.
+  - Implement the approved scope for TASK-0013.
+  - Add or update tests for TASK-0013.
+  - Update documentation when needed.
+  - Preserve existing Forge Validator verification behavior.
+
+out_of_scope:
+  - Automatically creating branches, commits, pushes, pull requests, merges, or releases.
+  - Modifying completed task contracts or completed task artifacts.
+  - Rewriting previous task evidence.
+  - Adding unrelated features outside TASK-0013.
+
+allowed_files:
+  - .forge/tasks/TASK-0013.yaml
+  - docs/TASKS.md
+  - .forge/artifacts/TASK-0013/plan-001.md
+  - .forge/artifacts/TASK-0013/build-report-001.md
+  - .forge/artifacts/TASK-0013/test-report-001.md
+  - .forge/artifacts/TASK-0013/review-report-001.md
+
+protected_files:
+  - .github/workflows/forge-contracts.yml
+  - .forge/workflows/feature.yaml
+  - .forge/roles/planner.md
+  - .forge/roles/builder.md
+  - .forge/roles/tester.md
+  - .forge/roles/reviewer.md
+  - completed TASK-0001..TASK-0012 contracts and artifacts
+
+acceptance_criteria:
+  - id: AC-01
+    description: The approved scope for TASK-0013 is implemented.
+  - id: AC-02
+    description: Tests or verification evidence cover the implemented behavior.
+  - id: AC-03
+    description: Existing Forge Validator verification still passes.
+  - id: AC-04
+    description: The task lifecycle artifacts are created and linked correctly.
+
+required_checks:
+  - verify
