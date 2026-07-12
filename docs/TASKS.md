@@ -2,11 +2,11 @@
 
 ## Now
 
-- [ ] `TASK-0013` — Harden PR checks watch for delayed GitHub check registration (`ready_for_pr`).
+- [ ] No active task.
 
 ## Next
 
-- [ ] Prepare PR for `TASK-0013`.
+- [ ] Define the next task.
 
 ## Later
 
@@ -14,6 +14,7 @@
 
 ## Completed
 
+- [x] `TASK-0013` — Harden PR checks watch for delayed GitHub check registration (`completed`, 2026-07-12).
 - [x] `TASK-0012` — Add dogfooding insights MVP (`completed`, 2026-07-12).
 - [x] `TASK-0011` — Fix local Postgres Docker config (`completed`, 2026-07-11).
 - [x] `TASK-0010` — Add handoff summary MVP (`completed`, 2026-07-11).
