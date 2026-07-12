@@ -555,3 +555,21 @@ Boundaries:
 
 - The existing HandoffSnapshot model is not used in this MVP.
 - No Prisma schema, dependency, AI generation, GitHub import, release automation, deployment, auth, teams, billing, or permissions changes are introduced.
+
+## TASK-0012 dogfooding insights architecture
+
+TASK-0012 adds a deterministic read-only analysis surface at `/insights`.
+
+Responsibilities are separated as follows:
+
+- `lib/db/insights.ts` performs narrow Prisma reads and returns serializable source data.
+- `lib/insights/analyze-dogfooding.ts` contains pure deterministic classification and aggregation logic.
+- `app/insights/page.tsx` loads data and handles ready, empty, missing-product, and database-error states.
+- `app/insights/loading.tsx` provides the route loading shell.
+- `components/insights/DogfoodingInsights.tsx` renders breakdowns, recurring friction, suggestions, and classification evidence.
+
+The route uses `force-dynamic` and the Node.js runtime because it performs Prisma reads at request time.
+
+Derived insights are not persisted. The analyzer does not use Prisma, React, AI models, network APIs, or database mutation methods.
+
+This surface still reads PostgreSQL demo data and does not resolve the architectural separation between database records and real Forge repository contracts, artifacts, Git state, or GitHub state.

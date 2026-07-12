@@ -1,0 +1,84 @@
+schema_version: 1
+id: TASK-0012
+title: Add dogfooding insights MVP
+status: ready_for_pr
+workflow: .forge/workflows/feature.yaml
+goal: Add a read-only dogfooding insights MVP that turns ForgePilot dogfooding entries into deterministic, explainable, actionable product and workflow insights without AI or derived-data persistence.
+in_scope:
+  - Add a dynamic /insights route for the demo ForgePilot product.
+  - Link /insights from the home page.
+  - Add a narrow Prisma data-access layer for dogfooding insight source data.
+  - Add a pure deterministic analysis layer separate from Prisma and React rendering.
+  - Classify entries into copy_paste_corruption, workflow_state, artifact_contract, cli_ergonomics, environment_database, validation_quality, documentation_usability, or other.
+  - Base classification on local keyword and rule matching that remains explainable and reproducible.
+  - Show total entries, severity breakdown, category breakdown, top recurring frictions, and suggested next product improvements.
+  - Derive all insight output at request time without writing derived insights to PostgreSQL.
+  - Render graceful missing-product, database-error, and loading states.
+  - Update README, architecture, MVP scope, task board, and dogfooding documentation.
+  - Keep verification green.
+out_of_scope:
+  - AI-generated summaries or classifications.
+  - External APIs.
+  - Persisted insight snapshots or derived insight records.
+  - Prisma schema changes.
+  - Creating, editing, or deleting DogfoodingEntry records.
+  - Importing docs/DOGFOODING_LOG.md into PostgreSQL.
+  - GitHub issue creation.
+  - Auth, teams, billing, or permissions.
+  - Deployment or release work.
+  - Dependency changes.
+  - Generic CRUD.
+allowed_files:
+  - .forge/tasks/TASK-0012.yaml
+  - .forge/artifacts/TASK-0012/plan-001.md
+  - .forge/artifacts/TASK-0012/build-report-001.md
+  - .forge/artifacts/TASK-0012/test-report-001.md
+  - .forge/artifacts/TASK-0012/review-report-001.md
+  - docs/TASKS.md
+  - docs/DOGFOODING_LOG.md
+  - docs/ARCHITECTURE.md
+  - docs/MVP_SCOPE.md
+  - README.md
+  - app/page.tsx
+  - app/insights/page.tsx
+  - app/insights/loading.tsx
+  - components/insights/DogfoodingInsights.tsx
+  - lib/db/insights.ts
+  - lib/insights/analyze-dogfooding.ts
+protected_files:
+  - prisma/schema.prisma
+  - package.json
+  - pnpm-lock.yaml
+  - docker-compose.yml
+  - tools/forge-validator/package.json
+  - lib/prisma.ts
+  - app/spec/page.tsx
+  - app/tasks/page.tsx
+  - app/dogfooding/page.tsx
+  - app/decisions/page.tsx
+  - app/releases/page.tsx
+  - app/handoff/page.tsx
+  - app/dashboard/page.tsx
+acceptance_criteria:
+  - id: AC-01
+    description: /insights exists, is reachable from the home page, and is rendered dynamically when Prisma runtime reads are used.
+  - id: AC-02
+    description: Dogfooding insight source data is loaded only through lib/db/insights.ts.
+  - id: AC-03
+    description: Deterministic insight analysis is implemented as pure logic in lib/insights/analyze-dogfooding.ts and is independent of Prisma and React.
+  - id: AC-04
+    description: Every entry is assigned to exactly one documented category using explainable local rules, with other as the deterministic fallback.
+  - id: AC-05
+    description: The page shows total entries, severity breakdown, category breakdown, top recurring frictions, and suggested next product improvements.
+  - id: AC-06
+    description: All insights are derived at request time and no derived insight data is written to PostgreSQL.
+  - id: AC-07
+    description: Missing-product, database-error, and loading states are handled gracefully.
+  - id: AC-08
+    description: The feature remains read-only and adds no AI, external API, CRUD, Markdown import, GitHub issue creation, schema change, dependency change, deployment, or release behavior.
+  - id: AC-09
+    description: README, architecture, MVP scope, task board, and dogfooding documentation describe the feature and its deterministic limitations.
+  - id: AC-10
+    description: pnpm verify passes and Planner, Builder, Tester, and Reviewer artifacts are created before the implementation PR.
+required_checks:
+  - verify

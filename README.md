@@ -244,3 +244,22 @@ The handoff summarizes:
 - suggested next step.
 
 The MVP is intentionally read-only. It does not use AI generation, save handoff snapshots, create/edit/delete data, import from GitHub, automate releases, deploy, or change the Prisma schema.
+
+## TASK-0012 dogfooding insights MVP
+
+ForgePilot includes a read-only dogfooding insights page at:
+
+- http://localhost:3000/insights
+
+The page analyzes existing PostgreSQL `DogfoodingEntry` records and shows:
+
+- total entries;
+- severity breakdown;
+- deterministic category breakdown;
+- top recurring frictions;
+- suggested product and workflow improvements;
+- an explainable classification trace.
+
+Classification uses ordered local keyword rules. It does not use AI, external APIs, database writes, persisted insight snapshots, or Prisma schema changes.
+
+The current MVP analyzes demo database records only. It does not import `docs/DOGFOODING_LOG.md` and does not synchronize PostgreSQL with real Forge repository state.
